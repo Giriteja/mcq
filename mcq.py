@@ -33,7 +33,7 @@ def generate_mcq(paragraph,url,headers):
     response_json = response.json()
 
     # Extract data from the API's response
-    #st.write(response_json)
+    st.write(response_json)
     output = response_json['choices'][0]['message']['content']
     return output
 
