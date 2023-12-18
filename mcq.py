@@ -3,12 +3,12 @@ import openai
 import requests
 import json
 # Set your OpenAI API key
-openai.api_key = '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'
+openai.api_key = os.getenv("openaikey")
 chatgpt_url = "https://api.openai.com/v1/chat/completions"
 
 chatgpt_headers = {
     "content-type": "application/json",
-    "Authorization":"Bearer {}".format('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')}
+    "Authorization":"Bearer {}".format(os.getenv("openaikey"))}
     
 def generate_mcq(paragraph,url,headers):
     
