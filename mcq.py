@@ -2,6 +2,7 @@ import streamlit as st
 import openai
 import requests
 import json
+import os
 # Set your OpenAI API key
 openai.api_key = os.getenv("openaikey")
 chatgpt_url = "https://api.openai.com/v1/chat/completions"
