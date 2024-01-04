@@ -1,4 +1,4 @@
-import os
+ following import os
 import streamlit as st
 import openai
 import requests
@@ -18,11 +18,11 @@ chatgpt_headers = {
     
 tab1, tab2, tab3 = st.tabs(["MCQ", "Summary", "GIY"])
     
-def generate_mcq(paragraph,url,headers):
+def generate_mcq(paragraph,url,headers,prompt):
     
     # Define the payload for the chat model
     messages = [
-        {"role": "system", "content": "You are an expert In generating multiple choice questions from given paragraph and label each multiple choice question as Easy,Medium,Hard and provide answer"},
+        {"role": "system", "content": "You are an expert In generating multiple choice questions from given paragraph and label each multiple choice question as Easy,Medium,Hard and provide answer.Also consider the following Instruction while generating multiple choice questions"+prompt},
         {"role": "user", "content": paragraph}
     ]
 
@@ -96,18 +96,21 @@ with(tab1):
 		# Extract text
 		text = extract_text(image)
 		paragraph = st.text_area("Enter a paragraph:",text, height=200)
+		prompt = st.text_area("Enter the prompt:",prompt, height=200)
 		if st.button("Generate MCQs"):
 			if paragraph:
-		  		mcqs = generate_mcq(paragraph,chatgpt_url,chatgpt_headers)
+		  		mcqs = generate_mcq(paragraph,chatgpt_url,chatgpt_headers,prompt)
 		  		st.write(mcqs)
 		else:
 			st.write("Please enter a paragraph to generate questions.")
+			
 		  
 	if uploaded_image is None:         
 		paragraph = st.text_area("Enter a paragraph:", height=200)
+		prompt = st.text_area("Enter the prompt:",prompt, height=200)
 		if st.button("Generate MCQs via text"):
 			if paragraph:
-				mcqs = generate_mcq(paragraph,chatgpt_url,chatgpt_headers)
+				mcqs = generate_mcq(paragraph,chatgpt_url,chatgpt_headers,prompt)
 				st.write(mcqs)
 			else:
 				st.write("Please enter a paragraph to generate questions.")
