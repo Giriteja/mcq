@@ -45,7 +45,7 @@ def generate_mcq(paragraph,url,headers,prompt):
     return output
 
 
-def generate_summary(paragraph,url,headers):
+def generate_summary(paragraph,url,headers,prompt):
     
     # Define the payload for the chat model
     messages = [
