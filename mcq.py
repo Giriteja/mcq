@@ -117,7 +117,7 @@ with(tab1):
 				
 with(tab2):
 	paragraph = st.text_area("Enter the text:", height=200)
-	promptsum = st.text_area("Enter the prompt:", height=200)
+	promptsum = st.text_area("Enter the prompt:",key="sum", height=200)
 	if st.button("Generate Summary via text"):
 		if paragraph:
 			summ = generate_summary(paragraph,chatgpt_url,chatgpt_headers,promptsum)
