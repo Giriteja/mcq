@@ -49,7 +49,7 @@ def generate_summary(paragraph,url,headers):
     
     # Define the payload for the chat model
     messages = [
-        {"role": "system", "content": "Give Detail Summarization of the given content with headings"},
+        {"role": "system", "content": "Give Detail Summarization of the given content with headings.Also consider the following Instruction while generating Summary"+prompt},
         {"role": "user", "content": paragraph}
     ]
 
@@ -117,9 +117,10 @@ with(tab1):
 				
 with(tab2):
 	paragraph = st.text_area("Enter the text:", height=200)
+	prompt = st.text_area("Enter the prompt:", height=200)
 	if st.button("Generate Summary via text"):
 		if paragraph:
-			summ = generate_summary(paragraph,chatgpt_url,chatgpt_headers)
+			summ = generate_summary(paragraph,chatgpt_url,chatgpt_headers,prompt)
 			st.write(summ)
 		else:
 			st.write("Please enter the text to generate Summary.")
