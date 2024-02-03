@@ -22,7 +22,7 @@ def generate_mcq(paragraph,url,headers,prompt):
     
     # Define the payload for the chat model
     messages = [
-        {"role": "system", "content": "You are an expert In generating multiple choice questions from given paragraph and label each multiple choice question as Easy,Medium,Hard and provide answer.while generating questions consider Blooms Taxonomy.Also consider the following Instruction while generating multiple choice questions"+prompt},
+        {"role": "system", "content": "You are an expert In generating multiple choice questions from given paragraph and label each multiple choice question as Easy,Medium,Hard and provide answer.Also consider the following Instruction while generating multiple choice questions"+prompt},
         {"role": "user", "content": paragraph}
     ]
 
