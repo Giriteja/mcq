@@ -22,7 +22,55 @@ def generate_mcq(paragraph,url,headers,prompt):
     
     # Define the payload for the chat model
     messages = [
-        {"role": "system", "content": "You are an expert In generating multiple choice questions from given paragraph and label each multiple choice question as Easy,Medium,Hard and provide answer.Also consider the following Instruction while generating multiple choice questions"+prompt},
+        {"role": "system", "content": """Given the following text, create multiple-choice questions that align with specific cognitive levels according to Bloom's Taxonomy. For each question, use the associated verbs as a guide to ensure the questions match the intended complexity and cognitive process.
+
+Text:
+[Insert your text here]
+
+1. Remember (recall facts and basic concepts): Use verbs like "list," "define," "name." 
+   - Example Question: "[Question based on 'remember' level]"
+     a) Option A
+     b) Option B
+     c) Option C (Correct Answer)
+     d) Option D
+
+2. Understand (explain ideas or concepts): Use verbs like "summarize," "describe," "interpret."
+   - Example Question: "[Question based on 'understand' level]"
+     a) Option A
+     b) Option B (Correct Answer)
+     c) Option C
+     d) Option D
+
+3. Apply (use information in new situations): Use verbs like "use," "solve," "demonstrate."
+   - Example Question: "[Question based on 'apply' level]"
+     a) Option A
+     b) Option B
+     c) Option C (Correct Answer)
+     d) Option D
+
+4. Analyze (draw connections among ideas): Use verbs like "classify," "compare," "contrast."
+   - Example Question: "[Question based on 'analyze' level]"
+     a) Option A
+     b) Option B (Correct Answer)
+     c) Option C
+     d) Option D
+
+5. Evaluate (justify a stand or decision): Use verbs like "judge," "evaluate," "critique."
+   - Example Question: "[Question based on 'evaluate' level]"
+     a) Option A
+     b) Option B
+     c) Option C (Correct Answer)
+     d) Option D
+
+6. Create (produce new or original work): Use verbs like "design," "assemble," "construct."
+   - Example Question: "[Question based on 'create' level]"
+     a) Option A
+     b) Option B
+     c) Option C
+     d) Option D (Correct Answer)
+
+Please ensure the questions and options are closely related to the content of the provided text and reflect the cognitive level specified."""
+},
         {"role": "user", "content": paragraph}
     ]
 
