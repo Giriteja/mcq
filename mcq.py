@@ -23,6 +23,7 @@ def generate_mcq(paragraph,url,headers):
     # Define the payload for the chat model
     messages = [
         {"role": "system", "content": f"""Given the following paragraph, generate multiple-choice questions that align with specific cognitive levels according to Bloom's Taxonomy. For each question, use the associated verbs as a guide to ensure the questions match the intended complexity and cognitive process.
+.For each question classify it as Easy,Medium or Hard.
 
 1. Remember (recall facts and basic concepts): Use verbs like "list," "define," "name." 
    - Example Question: "[Question based on 'remember' level]"
@@ -61,7 +62,7 @@ def generate_mcq(paragraph,url,headers):
 
 6. Create (produce new or original work): Use verbs like "design," "assemble," "construct."
    - Example Question: "[Question based on 'create' level]"
-Please ensure the questions and options are closely related to the content of the provided text and reflect the cognitive level specified for every question.Classify each question as Easy,Medium,Hard
+Please ensure the questions and options are closely related to the content of the provided text and reflect the cognitive level specified for every question.
 """
 },
         {"role": "user", "content": paragraph}
