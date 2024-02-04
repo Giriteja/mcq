@@ -26,22 +26,16 @@ def generate_mcq(paragraph,url,headers):
 .For each question classify it as Easy,Medium or Hard.
 
 1. Remember (recall facts and basic concepts): Use verbs like "list," "define," "name." 
-   - Example Question: "[Question based on 'remember' level]" [Easy]
-     a) Option A
-     b) Option B
-     c) Option C 
-     d) Option D
+   - Example Question: "[Question based on 'remember' level]" 
+     'options': ['Option A', 'Option B', 'Option C', 'Option D']
 
      Answer: C
      
      Level:Easy
 
 2. Understand (explain ideas or concepts): Use verbs like "summarize," "describe," "interpret."
-   - Example Question: "[Question based on 'understand' level]" [Hard]
-     a) Option A
-     b) Option B
-     c) Option C
-     d) Option D
+   - Example Question: "[Question based on 'understand' level]" 
+      'options': ['Option A', 'Option B', 'Option C', 'Option D']
 
      
      Answer: A
@@ -50,11 +44,8 @@ def generate_mcq(paragraph,url,headers):
 
 
 3. Apply (use information in new situations): Use verbs like "use," "solve," "demonstrate."
-   - Example Question: "[Question based on 'apply' level]" [Medium]
-     a) Option A
-     b) Option B
-     c) Option C 
-     d) Option D
+   - Example Question: "[Question based on 'apply' level]"
+     'options': ['Option A', 'Option B', 'Option C', 'Option D']
 
      Answer: D
      
@@ -62,11 +53,8 @@ def generate_mcq(paragraph,url,headers):
 
 
 4. Analyze (draw connections among ideas): Use verbs like "classify," "compare," "contrast."
-   - Example Question: "[Question based on 'analyze' level]" [Hard]
-     a) Option A
-     b) Option B
-     c) Option C
-     d) Option D
+   - Example Question: "[Question based on 'analyze' level]"
+      'options': ['Option A', 'Option B', 'Option C', 'Option D']
 
      Answer: B
      
@@ -74,11 +62,8 @@ def generate_mcq(paragraph,url,headers):
 
 
 5. Evaluate (justify a stand or decision): Use verbs like "judge," "evaluate," "critique."
-   - Example Question: "[Question based on 'evaluate' level]" [Medium]
-     a) Option A
-     b) Option B
-     c) Option C
-     d) Option D
+   - Example Question: "[Question based on 'evaluate' level]"
+     'options': ['Option A', 'Option B', 'Option C', 'Option D']
 
 
      Answer: E
