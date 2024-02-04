@@ -128,7 +128,7 @@ with(tab1):
 	# Upload image
 	uploaded_image = st.file_uploader("Upload an image...", type=["png", "jpg", "jpeg"])
 	option = st.selectbox(
-    	'Choose your favorite color:',
+    	'Choose Number of Questions:',
     	('5', '10', '15', '20'))
 	# If an image is uploaded, display and process it
 	if uploaded_image is not None:
