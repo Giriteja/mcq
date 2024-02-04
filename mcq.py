@@ -61,7 +61,7 @@ def generate_mcq(paragraph,url,headers,prompt):
 
 6. Create (produce new or original work): Use verbs like "design," "assemble," "construct."
    - Example Question: "[Question based on 'create' level]"
-Please ensure the questions and options are closely related to the content of the provided text and reflect the cognitive level specified.Generate atleast {option} questions or increase questions to cover all topics from given paragraph.
+Please ensure the questions and options are closely related to the content of the provided text and reflect the cognitive level specified.Generate atleast {option} questions.
 """
 },
         {"role": "user", "content": paragraph}
