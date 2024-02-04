@@ -26,35 +26,35 @@ def generate_mcq(paragraph,url,headers):
 .For each question classify it as Easy,Medium or Hard.
 
 1. Remember (recall facts and basic concepts): Use verbs like "list," "define," "name." 
-   - Example Question: "[Question based on 'remember' level]"
+   - Example Question: "[Question based on 'remember' level]" [Easy]
      a) Option A
      b) Option B
      c) Option C (Correct Answer)
      d) Option D
 
 2. Understand (explain ideas or concepts): Use verbs like "summarize," "describe," "interpret."
-   - Example Question: "[Question based on 'understand' level]"
+   - Example Question: "[Question based on 'understand' level]" [Hard]
      a) Option A
-     b) Option B (Correct Answer)
+     b) Option B (Correct Answer) 
      c) Option C
      d) Option D
 
 3. Apply (use information in new situations): Use verbs like "use," "solve," "demonstrate."
-   - Example Question: "[Question based on 'apply' level]"
+   - Example Question: "[Question based on 'apply' level]" [Medium]
      a) Option A
      b) Option B
      c) Option C (Correct Answer)
      d) Option D
 
 4. Analyze (draw connections among ideas): Use verbs like "classify," "compare," "contrast."
-   - Example Question: "[Question based on 'analyze' level]"
+   - Example Question: "[Question based on 'analyze' level]" [Hard]
      a) Option A
      b) Option B (Correct Answer)
      c) Option C
      d) Option D
 
 5. Evaluate (justify a stand or decision): Use verbs like "judge," "evaluate," "critique."
-   - Example Question: "[Question based on 'evaluate' level]"
+   - Example Question: "[Question based on 'evaluate' level]" [Medium]
      a) Option A
      b) Option B
      c) Option C (Correct Answer)
