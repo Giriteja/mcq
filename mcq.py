@@ -32,11 +32,12 @@ def generate_mcq(paragraph,url,headers):
      c) Option C 
      d) Option D
      Answer: C
+     Level:Easy
 
 2. Understand (explain ideas or concepts): Use verbs like "summarize," "describe," "interpret."
    - Example Question: "[Question based on 'understand' level]" [Hard]
      a) Option A
-     b) Option B (Correct Answer) 
+     b) Option B
      c) Option C
      d) Option D
      Answer: A
@@ -46,7 +47,7 @@ def generate_mcq(paragraph,url,headers):
    - Example Question: "[Question based on 'apply' level]" [Medium]
      a) Option A
      b) Option B
-     c) Option C (Correct Answer)
+     c) Option C 
      d) Option D
      Answer: D
      Level:Medium
@@ -54,7 +55,7 @@ def generate_mcq(paragraph,url,headers):
 4. Analyze (draw connections among ideas): Use verbs like "classify," "compare," "contrast."
    - Example Question: "[Question based on 'analyze' level]" [Hard]
      a) Option A
-     b) Option B (Correct Answer)
+     b) Option B
      c) Option C
      d) Option D
      Answer: B
@@ -64,7 +65,7 @@ def generate_mcq(paragraph,url,headers):
    - Example Question: "[Question based on 'evaluate' level]" [Medium]
      a) Option A
      b) Option B
-     c) Option C (Correct Answer)
+     c) Option C
      d) Option D
      Answer: E
      Level:Medium
