@@ -18,7 +18,7 @@ chatgpt_headers = {
     
 tab1, tab2, tab3 = st.tabs(["MCQ", "Summary", "GIY"])
     
-def generate_mcq(paragraph,url,headers,prompt,number):
+def generate_mcq(paragraph,url,headers):
     
     # Define the payload for the chat model
     messages = [
