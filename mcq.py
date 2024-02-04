@@ -33,6 +33,7 @@ def generate_mcq(paragraph,url,headers):
      d) Option D
 
      Answer: C
+     
      Level:Easy
 
 2. Understand (explain ideas or concepts): Use verbs like "summarize," "describe," "interpret."
@@ -44,6 +45,7 @@ def generate_mcq(paragraph,url,headers):
 
      
      Answer: A
+     
      Level:Easy
 
 
@@ -55,6 +57,7 @@ def generate_mcq(paragraph,url,headers):
      d) Option D
 
      Answer: D
+     
      Level:Medium
 
 
@@ -66,6 +69,7 @@ def generate_mcq(paragraph,url,headers):
      d) Option D
 
      Answer: B
+     
      Level:Hard
 
 
@@ -78,6 +82,7 @@ def generate_mcq(paragraph,url,headers):
 
 
      Answer: E
+     
      Level:Medium
 
 6. Create (produce new or original work): Use verbs like "design," "assemble," "construct."
