@@ -1,4 +1,4 @@
-te atleast 10 questionsimport os
+import os
 import streamlit as st
 import openai
 import requests
