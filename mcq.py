@@ -26,64 +26,52 @@ def generate_mcq(paragraph,url,headers):
 .For each question classify it as Easy,Medium or Hard.
 
 1. Remember (recall facts and basic concepts): Use verbs like "list," "define," "name." 
-   - Example Question: "[Question based on 'remember' level]" [Easy]
-     a) Option A
-     b) Option B
-     c) Option C 
-     d) Option D
-
-     Answer: C
-     
-     Level:Easy
+   - Example Question: "[Question based on 'remember' level]" 
+     {
+        "question": "What is the name of the inner layer of the uterus?",
+        "options": ["Amnion", "Chorion", "Endometrium", "Allantois"],
+        "answer": "c",
+        "level": "Easy"
+     }
 
 2. Understand (explain ideas or concepts): Use verbs like "summarize," "describe," "interpret."
-   - Example Question: "[Question based on 'understand' level]" [Hard]
-     a) Option A
-     b) Option B
-     c) Option C
-     d) Option D
-
-     
-     Answer: A
-     
-     Level:Easy
+   - Example Question: "[Question based on 'understand' level]" 
+     {
+        "question": "What is the name of the inner layer of the uterus?",
+        "options": ["Amnion", "Chorion", "Endometrium", "Allantois"],
+        "answer": "a",
+        "level": "Medium"
+    }
 
 
 3. Apply (use information in new situations): Use verbs like "use," "solve," "demonstrate."
-   - Example Question: "[Question based on 'apply' level]" [Medium]
-     a) Option A
-     b) Option B
-     c) Option C 
-     d) Option D
-
-     Answer: D
-     
-     Level:Medium
+   - Example Question: "[Question based on 'apply' level]"
+     {
+        "question": "What is the name of the inner layer of the uterus?",
+        "options": ["Amnion", "Chorion", "Endometrium", "Allantois"],
+        "answer": "d",
+        "level": "Hard"
+    }
 
 
 4. Analyze (draw connections among ideas): Use verbs like "classify," "compare," "contrast."
-   - Example Question: "[Question based on 'analyze' level]" [Hard]
-     a) Option A
-     b) Option B
-     c) Option C
-     d) Option D
-
-     Answer: B
-     
-     Level:Hard
+   - Example Question: "[Question based on 'analyze' level]" 
+     {
+        "question": "What is the name of the inner layer of the uterus?",
+        "options": ["Amnion", "Chorion", "Endometrium", "Allantois"],
+        "answer": "c",
+        "level": "Hard"
+    }
 
 
 5. Evaluate (justify a stand or decision): Use verbs like "judge," "evaluate," "critique."
-   - Example Question: "[Question based on 'evaluate' level]" [Medium]
-     a) Option A
-     b) Option B
-     c) Option C
-     d) Option D
-
-
-     Answer: E
-     
-     Level:Medium
+   - Example Question: "[Question based on 'evaluate' level]" 
+     {
+        "question": "What is the name of the inner layer of the uterus?",
+        "options": ["Amnion", "Chorion", "Endometrium", "Allantois"],
+        "answer": "a",
+        "level": "Medium"
+    }
 
 6. Create (produce new or original work): Use verbs like "design," "assemble," "construct."
    - Example Question: "[Question based on 'create' level]"
