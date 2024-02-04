@@ -139,7 +139,7 @@ with(tab1):
 		# Extract text
 		text = extract_text(image)
 		paragraph = st.text_area("Enter a paragraph:",text, height=200)
-		prompt = st.text_area("Enter the prompt:", height=200)
+		#prompt = st.text_area("Enter the prompt:", height=200)
 		if st.button("Generate MCQs"):
 			if paragraph:
 		  		mcqs = generate_mcq(paragraph,chatgpt_url,chatgpt_headers,prompt,option)
@@ -150,7 +150,7 @@ with(tab1):
 		  
 	if uploaded_image is None:         
 		paragraph = st.text_area("Enter a paragraph:", height=200)
-		prompt = st.text_area("Enter the prompt:", height=200)
+		#prompt = st.text_area("Enter the prompt:", height=200)
 		if st.button("Generate MCQs via text"):
 			if paragraph:
 				mcqs = generate_mcq(paragraph,chatgpt_url,chatgpt_headers,prompt,option)
