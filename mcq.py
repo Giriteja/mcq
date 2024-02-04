@@ -142,7 +142,7 @@ with(tab1):
 		#prompt = st.text_area("Enter the prompt:", height=200)
 		if st.button("Generate MCQs"):
 			if paragraph:
-		  		mcqs = generate_mcq(paragraph,chatgpt_url,chatgpt_headers,prompt,option)
+		  		mcqs = generate_mcq(paragraph,chatgpt_url,chatgpt_headers)
 		  		st.write(mcqs)
 		else:
 			st.write("Please enter a paragraph to generate questions.")
@@ -153,7 +153,7 @@ with(tab1):
 		#prompt = st.text_area("Enter the prompt:", height=200)
 		if st.button("Generate MCQs via text"):
 			if paragraph:
-				mcqs = generate_mcq(paragraph,chatgpt_url,chatgpt_headers,prompt,option)
+				mcqs = generate_mcq(paragraph,chatgpt_url,chatgpt_headers)
 				st.write(mcqs)
 			else:
 				st.write("Please enter a paragraph to generate questions.")
