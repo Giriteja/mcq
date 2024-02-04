@@ -18,62 +18,51 @@ chatgpt_headers = {
     
 tab1, tab2, tab3 = st.tabs(["MCQ", "Summary", "GIY"])
     
-def generate_mcq(paragraph,url,headers):
+def generate_mcq(paragraph,url,headers,prompt):
     
     # Define the payload for the chat model
     messages = [
-        {"role": "system", "content": f"""Given the following paragraph, generate multiple-choice questions that align with specific cognitive levels according to Bloom's Taxonomy. For each question, use the associated verbs as a guide to ensure the questions match the intended complexity and cognitive process.
-.For each question classify it as Easy,Medium or Hard.
+        {"role": "system", "content": """Given the following paragraph, create multiple-choice questions that align with specific cognitive levels according to Bloom's Taxonomy. For each question, use the associated verbs as a guide to ensure the questions match the intended complexity and cognitive process.
 
-1. Remember (recall facts and basic concepts): Use verbs like "list," "define," "name." 
-   - Example Question: "[Question based on 'remember' level]" 
-     'options': ['Option A', 'Option B', 'Option C', 'Option D']
+1. Remember (recall facts and basic concepts): Use verbs like "list", "recite", "outline", "define", "name", "match", "quote", "recall", "identify", "label", "recognize."
+   - Example Question: "[Question based on 'remember' level]"
+     a) Option A
+     b) Option B
+     c) Option C (Correct Answer)
+     d) Option D
 
-     Answer: C
-     
-     Level:Easy
+2. Understand (explain ideas or concepts): Use verbs like "describe", "explain", "paraphrase", "restate", "give original examples of", "summarize", "contrast", "interpret", "discuss."
+   - Example Question: "[Question based on 'understand' level]"
+     a) Option A
+     b) Option B (Correct Answer)
+     c) Option C
+     d) Option D
 
-2. Understand (explain ideas or concepts): Use verbs like "summarize," "describe," "interpret."
-   - Example Question: "[Question based on 'understand' level]" 
-      'options': ['Option A', 'Option B', 'Option C', 'Option D']
-
-     
-     Answer: A
-     
-     Level:Easy
-
-
-3. Apply (use information in new situations): Use verbs like "use," "solve," "demonstrate."
+3. Apply (use information in new situations): Use verbs like "calculate", "predict", "apply", "solve", "illustrate", "use", "demonstrate", "determine", "model", "perform", "present".
    - Example Question: "[Question based on 'apply' level]"
-     'options': ['Option A', 'Option B', 'Option C', 'Option D']
+     a) Option A
+     b) Option B
+     c) Option C (Correct Answer)
+     d) Option D
 
-     Answer: D
-     
-     Level:Medium
-
-
-4. Analyze (draw connections among ideas): Use verbs like "classify," "compare," "contrast."
+4. Analyze (draw connections among ideas): Use verbs like "classify","break down", "categorize", "analyze", "diagram", "illustrate", "criticize", "simplify", "associate"
    - Example Question: "[Question based on 'analyze' level]"
-      'options': ['Option A', 'Option B', 'Option C', 'Option D']
+     a) Option A
+     b) Option B (Correct Answer)
+     c) Option C
+     d) Option D
 
-     Answer: B
-     
-     Level:Hard
-
-
-5. Evaluate (justify a stand or decision): Use verbs like "judge," "evaluate," "critique."
+5. Evaluate (justify a stand or decision): Use verbs like "choose", "support", "relate", "determine", "defend", "judge", "grade", "compare", "contrast", "argue", "justify", "support", "convince", "select", "evaluate."
    - Example Question: "[Question based on 'evaluate' level]"
-     'options': ['Option A', 'Option B', 'Option C', 'Option D']
+     a) Option A
+     b) Option B
+     c) Option C (Correct Answer)
+     d) Option D
 
-
-     Answer: E
-     
-     Level:Medium
-
-6. Create (produce new or original work): Use verbs like "design," "assemble," "construct."
+6. Create (produce new or original work): Use verbs like "design", "formulate", "build", "invent", "create", "compose", "generate", "derive", "modify", "develop."
    - Example Question: "[Question based on 'create' level]"
-Please ensure the questions and options are closely related to the content of the provided text and reflect the cognitive level specified for every question.
-"""
+
+Please ensure the questions and options are closely related to the content of the provided text and reflect the cognitive level specified."""
 },
         {"role": "user", "content": paragraph}
     ]
@@ -138,9 +127,7 @@ def extract_text(image):
 with(tab1):
 	# Upload image
 	uploaded_image = st.file_uploader("Upload an image...", type=["png", "jpg", "jpeg"])
-	#option = st.selectbox(
-    	#'Choose Number of Questions:',
-    	#('5', '10', '15', '20'))
+
 	# If an image is uploaded, display and process it
 	if uploaded_image is not None:
 	    # Display the uploaded image
@@ -150,10 +137,10 @@ with(tab1):
 		# Extract text
 		text = extract_text(image)
 		paragraph = st.text_area("Enter a paragraph:",text, height=200)
-		#prompt = st.text_area("Enter the prompt:", height=200)
+		prompt = st.text_area("Enter the prompt:", height=200)
 		if st.button("Generate MCQs"):
 			if paragraph:
-		  		mcqs = generate_mcq(paragraph,chatgpt_url,chatgpt_headers)
+		  		mcqs = generate_mcq(paragraph,chatgpt_url,chatgpt_headers,prompt)
 		  		st.write(mcqs)
 		else:
 			st.write("Please enter a paragraph to generate questions.")
@@ -161,10 +148,10 @@ with(tab1):
 		  
 	if uploaded_image is None:         
 		paragraph = st.text_area("Enter a paragraph:", height=200)
-		#prompt = st.text_area("Enter the prompt:", height=200)
+		prompt = st.text_area("Enter the prompt:", height=200)
 		if st.button("Generate MCQs via text"):
 			if paragraph:
-				mcqs = generate_mcq(paragraph,chatgpt_url,chatgpt_headers)
+				mcqs = generate_mcq(paragraph,chatgpt_url,chatgpt_headers,prompt)
 				st.write(mcqs)
 			else:
 				st.write("Please enter a paragraph to generate questions.")
