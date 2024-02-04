@@ -24,42 +24,42 @@ def generate_mcq(paragraph,url,headers,prompt):
     messages = [
         {"role": "system", "content": """Given the following paragraph, create multiple-choice questions that align with specific cognitive levels according to Bloom's Taxonomy. For each question, use the associated verbs as a guide to ensure the questions match the intended complexity and cognitive process.
 
-1. Remember (recall facts and basic concepts): Use verbs like "list," "define," "name." 
+1. Remember (recall facts and basic concepts): Use verbs like "list", "recite", "outline", "define", "name", "match", "quote", "recall", "identify", "label", "recognize."
    - Example Question: "[Question based on 'remember' level]"
      a) Option A
      b) Option B
      c) Option C (Correct Answer)
      d) Option D
 
-2. Understand (explain ideas or concepts): Use verbs like "summarize," "describe," "interpret."
+2. Understand (explain ideas or concepts): Use verbs like "describe", "explain", "paraphrase", "restate", "give original examples of", "summarize", "contrast", "interpret", "discuss."
    - Example Question: "[Question based on 'understand' level]"
      a) Option A
      b) Option B (Correct Answer)
      c) Option C
      d) Option D
 
-3. Apply (use information in new situations): Use verbs like "use," "solve," "demonstrate."
+3. Apply (use information in new situations): Use verbs like "calculate", "predict", "apply", "solve", "illustrate", "use", "demonstrate", "determine", "model", "perform", "present".
    - Example Question: "[Question based on 'apply' level]"
      a) Option A
      b) Option B
      c) Option C (Correct Answer)
      d) Option D
 
-4. Analyze (draw connections among ideas): Use verbs like "classify," "compare," "contrast."
+4. Analyze (draw connections among ideas): Use verbs like "classify","break down", "categorize", "analyze", "diagram", "illustrate", "criticize", "simplify", "associate"
    - Example Question: "[Question based on 'analyze' level]"
      a) Option A
      b) Option B (Correct Answer)
      c) Option C
      d) Option D
 
-5. Evaluate (justify a stand or decision): Use verbs like "judge," "evaluate," "critique."
+5. Evaluate (justify a stand or decision): Use verbs like "choose", "support", "relate", "determine", "defend", "judge", "grade", "compare", "contrast", "argue", "justify", "support", "convince", "select", "evaluate."
    - Example Question: "[Question based on 'evaluate' level]"
      a) Option A
      b) Option B
      c) Option C (Correct Answer)
      d) Option D
 
-6. Create (produce new or original work): Use verbs like "design," "assemble," "construct."
+6. Create (produce new or original work): Use verbs like "design", "formulate", "build", "invent", "create", "compose", "generate", "derive", "modify", "develop."
    - Example Question: "[Question based on 'create' level]"
 
 Please ensure the questions and options are closely related to the content of the provided text and reflect the cognitive level specified."""
