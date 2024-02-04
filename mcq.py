@@ -31,11 +31,9 @@ def generate_mcq(paragraph,url,headers):
      b) Option B
      c) Option C 
      d) Option D
-     ###################################
+
      Answer: C
      Level:Easy
-
--------------------------------------------------------------------------------------------------
 
 2. Understand (explain ideas or concepts): Use verbs like "summarize," "describe," "interpret."
    - Example Question: "[Question based on 'understand' level]" [Hard]
@@ -44,11 +42,10 @@ def generate_mcq(paragraph,url,headers):
      c) Option C
      d) Option D
 
-    ####################################
+     
      Answer: A
      Level:Easy
 
--------------------------------------------------------------------------------------------------
 
 3. Apply (use information in new situations): Use verbs like "use," "solve," "demonstrate."
    - Example Question: "[Question based on 'apply' level]" [Medium]
@@ -57,11 +54,9 @@ def generate_mcq(paragraph,url,headers):
      c) Option C 
      d) Option D
 
-   ####################################
      Answer: D
      Level:Medium
 
--------------------------------------------------------------------------------------------------
 
 4. Analyze (draw connections among ideas): Use verbs like "classify," "compare," "contrast."
    - Example Question: "[Question based on 'analyze' level]" [Hard]
@@ -70,11 +65,9 @@ def generate_mcq(paragraph,url,headers):
      c) Option C
      d) Option D
 
-  ####################################
      Answer: B
      Level:Hard
 
--------------------------------------------------------------------------------------------------
 
 5. Evaluate (justify a stand or decision): Use verbs like "judge," "evaluate," "critique."
    - Example Question: "[Question based on 'evaluate' level]" [Medium]
@@ -83,11 +76,10 @@ def generate_mcq(paragraph,url,headers):
      c) Option C
      d) Option D
 
-  #################################### 
+
      Answer: E
      Level:Medium
 
--------------------------------------------------------------------------------------------------
 6. Create (produce new or original work): Use verbs like "design," "assemble," "construct."
    - Example Question: "[Question based on 'create' level]"
 Please ensure the questions and options are closely related to the content of the provided text and reflect the cognitive level specified for every question.
