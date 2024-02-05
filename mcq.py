@@ -46,7 +46,7 @@ def generate_mcq(paragraph,url,headers):
      
      Answer: A
      
-     Level:Easy
+     Difficulty Level:Easy
 
 
 3. Apply (use information in new situations): Use verbs like "use," "solve," "demonstrate."
@@ -58,7 +58,7 @@ def generate_mcq(paragraph,url,headers):
 
      Answer: D
      
-     Level:Medium
+     Difficulty Level:Medium
 
 
 4. Analyze (draw connections among ideas): Use verbs like "classify," "compare," "contrast."
@@ -70,7 +70,7 @@ def generate_mcq(paragraph,url,headers):
 
      Answer: B
      
-     Level:Hard
+    Difficulty  Level:Hard
 
 
 5. Evaluate (justify a stand or decision): Use verbs like "judge," "evaluate," "critique."
@@ -83,7 +83,7 @@ def generate_mcq(paragraph,url,headers):
 
      Answer: E
      
-     Level:Medium
+    Difficulty Level:Medium
 
 6. Create (produce new or original work): Use verbs like "design," "assemble," "construct."
    - Example Question: "[Question based on 'create' level]"
