@@ -185,7 +185,7 @@ def generate_summary(paragraph,url,headers,prompt):
     response_json = response.json()
 
     # Extract data from the API's response
-    st.write(response_json)
+    #st.write(response_json)
     output = response_json['choices'][0]['message']['content']
     return output
         
@@ -391,7 +391,6 @@ with(tab2):
 		if paragraph:
 			summ = generate_summary(paragraph,chatgpt_url,chatgpt_headers,promptsum)
 			st.write(summ)
-			summ="""Asexual mode of reproduction includes various """
 			summaries = {"Summary 1": summ}
 
 			data = {"Evaluation Type": [], "Summary Type": [], "Score": []}
