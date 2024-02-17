@@ -414,7 +414,7 @@ with(tab1):
 		if st.button("Generate MCQs via text"):
 			if paragraph:
 				mcqs = run_conversation(paragraph)
-				#st.write(type(mcqs))
+				st.write(mcqs)
 				mcq_json=json.loads(mcqs)
 				for j in mcq_json['questions']:
 		  			st.write(j)
