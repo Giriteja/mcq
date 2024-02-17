@@ -448,28 +448,12 @@ with(tab2):
 		else:
 			st.write("Please enter the text to generate Summary.")
 with(tab3):
-	paragraph = st.text_area("Enter the topic for lesson plan:", height=200)
-	promptsum = st.text_area("Enter the prompt:",key="sum", height=200)
+	topic = st.text_area("Enter the topic for lesson plan:", height=200)
+	prompt_topic = st.text_area("Enter the prompt:",key="sum", height=200)
 	if st.button("Generate Summary via text"):
 		if paragraph:
-			summ = generate_summary(paragraph,chatgpt_url,chatgpt_headers,promptsum)
-			st.write(summ)
-			summaries = {"Summary 1": summ}
-
-			data = {"Evaluation Type": [], "Summary Type": [], "Score": []}
+			lp = generate_lessonplan(topic,chatgpt_url,chatgpt_headers,prompt_topic)
+			st.write(lp)
 			
-			
-			for eval_type, (criteria, steps) in evaluation_metrics.items():
-			    for summ_type, summary in summaries.items():
-			        data["Evaluation Type"].append(eval_type)
-			        data["Summary Type"].append(summ_type)
-			        result = get_geval_score(criteria, steps, paragraph, summary, eval_type)
-			        score_num = float(result.strip())
-			        data["Score"].append(score_num)
-			
-			pivot_df = pd.DataFrame(data, index=None).pivot(
-			    index="Evaluation Type", columns="Summary Type", values="Score"
-			)
-			st.write(pivot_df)
 		else:
 			st.write("Please enter the text to generate Summary.")
