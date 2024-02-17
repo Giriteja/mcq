@@ -167,7 +167,7 @@ def generate_summary(paragraph,url,headers,prompt):
     
     # Define the payload for the chat model
     messages = [
-        {"role": "system", "content": "Summarize content you are provided with for a second-grade student with heading and bullet points.Also consider the following Instruction while generating Summary"+prompt},
+        {"role": "system", "content": "Summarize content you are provided with headings and bullet points.Also consider the following Instruction while generating Summary"+prompt},
         {"role": "user", "content": paragraph}
     ]
 
