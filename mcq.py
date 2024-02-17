@@ -391,6 +391,7 @@ with(tab2):
 		if paragraph:
 			summ = generate_summary(paragraph,chatgpt_url,chatgpt_headers,promptsum)
 			st.write(summ)
+			summ="""Asexual mode of reproduction includes various methods such as fission, budding, fragmentation, parthenogenesis, regeneration, and vegetative propagation. Fission occurs when single-celled organisms divide into two or more offspring. """
 			summaries = {"Summary 1": summ}
 
 			data = {"Evaluation Type": [], "Summary Type": [], "Score": []}
