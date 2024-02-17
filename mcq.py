@@ -10,7 +10,7 @@ from PIL import Image
 import pytesseract
 import cv2
 import numpy as np
-
+import pandas as pd
 client = OpenAI(
   api_key=os.getenv("openaikey"),  # this is also the default, it can be omitted
 )
