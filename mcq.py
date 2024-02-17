@@ -176,7 +176,7 @@ def generate_lessonplan(topic,url,headers,prompt):
 5. Assessment: Methods for evaluating student understanding, such as questions to ask or short exercises.
 6. Conclusion: A summary to reinforce key concepts and connect to future lessons.
 7  Real world Exmaples : Include real world examples based on the topic if applicable.
-7. Additional Resources: Optional extra online materials like youtube videos,weblinks for further exploration of the topic.
+8. Additional Resources: Optional extra online materials like youtube videos,weblinks for further exploration of the topic.
 
 Ensure the lesson plan is structured, engaging, and suitable for high school students with a basic understanding of biology.
 """+prompt},
