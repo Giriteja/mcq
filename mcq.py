@@ -449,7 +449,7 @@ with(tab2):
 			st.write("Please enter the text to generate Summary.")
 with(tab3):
 	topic = st.text_area("Enter the topic for lesson plan:", height=200)
-	prompt_topic = st.text_area("Enter the prompt:",key="sum", height=200)
+	prompt_topic = st.text_area("Enter the prompt:",key="topic", height=200)
 	if st.button("Generate Summary via text"):
 		if paragraph:
 			lp = generate_lessonplan(topic,chatgpt_url,chatgpt_headers,prompt_topic)
