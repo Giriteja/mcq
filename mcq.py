@@ -401,7 +401,7 @@ with(tab2):
 			        data["Evaluation Type"].append(eval_type)
 			        data["Summary Type"].append(summ_type)
 			        result = get_geval_score(criteria, steps, paragraph, summary, eval_type)
-			        score_num = int(result.strip())
+			        score_num = float(result.strip())
 			        data["Score"].append(score_num)
 			
 			pivot_df = pd.DataFrame(data, index=None).pivot(
