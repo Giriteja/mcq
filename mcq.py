@@ -21,7 +21,7 @@ chatgpt_headers = {
     "content-type": "application/json",
     "Authorization":"Bearer {}".format(os.getenv("openaikey"))}
 
-tab1, tab2, tab3 = st.tabs(["MCQ", "Summary", "GIY"])
+tab1, tab2, tab3 = st.tabs(["MCQ", "Summary", "Lesson Plan"])
 
 paragraph="""Food in the form of a soft slimy substance where some
 proteins and carbohydrates have already been broken down
@@ -162,6 +162,43 @@ evaluation_metrics = {
 # In production, this could be your backend API or an external API
 def generateMCQs(questions,topic):
         return json.dumps({"questions": questions, "topic":topic})
+
+def generate_lessonplan(topic,url,headers,prompt):
+    
+    # Define the payload for the chat model
+    messages = [
+        {"role": "system", "content": """Generate a detailed lesson plan for a 45-minute high school biology class on the given topic . The lesson plan should include:
+
+1. Learning Objectives: Clearly defined goals that students should achieve by the end of the lesson.
+2. Introduction: A brief overview to engage students and introduce the topic.
+3. Main Activity: A step-by-step guide for the main instructional activity, including any discussions, demonstrations, or hands-on activities.
+4. Materials Needed: A list of all materials and resources required for the lesson.
+5. Assessment: Methods for evaluating student understanding, such as questions to ask or short exercises.
+6. Conclusion: A summary to reinforce key concepts and connect to future lessons.
+7. Additional Resources: Optional extra materials for further exploration of the topic.
+
+Ensure the lesson plan is structured, engaging, and suitable for high school students with a basic understanding of biology.
+"""+prompt},
+        {"role": "user", "content": topic}
+    ]
+
+    chatgpt_payload = {
+        "model": "gpt-3.5-turbo-16k",
+        "messages": messages,
+        "temperature": 1.3,
+        "max_tokens": 10000,
+        "top_p": 1,
+        "stop": ["###"]
+    }
+
+    # Make the request to OpenAI's API
+    response = requests.post(url, json=chatgpt_payload, headers=headers)
+    response_json = response.json()
+
+    # Extract data from the API's response
+    #st.write(response_json)
+    output = response_json['choices'][0]['message']['content']
+    return output
         
 def generate_summary(paragraph,url,headers,prompt):
     
@@ -386,6 +423,32 @@ with(tab1):
 				
 with(tab2):
 	paragraph = st.text_area("Enter the text:", height=200)
+	promptsum = st.text_area("Enter the prompt:",key="sum", height=200)
+	if st.button("Generate Summary via text"):
+		if paragraph:
+			summ = generate_summary(paragraph,chatgpt_url,chatgpt_headers,promptsum)
+			st.write(summ)
+			summaries = {"Summary 1": summ}
+
+			data = {"Evaluation Type": [], "Summary Type": [], "Score": []}
+			
+			
+			for eval_type, (criteria, steps) in evaluation_metrics.items():
+			    for summ_type, summary in summaries.items():
+			        data["Evaluation Type"].append(eval_type)
+			        data["Summary Type"].append(summ_type)
+			        result = get_geval_score(criteria, steps, paragraph, summary, eval_type)
+			        score_num = float(result.strip())
+			        data["Score"].append(score_num)
+			
+			pivot_df = pd.DataFrame(data, index=None).pivot(
+			    index="Evaluation Type", columns="Summary Type", values="Score"
+			)
+			st.write(pivot_df)
+		else:
+			st.write("Please enter the text to generate Summary.")
+with(tab3):
+	paragraph = st.text_area("Enter the topic for lesson plan:", height=200)
 	promptsum = st.text_area("Enter the prompt:",key="sum", height=200)
 	if st.button("Generate Summary via text"):
 		if paragraph:
