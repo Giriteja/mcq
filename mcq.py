@@ -21,7 +21,7 @@ chatgpt_headers = {
     "content-type": "application/json",
     "Authorization":"Bearer {}".format(os.getenv("openaikey"))}
 
-tab1, tab2, tab3 = st.tabs(["MCQ", "Summary", "Lesson Plan"])
+tab1, tab2, tab3,tab4 = st.tabs(["MCQ", "Summary", "Lesson Plan","Assignments"])
 
 paragraph="""Food in the form of a soft slimy substance where some
 proteins and carbohydrates have already been broken down
@@ -33,7 +33,29 @@ regulating the opening of the passage such that only small
 quantities of the food material may be passed into the
 small intestine at a time."""
 
+def generate_assignment(topic,url,headers,prompt):
+	messages = [
+        {"role": "system", "content": """Generate mcq questions,short questions,long questions and match the following questions for the given topic."""+prompt},
+        {"role": "user", "content": topic}
+    ]
 
+    chatgpt_payload = {
+        "model": "gpt-3.5-turbo-16k",
+        "messages": messages,
+        "temperature": 1.3,
+        "max_tokens": 10000,
+        "top_p": 1,
+        "stop": ["###"]
+    }
+
+    # Make the request to OpenAI's API
+    response = requests.post(url, json=chatgpt_payload, headers=headers)
+    response_json = response.json()
+
+    # Extract data from the API's response
+    #st.write(response_json)
+    output = response_json['choices'][0]['message']['content']
+    return output
 
 def highlight_max(s):
     is_max = s == s.max()
@@ -167,7 +189,7 @@ def generate_lessonplan(topic,url,headers,prompt):
     
     # Define the payload for the chat model
     messages = [
-        {"role": "system", "content": """Generate a detailed lesson plan for a 45-minute high school biology class on the given topic . The lesson plan should include:
+        {"role": "system", "content": """Generate a detailed lesson plan for a 45-minute high school class on the given topic . The lesson plan should include:
 
 1. Learning Objectives: Clearly defined goals that students should achieve by the end of the lesson.
 2. Introduction: A brief overview to engage students and introduce the topic.
@@ -454,6 +476,17 @@ with(tab3):
 	if st.button("Generate Lesson Plan"):
 		if topic:
 			lp = generate_lessonplan(topic,chatgpt_url,chatgpt_headers,prompt_topic)
+			st.write(lp)
+			
+		else:
+			st.write("Please enter the text to generate Summary.")
+
+with(tab4):
+	topic = st.text_area("Enter the topic for Assignment:", height=200)
+	prompt_topic = st.text_area("Enter the prompt:",key="topic", height=200)
+	if st.button("Generate Lesson Plan"):
+		if topic:
+			lp = generate_assignment(topic,chatgpt_url,chatgpt_headers,prompt_topic)
 			st.write(lp)
 			
 		else:
