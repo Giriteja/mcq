@@ -217,7 +217,7 @@ Please ensure the questions and options are closely related to the content of th
         messages.append(response_message)  # extend conversation with assistant's reply
         # Step 4: send the info for each function call and function response to the model
         #print("tool_calls-----------------",tool_calls)
-        for tool_call in tool_calls::
+        for tool_call in tool_calls:
             function_name = tool_call.function.name
             function_to_call = available_functions[function_name]
             function_args = json.loads(tool_call.function.arguments)
