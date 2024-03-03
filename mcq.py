@@ -35,7 +35,7 @@ small intestine at a time."""
 
 def generate_assignment(topic,url,headers,prompt):
     messages = [
-        {"role": "system", "content": """Generate mcq questions,short questions,long questions and match the following questions for the given topic."""+prompt},
+        {"role": "system", "content": """Generate mcq questions,short questions,long questions and match the following questions for the given topic.For each question classify it as mcq,short,long,match the following"""+prompt},
         {"role": "user", "content": topic}
     ]
 
