@@ -484,7 +484,7 @@ with(tab3):
 with(tab4):
 	topic_assign = st.text_area("Enter the topic for Assignment:", height=200)
 	prompt_topic_assign = st.text_area("Enter the prompt:",key="topic_assign", height=200)
-	if st.button("Generate Lesson Plan"):
+	if st.button("Generate Assignment"):
 		if topic:
 			lp = generate_assignment(topic_assign,chatgpt_url,chatgpt_headers,prompt_topic_assign)
 			st.write(lp)
