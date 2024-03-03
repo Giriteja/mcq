@@ -154,7 +154,7 @@ Please ensure the questions and options are closely related to the content of th
 	{
             "type": "function",
             "function": {
-            "name": "generateMCQs",
+            "name": "generate_long_short_questions",
             "parameters": {
                 "type": "object",
                 "properties": {
