@@ -34,7 +34,7 @@ quantities of the food material may be passed into the
 small intestine at a time."""
 
 def generate_assignment(topic,url,headers,prompt):
-	messages = [
+    messages = [
         {"role": "system", "content": """Generate mcq questions,short questions,long questions and match the following questions for the given topic."""+prompt},
         {"role": "user", "content": topic}
     ]
