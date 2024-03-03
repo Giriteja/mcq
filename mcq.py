@@ -33,6 +33,12 @@ regulating the opening of the passage such that only small
 quantities of the food material may be passed into the
 small intestine at a time."""
 
+def generateMCQs(questions,topic):
+        return json.dumps({"questions": questions, "topic":topic})
+
+def generate_long_short_questions(questions,topic):
+        return json.dumps({"questions": questions, "topic":topic})
+
 def generate_assignment(paragraph,url,headers,prompt):
     # Step 1: send the conversation and available functions to the model
     messages = [{"role": "system", "content": """Given the following paragraph, generate multiple-choice questions,Short,Long,Multiple choice questions that align with specific cognitive levels according to Bloom's Taxonomy. For each question, use the associated verbs as a guide to ensure the questions match the intended complexity and cognitive process.For each question classify it as Easy,Medium or Hard.
@@ -173,9 +179,14 @@ Please ensure the questions and options are closely related to the content of th
                                 "question_type": {
                                     "type": "string",
                                     "enum": ["Remember", "Understand","Apply","Analyze","Evaluate","Create"]
+                                },
+				"question_type_short_or_long": {
+                                "type": "string",
+                                "enum": ["Short Question", "Long Question"]
                                 }
+				    
                             },
-                            "required": ["question", "answer","question_level","question_type"]
+                            "required": ["question", "answer","question_level","question_type","question_type_short_or_long"]
                         }
                     }
                 },
@@ -201,6 +212,7 @@ Please ensure the questions and options are closely related to the content of th
         # Note: the JSON response may not always be valid; be sure to handle errors
         available_functions = {
             "generateMCQs": generateMCQs,
+	    "generate_long_short_questions":generate_long_short_questions
         }  # only one function in this example, but you can have multiple
         messages.append(response_message)  # extend conversation with assistant's reply
         # Step 4: send the info for each function call and function response to the model
@@ -340,8 +352,6 @@ evaluation_metrics = {
 
 # Example dummy function hard coded to return the same weather
 # In production, this could be your backend API or an external API
-def generateMCQs(questions,topic):
-        return json.dumps({"questions": questions, "topic":topic})
 
 def generate_lessonplan(topic,url,headers,prompt):
     
