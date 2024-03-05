@@ -493,20 +493,27 @@ with(tab1):
 		  
 	if uploaded_image is None:         
 		paragraph = st.text_area("Enter a paragraph:", height=200)
-		class_name = subject_name = st.selectbox(
+		class_name = st.selectbox(
 	   			"Select class",
 		("10", "9","8","7","6"),key="class")
-		subject_name = subject_name = st.selectbox(
+		subject_name  = st.selectbox(
 	   			"Select Subject",
 		("Physics", "Social","Biology","Chemistry"),key="subject")
 		#prompt = st.text_area("Enter the prompt:", height=200)
+		json_struct={}
+		
 		if st.button("Generate MCQs via text"):
 			if paragraph:
 				mcqs = run_conversation(paragraph)
 				st.write(json.loads(mcqs))
 				mcq_json=json.loads(mcqs)
 				for j in mcq_json['questions']:
-		  			st.write(j)
+					json_struct['class']=class_name
+					json_struct['subject']=subject_name
+					json_struct['lesson']=subject_name
+		  			json_struct['options']=j['options']
+					json_struct['question']=j['question']
+					print(json_struct)
 			else:
 				st.write("Please enter a paragraph to generate questions.")
 				
