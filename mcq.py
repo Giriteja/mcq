@@ -41,116 +41,10 @@ def generate_long_short_questions(questions,topic):
 
 def generate_assignment(paragraph,url,headers,prompt):
     # Step 1: send the conversation and available functions to the model
-    messages = [{"role": "system", "content": """Given the following paragraph, generate multiple-choice questions,Short,Long,Multiple choice questions that align with specific cognitive levels according to Bloom's Taxonomy. For each question, use the associated verbs as a guide to ensure the questions match the intended complexity and cognitive process.For each question classify it as Easy,Medium or Hard.
+    messages = [{"role": "system", "content": """Given the following paragraph, generate Short,Long,Match the following that align with specific cognitive levels according to Bloom's Taxonomy. For each question, use the associated verbs as a guide to ensure the questions match the intended complexity and cognitive process.For each question classify it as Easy,Medium or Hard.
     
-1. Remember (recall facts and basic concepts): Use verbs like "list," "define," "name." 
-   - Example Question: "[Question based on 'remember' level]" 
-     a) Option A
-     b) Option B
-     c) Option C 
-     d) Option D
-
-     Answer: C
-     
-     Level:Easy
-
-2. Understand (explain ideas or concepts): Use verbs like "summarize," "describe," "interpret."
-   - Example Question: "[Question based on 'understand' level]" 
-     a) Option A
-     b) Option B
-     c) Option C
-     d) Option D
-
-     
-     Answer: A
-     
-     Difficulty Level:Easy
-
-
-3. Apply (use information in new situations): Use verbs like "use," "solve," "demonstrate."
-   - Example Question: "[Question based on 'apply' level]" 
-     a) Option A
-     b) Option B
-     c) Option C 
-     d) Option D
-
-     Answer: D
-     
-     Difficulty Level:Medium
-
-
-4. Analyze (draw connections among ideas): Use verbs like "classify," "compare," "contrast."
-   - Example Question: "[Question based on 'analyze' level]"
-     a) Option A
-     b) Option B
-     c) Option C
-     d) Option D
-
-     Answer: B
-     
-    Difficulty  Level:Hard
-
-
-5. Evaluate (justify a stand or decision): Use verbs like "judge," "evaluate," "critique."
-   - Example Question: "[Question based on 'evaluate' level]"
-     a) Option A
-     b) Option B
-     c) Option C
-     d) Option D
-
-
-     Answer: E
-     
-    Difficulty Level:Medium
-
-6. Create (produce new or original work): Use verbs like "design," "assemble," "construct."
-   - Example Question: "[Question based on 'create' level]"
 Please ensure the questions and options are closely related to the content of the provided text and reflect the cognitive level specified for every question."""},{"role": "user", "content": paragraph}]
     tools = [
-        {
-            "type": "function",
-            "function": {
-            "name": "generateMCQs",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "topic": {
-                        "type": "string"
-                    },
-                    "questions": {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "question": {
-                                    "type": "string"
-                                },
-                                "options": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                },
-                                "answer": {
-                                    "type": "string"
-                                },
-                                "question_level": {
-                                    "type": "string",
-                                    "enum": ["easy", "medium","hard"]
-                                },
-                                "question_type": {
-                                    "type": "string",
-                                    "enum": ["Remember", "Understand","Apply","Analyze","Evaluate","Create"]
-                                }
-                            },
-                            "required": ["question", "options", "answer","question_level","question_type"]
-                        }
-                    }
-                },
-                "required": ["topic", "questions"]
-            }
-        }
-        },
 	{
             "type": "function",
             "function": {
@@ -211,7 +105,6 @@ Please ensure the questions and options are closely related to the content of th
         # Step 3: call the function
         # Note: the JSON response may not always be valid; be sure to handle errors
         available_functions = {
-            "generateMCQs": generateMCQs,
 	    "generate_long_short_questions":generate_long_short_questions
         }  # only one function in this example, but you can have multiple
         messages.append(response_message)  # extend conversation with assistant's reply
