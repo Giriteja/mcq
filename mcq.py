@@ -493,7 +493,7 @@ with(tab1):
 		  
 	if uploaded_image is None:         
 		paragraph = st.text_area("Enter a paragraph:", height=200)
-	    	class_name = subject_name = st.selectbox(
+		class_name = subject_name = st.selectbox(
 	   			"Select class",
 	   	("10", "9","8","7","6"),key="subject"
 		subject_name = subject_name = st.selectbox(
