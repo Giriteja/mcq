@@ -594,7 +594,7 @@ with(tab4):
 					json_struct['question']=j['question']
 					json_struct['level']=j['question_level']
 					json_struct['question_type']=j['question_type']
-					json_struct['type']='multi-choice'
+					json_struct['type']=j['question_type_short_or_long']
 					json_struct['lesson']=lesson_name
 					json_struct['syllabus']=syllabus
 					st.write(json_struct)
