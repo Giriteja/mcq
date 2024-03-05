@@ -492,7 +492,9 @@ with(tab1):
 					json_struct['subject']=subject_name
 					json_struct['lesson']=subject_name
 					json_struct['options']=j['options']
-					json_struct['question']=j['question']
+					json_struct['level']=j['question_level']
+					json_struct['question_type']=j['question_type']
+					json_struct['type']='multi-choice'
 					st.write(json_struct)
 		else:
 			st.write("Please enter a paragraph to generate questions.")
@@ -520,6 +522,7 @@ with(tab1):
 					json_struct['lesson']=subject_name
 					json_struct['options']=j['options']
 					json_struct['question']=j['question']
+					json_struct['level']=j['']
 					st.write(json_struct)
 			else:
 				st.write("Please enter a paragraph to generate questions.")
