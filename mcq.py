@@ -483,7 +483,6 @@ with(tab1):
 		if st.button("Generate MCQs"):
 			if paragraph:
 				mcqs = run_conversation(paragraph)
-				st.write(json.loads(mcqs))
 				mcq_json=json.loads(mcqs)
 				for j in mcq_json['questions']:
 					st.write("I am here inside")
@@ -492,7 +491,7 @@ with(tab1):
 					json_struct['lesson']=subject_name
 					json_struct['options']=j['options']
 					json_struct['question']=j['question']
-					print(json_struct)
+					st.write(json_struct)
 		else:
 			st.write("Please enter a paragraph to generate questions.")
 			
