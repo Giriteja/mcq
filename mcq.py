@@ -515,7 +515,7 @@ with(tab1):
 	   			"Select Subject",
 		("Physics", "Social","Biology","Chemistry"),key="subject")
 		lesson_name  = st.selectbox(
-	   			"Select Subject",
+	   			"Select lesson",
 		("1", "2","3","4","5","6","7","8","9","10"),key="lesson_name")
 		#prompt = st.text_area("Enter the prompt:", height=200)
 		json_struct={}
