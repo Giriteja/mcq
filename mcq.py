@@ -492,9 +492,12 @@ with(tab1):
 					json_struct['subject']=subject_name
 					json_struct['lesson']=subject_name
 					json_struct['options']=j['options']
+					json_struct['question']=j['question']
 					json_struct['level']=j['question_level']
 					json_struct['question_type']=j['question_type']
 					json_struct['type']='multi-choice'
+					json_struct['lesson']=lesson_name
+					json_struct['syllabus']=syllabus
 					st.write(json_struct)
 		else:
 			st.write("Please enter a paragraph to generate questions.")
@@ -502,12 +505,18 @@ with(tab1):
 		  
 	if uploaded_image is None:         
 		paragraph = st.text_area("Enter a paragraph:", height=200)
+		syllabus  = st.selectbox(
+	   			"Select Subject",
+		("CBSE", "SSC"),key="syllabus")
 		class_name = st.selectbox(
 	   			"Select class",
 		("10", "9","8","7","6"),key="class")
 		subject_name  = st.selectbox(
 	   			"Select Subject",
 		("Physics", "Social","Biology","Chemistry"),key="subject")
+		lesson_name  = st.selectbox(
+	   			"Select Subject",
+		("1", "2","3","4","5","6","7","8","9","10"),key="lesson_name")
 		#prompt = st.text_area("Enter the prompt:", height=200)
 		json_struct={}
 		
@@ -522,7 +531,11 @@ with(tab1):
 					json_struct['lesson']=subject_name
 					json_struct['options']=j['options']
 					json_struct['question']=j['question']
-					json_struct['level']=j['']
+					json_struct['level']=j['question_level']
+					json_struct['question_type']=j['question_type']
+					json_struct['type']='multi-choice'
+					json_struct['lesson']=lesson_name
+					json_struct['syllabus']=syllabus
 					st.write(json_struct)
 			else:
 				st.write("Please enter a paragraph to generate questions.")
