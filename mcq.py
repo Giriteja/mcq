@@ -495,10 +495,10 @@ with(tab1):
 		paragraph = st.text_area("Enter a paragraph:", height=200)
 		class_name = subject_name = st.selectbox(
 	   			"Select class",
-		("10", "9","8","7","6"),key="subject"
+		("10", "9","8","7","6"),key="class")
 		subject_name = subject_name = st.selectbox(
 	   			"Select Subject",
-		("Physics", "Social","Biology","Chemistry"),key="subject"
+		("Physics", "Social","Biology","Chemistry"),key="subject")
 		#prompt = st.text_area("Enter the prompt:", height=200)
 		if st.button("Generate MCQs via text"):
 			if paragraph:
