@@ -511,7 +511,7 @@ with(tab1):
 					json_struct['class']=class_name
 					json_struct['subject']=subject_name
 					json_struct['lesson']=subject_name
-		  			json_struct['options']=j['options']
+					json_struct['options']=j['options']
 					json_struct['question']=j['question']
 					print(json_struct)
 			else:
