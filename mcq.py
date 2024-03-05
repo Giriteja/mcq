@@ -584,7 +584,20 @@ with(tab4):
 	if st.button("Generate Assignment"):
 		if topic_assign:
 			lp = generate_assignment(topic_assign,chatgpt_url,chatgpt_headers,prompt_topic_assign)
-			st.write(lp)
+			lp_json=json.loads(lp)
+			for j in lp_json['questions']:
+					st.write("I am here inside")
+					json_struct['class']=class_name
+					json_struct['subject']=subject_name
+					json_struct['lesson']=subject_name
+					json_struct['options']=[]
+					json_struct['question']=j['question']
+					json_struct['level']=j['question_level']
+					json_struct['question_type']=j['question_type']
+					json_struct['type']='multi-choice'
+					json_struct['lesson']=lesson_name
+					json_struct['syllabus']=syllabus
+					st.write(json_struct)
 			
 		else:
 			st.write("Please enter the text to generate Summary.")
