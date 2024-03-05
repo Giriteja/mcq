@@ -508,6 +508,7 @@ with(tab1):
 				st.write(json.loads(mcqs))
 				mcq_json=json.loads(mcqs)
 				for j in mcq_json['questions']:
+					st.write("I am here inside")
 					json_struct['class']=class_name
 					json_struct['subject']=subject_name
 					json_struct['lesson']=subject_name
