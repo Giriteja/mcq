@@ -505,7 +505,7 @@ with(tab1):
 
 				        # Provide a download link for the text file
 					st.download_button(
-				            label="Download Text File",
+				            label="Download Text File1",
 				            data=open('output.txt', 'rb').read(),
 				            file_name='output.txt',
 				            mime='text/plain'
@@ -552,7 +552,7 @@ with(tab1):
 
 				        # Provide a download link for the text file
 					st.download_button(
-				            label="Download Text File",
+				            label="Download Text File"12,
 				            data=open('output.txt', 'rb').read(),
 				            file_name='output.txt',
 				            mime='text/plain'
