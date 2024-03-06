@@ -328,7 +328,7 @@ def extract_text(image):
 
 def run_conversation(paragraph):
     # Step 1: send the conversation and available functions to the model
-    messages = [{"role": "system", "content": """Given the following paragraph, generate multiple-choice questions that align with specific cognitive levels according to Bloom's Taxonomy. For each question, use the associated verbs as a guide to ensure the questions match the intended complexity and cognitive process.For each question classify it as Easy,Medium or Hard.
+    messages = [{"role": "system", "content": """Given the following paragraph, generate 30 multiple-choice questions that align with specific cognitive levels according to Bloom's Taxonomy. For each question, use the associated verbs as a guide to ensure the questions match the intended complexity and cognitive process.For each question classify it as Easy,Medium or Hard.
     
 1. Remember (recall facts and basic concepts): Use verbs like "list," "define," "name." 
    - Example Question: "[Question based on 'remember' level]" 
