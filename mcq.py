@@ -525,6 +525,7 @@ with(tab1):
 		("1", "2","3","4","5","6","7","8","9","10"),key="lesson_name")
 		#prompt = st.text_area("Enter the prompt:", height=200)
 		json_struct={}
+		final_data=[]
 		
 		if st.button("Generate MCQs via text"):
 			if paragraph:
@@ -543,7 +544,8 @@ with(tab1):
 					json_struct['lesson']=lesson_name
 					json_struct['syllabus']=syllabus
 					st.write(json_struct)
-				save_json_to_text(json_struct, 'output.txt')
+					final_data.append(json_struct)
+				save_json_to_text(final_data, 'output.txt')
 				download_button_id = str(uuid.uuid4())
 				# Provide a download link for the text file
 				st.download_button(
