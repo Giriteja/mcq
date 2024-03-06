@@ -515,7 +515,7 @@ with(tab1):
 				        mime='text/plain',
 					key=download_button_id
 				)
-					save_json_to_text(json_struct, 'output.txt')
+				
 				
 
 	
