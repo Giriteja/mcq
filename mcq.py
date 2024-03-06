@@ -543,16 +543,16 @@ with(tab1):
 					json_struct['lesson']=lesson_name
 					json_struct['syllabus']=syllabus
 					st.write(json_struct)
-					save_json_to_text(json_struct, 'output.txt')
-					download_button_id = str(uuid.uuid4())
-				        # Provide a download link for the text file
-					st.download_button(
-				            label="Download Text File12",
-				            data=open('output.txt', 'rb').read(),
-				            file_name='output.txt',
-				            mime='text/plain',
-					    key=download_button_id
-				        )
+				save_json_to_text(json_struct, 'output.txt')
+				download_button_id = str(uuid.uuid4())
+				# Provide a download link for the text file
+				st.download_button(
+				        label="Download Text File12",
+				        data=open('output.txt', 'rb').read(),
+				        file_name='output.txt',
+				        mime='text/plain',
+					key=download_button_id
+				)
 			else:
 				st.write("Please enter a paragraph to generate questions.")
 				
