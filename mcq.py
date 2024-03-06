@@ -552,7 +552,7 @@ with(tab1):
 
 				        # Provide a download link for the text file
 					st.download_button(
-				            label="Download Text File"12,
+				            label="Download Text File12",
 				            data=open('output.txt', 'rb').read(),
 				            file_name='output.txt',
 				            mime='text/plain'
