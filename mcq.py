@@ -11,6 +11,7 @@ import pytesseract
 import cv2
 import numpy as np
 import pandas as pd
+import uuid
 client = OpenAI(
   api_key=os.getenv("openaikey"),  # this is also the default, it can be omitted
 )
@@ -543,14 +544,14 @@ with(tab1):
 					json_struct['syllabus']=syllabus
 					st.write(json_struct)
 					save_json_to_text(json_struct, 'output.txt')
-
+					download_button_id = str(uuid.uuid4())
 				        # Provide a download link for the text file
 					st.download_button(
 				            label="Download Text File12",
 				            data=open('output.txt', 'rb').read(),
 				            file_name='output.txt',
 				            mime='text/plain',
-					    key='down1'
+					    key=download_button_id
 				        )
 			else:
 				st.write("Please enter a paragraph to generate questions.")
