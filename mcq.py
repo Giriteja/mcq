@@ -503,9 +503,9 @@ with(tab1):
 					json_struct['type']='multi-choice'
 					json_struct['lesson']=lesson_name
 					json_struct['syllabus']=syllabus
-					st.write(json_struct)
+					#st.write(json_struct)
 					final_data.append(json_struct)
-				st.write(final_data)
+				#st.write(final_data)
 				save_json_to_text(final_data, 'output.txt')
 				download_button_id = str(uuid.uuid4())
 				# Provide a download link for the text file
@@ -558,7 +558,7 @@ with(tab1):
 					json_struct['type']='multi-choice'
 					json_struct['lesson']=lesson_name
 					json_struct['syllabus']=syllabus
-					st.write(json_struct)
+					#st.write(json_struct)
 					final_data.append(json_struct)
 				save_json_to_text(final_data, 'output.txt')
 				download_button_id = str(uuid.uuid4())
@@ -633,9 +633,9 @@ with(tab4):
 					json_struct['type']=j['question_type_short_or_long']
 					json_struct['lesson']=lesson_name
 					json_struct['syllabus']=syllabus
-					st.write(json_struct)
+					#st.write(json_struct)
 					final_data.append(json_struct)
-					st.write(final_data)
+					#st.write(final_data)
 			save_json_to_text(final_data, 'output.txt')
 			download_button_id = str(uuid.uuid4())
 			# Provide a download link for the text file
