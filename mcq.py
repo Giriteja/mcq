@@ -39,6 +39,10 @@ def generateMCQs(questions,topic):
 def generate_long_short_questions(questions,topic):
         return json.dumps({"questions": questions, "topic":topic})
 
+def save_json_to_text(json_data, filename):
+    with open(filename, 'w') as f:
+        f.write(json.dumps(json_data, indent=4))
+
 def generate_assignment(paragraph,url,headers,prompt):
     # Step 1: send the conversation and available functions to the model
     messages = [{"role": "system", "content": """Given the following paragraph, generate Short,Long,Match the following that align with specific cognitive levels according to Bloom's Taxonomy. For each question, use the associated verbs as a guide to ensure the questions match the intended complexity and cognitive process.For each question classify it as Easy,Medium or Hard.
@@ -497,6 +501,15 @@ with(tab1):
 					json_struct['lesson']=lesson_name
 					json_struct['syllabus']=syllabus
 					st.write(json_struct)
+					save_json_to_text(json_struct, 'output.txt')
+
+				        # Provide a download link for the text file
+				        st.download_button(
+				            label="Download Text File",
+				            data=open('output.txt', 'rb').read(),
+				            file_name='output.txt',
+				            mime='text/plain'
+				        )
 		else:
 			st.write("Please enter a paragraph to generate questions.")
 			
@@ -535,6 +548,15 @@ with(tab1):
 					json_struct['lesson']=lesson_name
 					json_struct['syllabus']=syllabus
 					st.write(json_struct)
+					save_json_to_text(json_struct, 'output.txt')
+
+				        # Provide a download link for the text file
+				        st.download_button(
+				            label="Download Text File",
+				            data=open('output.txt', 'rb').read(),
+				            file_name='output.txt',
+				            mime='text/plain'
+				        )
 			else:
 				st.write("Please enter a paragraph to generate questions.")
 				
