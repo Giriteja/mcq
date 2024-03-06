@@ -472,6 +472,8 @@ Please ensure the questions and options are closely related to the content of th
 with(tab1):
 	# Upload image
 	uploaded_image = st.file_uploader("Upload an image...", type=["png", "jpg", "jpeg"])
+	json_struct={}
+	final_data=[]
 	#option = st.selectbox(
     	#'Choose Number of Questions:',
     	#('5', '10', '15', '20'))
@@ -502,7 +504,19 @@ with(tab1):
 					json_struct['lesson']=lesson_name
 					json_struct['syllabus']=syllabus
 					st.write(json_struct)
+					final_data.append(json_struct)
+				save_json_to_text(final_data, 'output.txt')
+				download_button_id = str(uuid.uuid4())
+				# Provide a download link for the text file
+				st.download_button(
+				        label="Download Text File12",
+				        data=open('output.txt', 'rb').read(),
+				        file_name='output.txt',
+				        mime='text/plain',
+					key=download_button_id
+				)
 					save_json_to_text(json_struct, 'output.txt')
+				
 
 	
 		else:
@@ -524,8 +538,7 @@ with(tab1):
 	   			"Select lesson",
 		("1", "2","3","4","5","6","7","8","9","10"),key="lesson_name")
 		#prompt = st.text_area("Enter the prompt:", height=200)
-		json_struct={}
-		final_data=[]
+		
 		
 		if st.button("Generate MCQs via text"):
 			if paragraph:
@@ -599,6 +612,8 @@ with(tab3):
 with(tab4):
 	topic_assign = st.text_area("Enter the topic for Assignment:", height=200)
 	prompt_topic_assign = st.text_area("Enter the prompt:",key="topic_assign", height=200)
+	json_struct={}
+	final_data=[]
 	if st.button("Generate Assignment"):
 		if topic_assign:
 			lp = generate_assignment(topic_assign,chatgpt_url,chatgpt_headers,prompt_topic_assign)
@@ -616,6 +631,17 @@ with(tab4):
 					json_struct['lesson']=lesson_name
 					json_struct['syllabus']=syllabus
 					st.write(json_struct)
+					final_data.append(json_struct)
+			save_json_to_text(final_data, 'output.txt')
+			download_button_id = str(uuid.uuid4())
+			# Provide a download link for the text file
+			st.download_button(
+				        label="Download Text File12",
+				        data=open('output.txt', 'rb').read(),
+				        file_name='output.txt',
+				        mime='text/plain',
+					key=download_button_id
+			)
 			
 		else:
 			st.write("Please enter the text to generate Summary.")
