@@ -472,7 +472,6 @@ Please ensure the questions and options are closely related to the content of th
 with(tab1):
 	# Upload image
 	uploaded_image = st.file_uploader("Upload an image...", type=["png", "jpg", "jpeg"])
-	json_struct={}
 	final_data=[]
 	#option = st.selectbox(
     	#'Choose Number of Questions:',
@@ -492,6 +491,7 @@ with(tab1):
 				mcqs = run_conversation(paragraph)
 				mcq_json=json.loads(mcqs)
 				for j in mcq_json['questions']:
+					json_struct={}
 					json_struct['class']=class_name
 					json_struct['subject']=subject_name
 					json_struct['lesson']=subject_name
@@ -546,6 +546,7 @@ with(tab1):
 				mcqs = run_conversation(paragraph)
 				mcq_json=json.loads(mcqs)
 				for j in mcq_json['questions']:
+					json_struct={}
 					json_struct['class']=class_name
 					json_struct['subject']=subject_name
 					json_struct['lesson']=lesson_name
@@ -620,6 +621,7 @@ with(tab4):
 			lp = generate_assignment(topic_assign,chatgpt_url,chatgpt_headers,prompt_topic_assign)
 			lp_json=json.loads(lp)
 			for j in lp_json['questions']:
+					json_struct={}
 					json_struct['class']=class_name
 					json_struct['subject']=subject_name
 					json_struct['lesson']=subject_name
