@@ -488,8 +488,9 @@ with(tab1):
 					json_struct['class']=class_name
 					json_struct['subject']=subject_name
 					json_struct['lesson']=subject_name
-					json_struct['options']=j['options']
 					json_struct['question']=j['question']
+					json_struct['options']=j['options']
+					json_struct['answer']=j['answer']
 					json_struct['level']=j['question_level']
 					json_struct['question_type']=j['question_type']
 					json_struct['type']='multi-choice'
@@ -524,9 +525,10 @@ with(tab1):
 				for j in mcq_json['questions']:
 					json_struct['class']=class_name
 					json_struct['subject']=subject_name
-					json_struct['lesson']=subject_name
-					json_struct['options']=j['options']
+					json_struct['lesson']=lesson_name
 					json_struct['question']=j['question']
+					json_struct['options']=j['options']
+					json_struct['answer']=j['answer']
 					json_struct['level']=j['question_level']
 					json_struct['question_type']=j['question_type']
 					json_struct['type']='multi-choice'
@@ -587,6 +589,7 @@ with(tab4):
 					json_struct['lesson']=subject_name
 					json_struct['options']=[]
 					json_struct['question']=j['question']
+					json_struct['answer']=j['answer']
 					json_struct['level']=j['question_level']
 					json_struct['question_type']=j['question_type']
 					json_struct['type']=j['question_type_short_or_long']
