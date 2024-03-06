@@ -42,7 +42,7 @@ def generate_long_short_questions(questions,topic):
 
 def save_json_to_text(json_data, filename):
     with open(filename, 'w') as f:
-        f.write(str(json_data))
+        f.write(json.dumps(json_data, indent=4))
 
 def generate_assignment(paragraph,url,headers,prompt):
     # Step 1: send the conversation and available functions to the model
@@ -505,6 +505,7 @@ with(tab1):
 					json_struct['syllabus']=syllabus
 					st.write(json_struct)
 					final_data.append(json_struct)
+				st.write(final_data)
 				save_json_to_text(final_data, 'output.txt')
 				download_button_id = str(uuid.uuid4())
 				# Provide a download link for the text file
@@ -632,6 +633,7 @@ with(tab4):
 					json_struct['syllabus']=syllabus
 					st.write(json_struct)
 					final_data.append(json_struct)
+					st.write(final_data)
 			save_json_to_text(final_data, 'output.txt')
 			download_button_id = str(uuid.uuid4())
 			# Provide a download link for the text file
