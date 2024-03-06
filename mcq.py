@@ -503,13 +503,7 @@ with(tab1):
 					st.write(json_struct)
 					save_json_to_text(json_struct, 'output.txt')
 
-				        # Provide a download link for the text file
-					st.download_button(
-				            label="Download Text File1",
-				            data=open('output.txt', 'rb').read(),
-				            file_name='output.txt',
-				            mime='text/plain'
-				        )
+	
 		else:
 			st.write("Please enter a paragraph to generate questions.")
 			
