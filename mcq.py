@@ -42,7 +42,7 @@ def generate_long_short_questions(questions,topic):
 
 def save_json_to_text(json_data, filename):
     with open(filename, 'w') as f:
-        f.write(json_data)
+        f.write(str(json_data))
 
 def generate_assignment(paragraph,url,headers,prompt):
     # Step 1: send the conversation and available functions to the model
