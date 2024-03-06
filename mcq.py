@@ -549,7 +549,8 @@ with(tab1):
 				            label="Download Text File12",
 				            data=open('output.txt', 'rb').read(),
 				            file_name='output.txt',
-				            mime='text/plain'
+				            mime='text/plain',
+					    key='down1'
 				        )
 			else:
 				st.write("Please enter a paragraph to generate questions.")
