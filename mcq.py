@@ -504,7 +504,7 @@ with(tab1):
 					save_json_to_text(json_struct, 'output.txt')
 
 				        # Provide a download link for the text file
-				        st.download_button(
+					st.download_button(
 				            label="Download Text File",
 				            data=open('output.txt', 'rb').read(),
 				            file_name='output.txt',
@@ -551,7 +551,7 @@ with(tab1):
 					save_json_to_text(json_struct, 'output.txt')
 
 				        # Provide a download link for the text file
-				        st.download_button(
+					st.download_button(
 				            label="Download Text File",
 				            data=open('output.txt', 'rb').read(),
 				            file_name='output.txt',
