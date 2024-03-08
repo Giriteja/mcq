@@ -588,7 +588,7 @@ with(tab1):
 				st.write("Please enter a paragraph to generate questions.")
 
 	if uploaded_pdf is not None:         
-		pdf_file_path = "CHAP 1.pmd - jesc101-min.pdf"  # Replace "example.pdf" with the path to your PDF file
+		pdf_file_path = uploaded_pdf  # Replace "example.pdf" with the path to your PDF file
 		extracted_text = extract_text_from_pdf(pdf_file_path)
 		paragraph = st.text_area("Enter a paragraph:",extracted_text, height=200)
 		syllabus  = st.selectbox(
