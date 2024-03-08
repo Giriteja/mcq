@@ -57,7 +57,7 @@ def extract_data(file):
             page = reader.pages[page_num]
             text += page.extract_text()
     	# Display the content
-    	return text
+	return text
 
 def generate_assignment(paragraph,url,headers,prompt):
     # Step 1: send the conversation and available functions to the model
