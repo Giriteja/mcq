@@ -557,6 +557,19 @@ with(tab1):
     	#'Choose Number of Questions:',
     	#('5', '10', '15', '20'))
 	# If an image is uploaded, display and process it
+
+	syllabus  = st.selectbox(
+	   			"Select Subject",
+		("CBSE", "SSC"),key="syllabus")
+	class_name = st.selectbox(
+	   			"Select class",
+		("10", "9","8","7","6"),key="class")
+	subject_name  = st.selectbox(
+	   			"Select Subject",
+		("Physics", "Social","Biology","Chemistry"),key="subject")
+	lesson_name  = st.selectbox(
+	   			"Select lesson",
+		("1", "2","3","4","5","6","7","8","9","10"),key="lesson_name")
 	if uploaded_image is not None:
 	    # Display the uploaded image
 		image = Image.open(uploaded_image)
@@ -606,18 +619,6 @@ with(tab1):
 		  
 	if uploaded_image and uploaded_pdf is None:         
 		paragraph = st.text_area("Enter a paragraph:", height=200)
-		syllabus  = st.selectbox(
-	   			"Select Subject",
-		("CBSE", "SSC"),key="syllabus")
-		class_name = st.selectbox(
-	   			"Select class",
-		("10", "9","8","7","6"),key="class")
-		subject_name  = st.selectbox(
-	   			"Select Subject",
-		("Physics", "Social","Biology","Chemistry"),key="subject")
-		lesson_name  = st.selectbox(
-	   			"Select lesson",
-		("1", "2","3","4","5","6","7","8","9","10"),key="lesson_name")
 		#prompt = st.text_area("Enter the prompt:", height=200)
 		
 		
