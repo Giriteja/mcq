@@ -61,7 +61,7 @@ def extract_data(file):
 
 def generate_assignment(paragraph,url,headers,prompt):
     # Step 1: send the conversation and available functions to the model
-    messages = [{"role": "system", "content": """Given the following paragraph, generate Short,Long,Match the following that align with specific cognitive levels according to Bloom's Taxonomy. For each question, use the associated verbs as a guide to ensure the questions match the intended complexity and cognitive process.For each question classify it as Easy,Medium or Hard.
+    messages = [{"role": "system", "content": """Given the following paragraph, generate Short question for which answer should be 2 to 3 lines of sentences,Long question for which answer should be 10 to 12 lines and should align with specific cognitive levels according to Bloom's Taxonomy. For each question, use the associated verbs as a guide to ensure the questions match the intended complexity and cognitive process.For each question classify it as Easy,Medium or Hard.
     
 Please ensure the questions and options are closely related to the content of the provided text and reflect the cognitive level specified for every question."""},{"role": "user", "content": paragraph}]
     tools = [
@@ -669,6 +669,7 @@ with(tab3):
 			st.write("Please enter the text to generate Summary.")
 
 with(tab4):
+	
 	topic_assign = st.text_area("Enter the topic for Assignment:", height=200)
 	prompt_topic_assign = st.text_area("Enter the prompt:",key="topic_assign", height=200)
 	json_struct={}
