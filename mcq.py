@@ -65,7 +65,7 @@ def generate_assignment(paragraph,url,headers,prompt):
     
 Please ensure the questions and options are closely related to the content of the provided text and reflect the cognitive level specified for every question.For short questions, focus on concise inquiries that can be answered in a sentence or two. These questions should aim to test the reader's understanding of key concepts and facts related to the topic.
 
-For long questions, delve deeper into the topic and pose more complex inquiries that may require extended explanations or analysis. These questions should encourage critical thinking and provide opportunities for in-depth exploration of the subject matter.
+For long questions, delve deeper into the topic and pose more complex inquiries that may require extended explanations or analysis. These questions should encourage critical thinking and provide opportunities for in-depth exploration of the subject matter.You may use the following example questions as a guide.
 
 Here are examples of short and long questions, along with their answers:
 
@@ -86,7 +86,8 @@ Answer: DNA (deoxyribonucleic acid) is a molecule that carries the genetic instr
 Question: Explain the function of the respiratory system.
 
 Answer: The respiratory system is responsible for the exchange of gases (oxygen and carbon dioxide) between the body and the environment. It involves breathing, gas exchange in the lungs, and the transport of gases via the bloodstream.
-Long Questions:
+
+Long Questions: Use words like Describe,Explain,Analyze
 
 Question: Describe the process of protein synthesis.
 
