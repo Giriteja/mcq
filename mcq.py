@@ -13,7 +13,7 @@ import numpy as np
 import pandas as pd
 import uuid
 import PyPDF2
-
+import pdfplumber
 
 client = OpenAI(
   api_key=os.getenv("openaikey"),  # this is also the default, it can be omitted
