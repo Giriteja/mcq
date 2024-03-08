@@ -12,7 +12,9 @@ import cv2
 import numpy as np
 import pandas as pd
 import uuid
-import pdfplumber
+#import pdfplumber
+import PyPDF2
+
 
 client = OpenAI(
   api_key=os.getenv("openaikey"),  # this is also the default, it can be omitted
@@ -47,16 +49,13 @@ def save_json_to_text(json_data, filename):
         f.write(json.dumps(json_data, indent=4))
 
 def extract_data(file):
-    all_text = ''
-    with pdfplumber.open(file) as pdf:
-            # page = pdf.pages[0] - comment out or remove line
-            # text = page.extract_text() - comment out or remove line
-            for pdf_page in pdf.pages:
-               single_page_text = pdf_page.extract_text()
-               print( single_page_text )
-               # separate each page's text with newline
-               all_text = all_text + '\n' + single_page_text
-            return all_text
+    pdf_reader = PyPDF2.PdfFileReader(file)
+    # Extract the content
+    content = ""
+    for page in range(pdf_reader.getNumPages()):
+        content += pdf_reader.getPage(page).extractText()
+    # Display the content
+    return content
 
 def generate_assignment(paragraph,url,headers,prompt):
     # Step 1: send the conversation and available functions to the model
@@ -486,7 +485,7 @@ Please ensure the questions and options are closely related to the content of th
 with(tab1):
 	# Upload image
 	uploaded_image = st.file_uploader("Upload an image...", type=["png", "jpg", "jpeg"])
-	uploaded_pdf = st.file_uploader("Upload an pdf...", type=["pdf"])
+	uploaded_pdf = st.file_uploader("Upload a PDF file", type="pdf")
 	final_data=[]
 	#option = st.selectbox(
     	#'Choose Number of Questions:',
