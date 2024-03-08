@@ -570,7 +570,7 @@ with(tab1):
 	lesson_name  = st.selectbox(
 	   			"Select lesson",
 		("1", "2","3","4","5","6","7","8","9","10"),key="lesson_name")
-	paragraph = st.text_area("Enter a paragraph:",text, height=200)
+	#paragraph = st.text_area("Enter a paragraph:",text, height=200)
 	
 	if uploaded_image is not None:
 	    # Display the uploaded image
