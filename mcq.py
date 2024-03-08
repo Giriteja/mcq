@@ -343,7 +343,7 @@ def extract_text(image):
 
 def run_conversation(paragraph):
     # Step 1: send the conversation and available functions to the model
-    messages = [{"role": "system", "content": """Given the following paragraph, generate as many multiple-choice questions as possible and  align with specific cognitive levels according to Bloom's Taxonomy. For each question, use the associated verbs as a guide to ensure the questions match the intended complexity and cognitive process.For each question classify it as Easy,Medium or Hard.
+    messages = [{"role": "system", "content": """Generate multiple-choice questions (MCQs) on the given paragraph. Provide questions at different cognitive levels according to Bloom's Taxonomy. Include a variety of question types and encourage creativity in the question generation process. You may use the following example questions as a guide.For each question classify it as Easy,Medium or Hard.
     
 1. Remember (recall facts and basic concepts): Use verbs like "list," "define," "name." 
    - Example Question: "[Question based on 'remember' level]" 
@@ -410,7 +410,7 @@ def run_conversation(paragraph):
 
 
    
-Please ensure the questions and options are closely related to the content of the provided text and reflect the cognitive level specified for every question.Generate as many questions as possible from the given content."""},{"role": "user", "content": paragraph}]
+Ensure the questions and options are closely related to the content of the provided text and reflect the cognitive level specified for every question. Generate as many questions as possible from the given content, incorporating diverse question types and encouraging creativity in the process."""},{"role": "user", "content": paragraph}]
     tools = [
         {
             "type": "function",
