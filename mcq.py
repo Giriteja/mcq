@@ -343,7 +343,7 @@ def extract_text(image):
 
 def run_conversation(paragraph):
     # Step 1: send the conversation and available functions to the model
-    messages = [{"role": "system", "content": """Given the following paragraph, generate atleast 30 multiple-choice questions that align with specific cognitive levels according to Bloom's Taxonomy. For each question, use the associated verbs as a guide to ensure the questions match the intended complexity and cognitive process.For each question classify it as Easy,Medium or Hard.
+    messages = [{"role": "system", "content": """Given the following paragraph, generate as many multiple-choice questions as possible and  align with specific cognitive levels according to Bloom's Taxonomy. For each question, use the associated verbs as a guide to ensure the questions match the intended complexity and cognitive process.For each question classify it as Easy,Medium or Hard.
     
 1. Remember (recall facts and basic concepts): Use verbs like "list," "define," "name." 
    - Example Question: "[Question based on 'remember' level]" 
@@ -408,70 +408,9 @@ def run_conversation(paragraph):
 6. Create (produce new or original work): Use verbs like "design," "assemble," "construct."
    - Example Question: "[Question based on 'create' level]"
 
-7. Remember (recall facts and basic concepts): Use verbs like "list," "define," "name." 
-   - Example Question: "[Question based on 'remember' level]" 
-     a) Option A
-     b) Option B
-     c) Option C 
-     d) Option D
 
-     Answer: C
-     
-     Level:Easy
-
-8. Understand (explain ideas or concepts): Use verbs like "summarize," "describe," "interpret."
-   - Example Question: "[Question based on 'understand' level]" 
-     a) Option A
-     b) Option B
-     c) Option C
-     d) Option D
-
-     
-     Answer: A
-     
-     Difficulty Level:Easy
-
-
-9. Apply (use information in new situations): Use verbs like "use," "solve," "demonstrate."
-   - Example Question: "[Question based on 'apply' level]" 
-     a) Option A
-     b) Option B
-     c) Option C 
-     d) Option D
-
-     Answer: D
-     
-     Difficulty Level:Medium
-
-
-10. Analyze (draw connections among ideas): Use verbs like "classify," "compare," "contrast."
-   - Example Question: "[Question based on 'analyze' level]"
-     a) Option A
-     b) Option B
-     c) Option C
-     d) Option D
-
-     Answer: B
-     
-    Difficulty  Level:Hard
-
-
-11. Evaluate (justify a stand or decision): Use verbs like "judge," "evaluate," "critique."
-   - Example Question: "[Question based on 'evaluate' level]"
-     a) Option A
-     b) Option B
-     c) Option C
-     d) Option D
-
-
-     Answer: E
-     
-    Difficulty Level:Medium
-
-12. Create (produce new or original work): Use verbs like "design," "assemble," "construct."
-   - Example Question: "[Question based on 'create' level]"
    
-Please ensure the questions and options are closely related to the content of the provided text and reflect the cognitive level specified for every question.Generate atleast 20 questions from the given content."""},{"role": "user", "content": paragraph}]
+Please ensure the questions and options are closely related to the content of the provided text and reflect the cognitive level specified for every question.Generate as many questions as possible from the given content."""},{"role": "user", "content": paragraph}]
     tools = [
         {
             "type": "function",
