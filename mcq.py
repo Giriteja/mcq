@@ -619,7 +619,7 @@ with(tab1):
 			st.write("Please enter a paragraph to generate questions.")
 			
 		  
-	if uploaded_image and uploaded_pdf is None:         
+	if !(uploaded_image and uploaded_pdf):         
 		paragraph = st.text_area("Enter a paragraph:", height=200)
 		#prompt = st.text_area("Enter the prompt:", height=200)
 		
