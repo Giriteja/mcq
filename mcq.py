@@ -65,7 +65,44 @@ def generate_assignment(paragraph,url,headers,prompt):
     
 Please ensure the questions and options are closely related to the content of the provided text and reflect the cognitive level specified for every question.For short questions, focus on concise inquiries that can be answered in a sentence or two. These questions should aim to test the reader's understanding of key concepts and facts related to the topic.
 
-For long questions, delve deeper into the topic and pose more complex inquiries that may require extended explanations or analysis. These questions should encourage critical thinking and provide opportunities for in-depth exploration of the subject matter."""},{"role": "user", "content": paragraph}]
+For long questions, delve deeper into the topic and pose more complex inquiries that may require extended explanations or analysis. These questions should encourage critical thinking and provide opportunities for in-depth exploration of the subject matter.
+
+Here are examples of short and long questions, along with their answers:
+
+Short Questions:
+
+Question: What is the basic unit of life?
+
+Answer: The cell.
+Question: What is photosynthesis?
+
+Answer: Photosynthesis is the process by which green plants and some other organisms use sunlight to synthesize foods with the help of chlorophyll.
+Question: Define mitosis.
+
+Answer: Mitosis is a type of cell division that results in two daughter cells each having the same number and kind of chromosomes as the parent nucleus.
+Question: What is DNA?
+
+Answer: DNA (deoxyribonucleic acid) is a molecule that carries the genetic instructions used in the growth, development, functioning, and reproduction of all known living organisms.
+Question: Explain the function of the respiratory system.
+
+Answer: The respiratory system is responsible for the exchange of gases (oxygen and carbon dioxide) between the body and the environment. It involves breathing, gas exchange in the lungs, and the transport of gases via the bloodstream.
+Long Questions:
+
+Question: Describe the process of protein synthesis.
+
+Answer: Protein synthesis is the process by which cells generate new proteins. It involves two main stages: transcription and translation. During transcription, the DNA sequence of a gene is copied into messenger RNA (mRNA). Then, during translation, the mRNA sequence is decoded to assemble a corresponding amino acid sequence to form a protein.
+Question: Discuss the structure and function of the human heart.
+
+Answer: The human heart is a muscular organ that pumps blood throughout the body via the circulatory system. It consists of four chambers: two atria and two ventricles. The right side of the heart receives deoxygenated blood from the body and pumps it to the lungs for oxygenation, while the left side receives oxygenated blood from the lungs and pumps it to the rest of the body.
+Question: Explain the process of meiosis and its significance.
+
+Answer: Meiosis is a type of cell division that produces gametes (sperm and egg cells) with half the number of chromosomes as the parent cell. It involves two rounds of division (meiosis I and meiosis II) and results in four haploid daughter cells. Meiosis is significant because it generates genetic diversity through the shuffling and recombination of genetic material, which is essential for sexual reproduction and evolutionary adaptation.
+Question: Discuss the role of enzymes in biological reactions.
+
+Answer: Enzymes are biological catalysts that speed up chemical reactions in living organisms without being consumed in the process. They lower the activation energy required for reactions to occur, thereby increasing the rate of reaction. Enzymes are specific to particular substrates and often undergo conformational changes to facilitate substrate binding and catalysis.
+Question: Explain the process of photosynthesis in detail.
+
+Answer: Photosynthesis is a complex biochemical process by which green plants, algae, and some bacteria convert light energy, carbon dioxide, and water into glucose and oxygen. It occurs in chloroplasts and involves two main stages: the light-dependent reactions and the Calvin cycle. During the light-dependent reactions, light energy is used to split water molecules, producing oxygen and ATP. The Calvin cycle then uses ATP and NADPH generated in the light-dependent reactions to fix carbon dioxide and synthesize glucose."""},{"role": "user", "content": paragraph}]
     tools = [
 	{
             "type": "function",
