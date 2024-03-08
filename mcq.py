@@ -49,13 +49,15 @@ def save_json_to_text(json_data, filename):
         f.write(json.dumps(json_data, indent=4))
 
 def extract_data(file):
-    pdf_reader = PyPDF2.PdfReader(file)
-    # Extract the content
-    content = ""
-    for page in range(pdf_reader.getNumPages()):
-        content += pdf_reader.getPage(page).extractText()
-    # Display the content
-    return content
+	pdf_reader = PyPDF2.PdfReader(file)
+	# Extract the content
+	text = ""
+	num_pages = len(reader.pages)
+	for page_num in range(num_pages):
+            page = reader.pages[page_num]
+            text += page.extract_text()
+    	# Display the content
+    	return text
 
 def generate_assignment(paragraph,url,headers,prompt):
     # Step 1: send the conversation and available functions to the model
