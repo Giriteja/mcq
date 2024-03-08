@@ -112,7 +112,7 @@ Please ensure the questions and options are closely related to the content of th
 	    
     ]
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo-0125",
+        model="gpt-4-1106-preview",
         messages=messages,
         tools=tools,
         tool_choice="auto",  # auto is default, but we'll be explicit
@@ -245,7 +245,7 @@ def get_geval_score(
         summary=summary,
     )
     response = client.chat.completions.create(
-        model="gpt-4",
+        model="gpt-4-1106-preview",
         messages=[{"role": "user", "content": prompt}],
         temperature=0,
         max_tokens=5,
@@ -287,7 +287,7 @@ Ensure the lesson plan is structured, engaging, and suitable for high school stu
     ]
 
     chatgpt_payload = {
-        "model": "gpt-3.5-turbo-16k",
+        "model": "gpt-4-1106-preview",
         "messages": messages,
         "temperature": 1.3,
         "max_tokens": 10000,
