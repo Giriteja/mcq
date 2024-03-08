@@ -248,7 +248,6 @@ def get_geval_score(
         model="gpt-4-1106-preview",
         messages=[{"role": "user", "content": prompt}],
         temperature=0,
-        max_tokens=5,
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0,
@@ -290,7 +289,6 @@ Ensure the lesson plan is structured, engaging, and suitable for high school stu
         "model": "gpt-4-1106-preview",
         "messages": messages,
         "temperature": 1.3,
-        "max_tokens": 10000,
         "top_p": 1,
         "stop": ["###"]
     }
@@ -316,7 +314,6 @@ def generate_summary(paragraph,url,headers,prompt):
         "model": "gpt-3.5-turbo-16k",
         "messages": messages,
         "temperature": 1.3,
-        "max_tokens": 10000,
         "top_p": 1,
         "stop": ["###"]
     }
