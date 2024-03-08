@@ -660,19 +660,6 @@ with(tab1):
 		pdf_file_path = uploaded_pdf  # Replace "example.pdf" with the path to your PDF file
 		extracted_text = extract_data(pdf_file_path)
 		paragraph = st.text_area("Enter a paragraph:",extracted_text, height=200)
-		syllabus  = st.selectbox(
-	   			"Select Subject",
-		("CBSE", "SSC"),key="syllabus12")
-		class_name = st.selectbox(
-	   			"Select class",
-		("10", "9","8","7","6"),key="classpdf")
-		subject_name  = st.selectbox(
-	   			"Select Subject",
-		("Physics", "Social","Biology","Chemistry"),key="subjectpdf")
-		lesson_name  = st.selectbox(
-	   			"Select lesson",
-		("1", "2","3","4","5","6","7","8","9","10"),key="lesson_namepdf")
-		#prompt = st.text_area("Enter the prompt:", height=200)
 		
 		
 		if st.button("Generate MCQs via text",key="123"):
