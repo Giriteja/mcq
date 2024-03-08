@@ -245,7 +245,7 @@ def get_geval_score(
         summary=summary,
     )
     response = client.chat.completions.create(
-        model="gpt-4-1106-preview",
+        model="gpt-3.5-turbo-1106",
         messages=[{"role": "user", "content": prompt}],
         temperature=0,
         top_p=1,
@@ -311,7 +311,7 @@ def generate_summary(paragraph,url,headers,prompt):
     ]
 
     chatgpt_payload = {
-        "model": "gpt-3.5-turbo-16k",
+        "model": "gpt-3.5-turbo-1106",
         "messages": messages,
         "temperature": 1.3,
         "top_p": 1,
