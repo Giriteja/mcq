@@ -4,3 +4,4 @@ Pillow==9.4.0
 pytesseract
 opencv-python-headless
 pandas
+PyPDF2
