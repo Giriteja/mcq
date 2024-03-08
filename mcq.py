@@ -458,7 +458,7 @@ Ensure the questions and options are closely related to the content of the provi
         }
     ]
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo-0125",
+        model="gpt-4",
         messages=messages,
         tools=tools,
         tool_choice="auto",  # auto is default, but we'll be explicit
