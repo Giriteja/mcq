@@ -540,7 +540,7 @@ with(tab1):
 			st.write("Please enter a paragraph to generate questions.")
 			
 		  
-	if uploaded_image is None:         
+	if uploaded_image and uploaded_pdf is None:         
 		paragraph = st.text_area("Enter a paragraph:", height=200)
 		syllabus  = st.selectbox(
 	   			"Select Subject",
@@ -608,7 +608,7 @@ with(tab1):
 		#prompt = st.text_area("Enter the prompt:", height=200)
 		
 		
-		if st.button("Generate MCQs via text"):
+		if st.button("Generate MCQs via text",key="123"):
 			if paragraph:
 				mcqs = run_conversation(paragraph)
 				mcq_json=json.loads(mcqs)
