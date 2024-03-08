@@ -595,7 +595,7 @@ with(tab1):
 		paragraph = st.text_area("Enter a paragraph:",extracted_text, height=200)
 		syllabus  = st.selectbox(
 	   			"Select Subject",
-		("CBSE", "SSC"),key="syllabus")
+		("CBSE", "SSC"),key="syllabus12")
 		class_name = st.selectbox(
 	   			"Select class",
 		("10", "9","8","7","6"),key="class")
