@@ -5,3 +5,4 @@ pytesseract
 opencv-python-headless
 pandas
 pdfplumber
+PyPDF2
