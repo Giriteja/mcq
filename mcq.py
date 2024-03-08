@@ -49,7 +49,7 @@ def save_json_to_text(json_data, filename):
         f.write(json.dumps(json_data, indent=4))
 
 def extract_data(file):
-	pdf_reader = PyPDF2.PdfReader(file)
+	reader = PyPDF2.PdfReader(file)
 	# Extract the content
 	text = ""
 	num_pages = len(reader.pages)
