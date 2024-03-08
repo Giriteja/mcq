@@ -598,13 +598,13 @@ with(tab1):
 		("CBSE", "SSC"),key="syllabus12")
 		class_name = st.selectbox(
 	   			"Select class",
-		("10", "9","8","7","6"),key="class")
+		("10", "9","8","7","6"),key="classpdf")
 		subject_name  = st.selectbox(
 	   			"Select Subject",
-		("Physics", "Social","Biology","Chemistry"),key="subject")
+		("Physics", "Social","Biology","Chemistry"),key="subjectpdf")
 		lesson_name  = st.selectbox(
 	   			"Select lesson",
-		("1", "2","3","4","5","6","7","8","9","10"),key="lesson_name")
+		("1", "2","3","4","5","6","7","8","9","10"),key="lesson_namepdf")
 		#prompt = st.text_area("Enter the prompt:", height=200)
 		
 		
