@@ -12,6 +12,9 @@ import cv2
 import numpy as np
 import pandas as pd
 import uuid
+import PyPDF2
+
+
 client = OpenAI(
   api_key=os.getenv("openaikey"),  # this is also the default, it can be omitted
 )
@@ -43,6 +46,16 @@ def generate_long_short_questions(questions,topic):
 def save_json_to_text(json_data, filename):
     with open(filename, 'w') as f:
         f.write(json.dumps(json_data, indent=4))
+
+def extract_text_from_pdf(pdf_file_path):
+    text = ""
+    with open(pdf_file_path, 'rb') as file:
+        reader = PyPDF2.PdfReader(file)
+        num_pages = len(reader.pages)
+        for page_num in range(num_pages):
+            page = reader.pages[page_num]
+            text += page.extract_text()
+    return text
 
 def generate_assignment(paragraph,url,headers,prompt):
     # Step 1: send the conversation and available functions to the model
@@ -472,6 +485,7 @@ Please ensure the questions and options are closely related to the content of th
 with(tab1):
 	# Upload image
 	uploaded_image = st.file_uploader("Upload an image...", type=["png", "jpg", "jpeg"])
+	uploaded_pdf = st.file_uploader("Upload an pdf...", type=["pdf"])
 	final_data=[]
 	#option = st.selectbox(
     	#'Choose Number of Questions:',
@@ -526,6 +540,57 @@ with(tab1):
 		  
 	if uploaded_image is None:         
 		paragraph = st.text_area("Enter a paragraph:", height=200)
+		syllabus  = st.selectbox(
+	   			"Select Subject",
+		("CBSE", "SSC"),key="syllabus")
+		class_name = st.selectbox(
+	   			"Select class",
+		("10", "9","8","7","6"),key="class")
+		subject_name  = st.selectbox(
+	   			"Select Subject",
+		("Physics", "Social","Biology","Chemistry"),key="subject")
+		lesson_name  = st.selectbox(
+	   			"Select lesson",
+		("1", "2","3","4","5","6","7","8","9","10"),key="lesson_name")
+		#prompt = st.text_area("Enter the prompt:", height=200)
+		
+		
+		if st.button("Generate MCQs via text"):
+			if paragraph:
+				mcqs = run_conversation(paragraph)
+				mcq_json=json.loads(mcqs)
+				for j in mcq_json['questions']:
+					json_struct={}
+					json_struct['class']=class_name
+					json_struct['subject']=subject_name
+					json_struct['lesson']=lesson_name
+					json_struct['question']=j['question']
+					json_struct['options']=j['options']
+					json_struct['answer']=j['answer']
+					json_struct['level']=j['question_level']
+					json_struct['question_type']=j['question_type']
+					json_struct['type']='multi-choice'
+					json_struct['lesson']=lesson_name
+					json_struct['syllabus']=syllabus
+					#st.write(json_struct)
+					final_data.append(json_struct)
+				save_json_to_text(final_data, 'output.txt')
+				download_button_id = str(uuid.uuid4())
+				# Provide a download link for the text file
+				st.download_button(
+				        label="Download Text File",
+				        data=open('output.txt', 'rb').read(),
+				        file_name='output.txt',
+				        mime='text/plain',
+					key=download_button_id
+				)
+			else:
+				st.write("Please enter a paragraph to generate questions.")
+
+	if uploaded_pdf is not None:         
+		pdf_file_path = "CHAP 1.pmd - jesc101-min.pdf"  # Replace "example.pdf" with the path to your PDF file
+		extracted_text = extract_text_from_pdf(pdf_file_path)
+		paragraph = st.text_area("Enter a paragraph:",extracted_text, height=200)
 		syllabus  = st.selectbox(
 	   			"Select Subject",
 		("CBSE", "SSC"),key="syllabus")
