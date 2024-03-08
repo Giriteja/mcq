@@ -12,7 +12,6 @@ import cv2
 import numpy as np
 import pandas as pd
 import uuid
-import PyPDF2
 import pdfplumber
 
 client = OpenAI(
