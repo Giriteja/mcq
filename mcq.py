@@ -47,15 +47,17 @@ def save_json_to_text(json_data, filename):
     with open(filename, 'w') as f:
         f.write(json.dumps(json_data, indent=4))
 
-def extract_text_from_pdf(pdf_file_path):
-    text = ""
-    with open(pdf_file_path, 'rb') as file:
-        reader = PyPDF2.PdfReader(file)
-        num_pages = len(reader.pages)
-        for page_num in range(num_pages):
-            page = reader.pages[page_num]
-            text += page.extract_text()
-    return text
+def extract_data(file):
+    all_text = ''
+    with pdfplumber.open(file) as pdf:
+            # page = pdf.pages[0] - comment out or remove line
+            # text = page.extract_text() - comment out or remove line
+            for pdf_page in pdf.pages:
+               single_page_text = pdf_page.extract_text()
+               print( single_page_text )
+               # separate each page's text with newline
+               all_text = all_text + '\n' + single_page_text
+            return all_text
 
 def generate_assignment(paragraph,url,headers,prompt):
     # Step 1: send the conversation and available functions to the model
@@ -589,7 +591,7 @@ with(tab1):
 
 	if uploaded_pdf is not None:         
 		pdf_file_path = uploaded_pdf  # Replace "example.pdf" with the path to your PDF file
-		extracted_text = extract_text_from_pdf(pdf_file_path)
+		extracted_text = extract_data(pdf_file_path)
 		paragraph = st.text_area("Enter a paragraph:",extracted_text, height=200)
 		syllabus  = st.selectbox(
 	   			"Select Subject",
