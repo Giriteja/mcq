@@ -296,7 +296,8 @@ Chapter Name:"Nutrition",
 Subtopic Name:"Malnutrition -disease",
 question_type:"long",
 Marks:"8 marks"}
-{Question:"The energy currency of the cells is?A)GTP B) ADP C) ATP D)GDP",
+{Question:"The energy currency of the cells is?",
+options:[A)GTP B) ADP C) ATP D)GDP]
 Chapter Name:"Respiration",
 Subtopic Name:"Cellular respiration",
 question_type:"mcq",
