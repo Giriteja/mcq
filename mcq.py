@@ -281,10 +281,22 @@ O Waste land cultivation
 10.7.1 Conservation groups
 
 Provide the output in following json format:
-{Question:"Write the functions of xylem and phloem?"
-Chapter Name:"Transportation "
-Subtopic Name:"Trasnportation in plants"
-Marks:"2 marks"}
+questions=[{Question:"Write the functions of xylem and phloem?",
+Chapter Name:"Transportation ",
+Subtopic Name:"Trasnportation in plants",
+question_type:"short",
+Marks:"2 marks"},
+{Question:"Write the differences between mitosis and meiosis ?",
+Chapter Name:"Reproduction ",
+Subtopic Name:"Cell division - Cell cycle",
+question_type:"long",
+Marks:"4 marks"},
+{Question:"What is Malnutrition ? Explain few nutritional deficiency diseases ?",
+Chapter Name:"Nutrition",
+Subtopic Name:"Malnutrition -disease",
+question_type:"verylong",
+Marks:"8 marks"}
+]
 
 """},{"role": "user", "content": questions}]
 
