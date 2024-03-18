@@ -62,9 +62,9 @@ def extract_data(file):
     	# Display the content
 	return text
 
-def topic_segregation(paragraph,url,headers,prompt):
+def topic_segregation(questions,url,headers,prompt):
     # Step 1: send the conversation and available functions to the model
-    messages = [{"role": "system", "content": """Given the following paragraph map each question to the relevant chapter and sub-topic from the provided syllabus as below :
+    messages = [{"role": "system", "content": """Given the following questions map each question to the relevant chapter and sub-topic from the provided syllabus as below :
     
 BIOLOGY - SYLLABUS
 10th CLASS
@@ -277,7 +277,7 @@ O Waste land cultivation
 10.6 Fossil fuels
 10.6.1 Minerals
 10.7Conservation, Redue, Reuse, Recycle, Recover
-10.7.1 Conservation groups"""},{"role": "user", "content": paragraph}]
+10.7.1 Conservation groups"""},{"role": "user", "content": questions}]
     tools = [
 	{
             "type": "function",
