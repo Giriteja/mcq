@@ -277,7 +277,15 @@ O Waste land cultivation
 10.6 Fossil fuels
 10.6.1 Minerals
 10.7Conservation, Redue, Reuse, Recycle, Recover
-10.7.1 Conservation groups"""},{"role": "user", "content": questions}]
+10.7.1 Conservation groups
+
+Provide the output in following json format:
+{Question:"Write the functions of xylem and phloem?"
+Chapter Name:"Transportation "
+Subtopic Name:"Trasnportation in plants"
+Marks:"2 marks"}
+
+"""},{"role": "user", "content": questions}]
 
     chatgpt_payload = {
         "model": "gpt-3.5-turbo-1106",
