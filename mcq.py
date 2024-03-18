@@ -64,6 +64,7 @@ def extract_data(file):
 
 def topic_segregation(questions,url,headers,prompt):
     # Step 1: send the conversation and available functions to the model
+
     messages = [{"role": "system", "content": """Please format the provided set of questions and assign each question to the relevant chapter and subtopic from the given syllabus :
     
 BIOLOGY - SYLLABUS
@@ -288,6 +289,7 @@ Marks:"2 marks"}
 """},{"role": "user", "content": questions}]
 
     chatgpt_payload = {
+	"response_format": {"type": "json_object"},
         "model": "gpt-3.5-turbo-1106",
         "messages": messages,
         "temperature": 1.3,
