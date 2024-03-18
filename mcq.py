@@ -1035,7 +1035,7 @@ with(tab4):
 
 with(tab5):
 	
-	prev_questions = st.text_area("Enter the topic for Assignment:", height=200)
+	prev_questions = st.text_area("Enter the topic for Assignment:", height=200,key="prev")
 	json_struct={}
 	final_data=[]
 	if st.button("Generate topic questions"):
