@@ -1039,7 +1039,7 @@ with(tab5):
 	json_struct={}
 	final_data=[]
 	if st.button("Generate topic questions"):
-		if topic_assign:
+		if prev_questions:
 			lp = topic_segregation(topic_assign,chatgpt_url,chatgpt_headers,prompt_topic_assign)
 			lp_json=json.loads(lp)
 			for j in lp_json['questions']:
