@@ -281,6 +281,7 @@ O Waste land cultivation
 10.7.1 Conservation groups
 
 Provide the output in following json format:
+
 questions=[{Question:"Write the functions of xylem and phloem?",
 Chapter Name:"Transportation ",
 Subtopic Name:"Trasnportation in plants",
@@ -302,6 +303,8 @@ Chapter Name:"Respiration",
 Subtopic Name:"Cellular respiration",
 question_type:"mcq",
 Marks:"8 marks"}
+
+While giving Marks and question type consider the section in which that question was mentioned and assign.Marks should be given based on following values[2,4,8,1].
 ]
 
 """},{"role": "user", "content": questions}]
