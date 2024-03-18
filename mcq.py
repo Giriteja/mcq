@@ -992,8 +992,8 @@ with(tab5):
 	if st.button("Generate topic questions"):
 		if prev_questions:
 			lp = topic_segregation(prev_questions,chatgpt_url,chatgpt_headers,prompt_topic_assign)
-			lp_json=json.loads(lp)
-			st.write(lp_json)
+			#lp_json=json.loads(lp)
+			st.write(lp)
 			
 		else:
 			st.write("Please enter the text to generate Summary.")
