@@ -284,17 +284,17 @@ Provide the output in following json format:
 questions=[{Question:"Write the functions of xylem and phloem?",
 Chapter Name:"Transportation ",
 Subtopic Name:"Trasnportation in plants",
-question_type:"short",
+question_type:"very short",
 Marks:"2 marks"},
 {Question:"Write the differences between mitosis and meiosis ?",
 Chapter Name:"Reproduction ",
 Subtopic Name:"Cell division - Cell cycle",
-question_type:"long",
+question_type:"short",
 Marks:"4 marks"},
 {Question:"What is Malnutrition ? Explain few nutritional deficiency diseases ?",
 Chapter Name:"Nutrition",
 Subtopic Name:"Malnutrition -disease",
-question_type:"verylong",
+question_type:"long",
 Marks:"8 marks"}
 ]
 
