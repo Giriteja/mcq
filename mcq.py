@@ -316,7 +316,6 @@ While giving Marks and question type consider the section in which that question
         "temperature": 1.3,
         "top_p": 1,
 	"max_tokens":4000,
-        "stop": ["###"]
     }
 
     # Make the request to OpenAI's API
