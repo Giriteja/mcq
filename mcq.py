@@ -329,7 +329,7 @@ O Waste land cultivation
         # Step 3: call the function
         # Note: the JSON response may not always be valid; be sure to handle errors
         available_functions = {
-	    "generate_long_short_questions":generate_long_short_questions
+	    "chapter_topic_identification":chapter_topic_identification
         }  # only one function in this example, but you can have multiple
         messages.append(response_message)  # extend conversation with assistant's reply
         # Step 4: send the info for each function call and function response to the model
