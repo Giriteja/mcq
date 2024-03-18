@@ -278,71 +278,23 @@ O Waste land cultivation
 10.6.1 Minerals
 10.7Conservation, Redue, Reuse, Recycle, Recover
 10.7.1 Conservation groups"""},{"role": "user", "content": questions}]
-    tools = [
-	{
-            "type": "function",
-            "function": {
-            "name": "chapter_topic_identification",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "topic": {
-                        "type": "string"
-                    },
-                    "questions": {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "question": {
-                                    "type": "string"
-                                },
-                                "chapter": {
-                                    "type": "string"
-                                },
-                                "sub_topic": {
-                                    "type": "string",
-                                },
-				    
-                            },
-                            "required": ["question","chapter","sub_topic"]
-                        }
-                    }
-                },
-            }
-        }
-        }
-	    
-	    
-    ]
-    response = client.chat.completions.create(
-        model="gpt-3.5-turbo-1106",
-        messages=messages,
-        tools=tools,
-        tool_choice="auto",  # auto is default, but we'll be explicit
-    )
-    #print("response------------",response)
-    response_message = response.choices[0].message
-    tool_calls = response_message.tool_calls
-    # Step 2: check if the model wanted to call a function
-    if tool_calls:
-        # Step 3: call the function
-        # Note: the JSON response may not always be valid; be sure to handle errors
-        available_functions = {
-	    "chapter_topic_identification":chapter_topic_identification
-        }  # only one function in this example, but you can have multiple
-        messages.append(response_message)  # extend conversation with assistant's reply
-        # Step 4: send the info for each function call and function response to the model
-        #print("tool_calls-----------------",tool_calls)
-        for tool_call in tool_calls:
-            function_name = tool_call.function.name
-            function_to_call = available_functions[function_name]
-            function_args = json.loads(tool_call.function.arguments)
-            function_response = function_to_call(
-                questions=function_args.get("questions"),
-                topic=function_args.get("topic"),
-            )
-            return function_response
+
+    chatgpt_payload = {
+        "model": "gpt-3.5-turbo-1106",
+        "messages": messages,
+        "temperature": 1.3,
+        "top_p": 1,
+        "stop": ["###"]
+    }
+
+    # Make the request to OpenAI's API
+    response = requests.post(url, json=chatgpt_payload, headers=headers)
+    response_json = response.json()
+
+    # Extract data from the API's response
+    #st.write(response_json)
+    output = response_json['choices'][0]['message']['content']
+    return output
 
 def generate_assignment(paragraph,url,headers,prompt):
     # Step 1: send the conversation and available functions to the model
