@@ -64,7 +64,7 @@ def extract_data(file):
 
 def topic_segregation(questions,url,headers,prompt):
     # Step 1: send the conversation and available functions to the model
-    messages = [{"role": "system", "content": """Please format the provided set of questions and assign each question to the relevant chapter and subtopic from the syllabus. The questions are to be organized into sections as per the examination structure. Each question should be categorized based on the chapter and subtopic it aligns with from the given syllabus. Additionally, ensure that the questions are properly numbered and formatted according to the examination guidelines. :
+    messages = [{"role": "system", "content": """Please format the provided set of questions and assign each question to the relevant chapter and subtopic from the given syllabus :
     
 BIOLOGY - SYLLABUS
 10th CLASS
@@ -292,7 +292,7 @@ O Waste land cultivation
     response_json = response.json()
 
     # Extract data from the API's response
-    #st.write(response_json)
+    st.write(response_json)
     output = response_json['choices'][0]['message']['content']
     return output
 
