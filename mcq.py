@@ -26,7 +26,7 @@ chatgpt_headers = {
     "content-type": "application/json",
     "Authorization":"Bearer {}".format(os.getenv("openaikey"))}
 
-tab1, tab2, tab3,tab4 = st.tabs(["MCQ", "Summary", "Lesson Plan","Assignments"])
+tab1, tab2, tab3,tab4,tab5 = st.tabs(["MCQ", "Summary", "Lesson Plan","Assignments","Topic Segregation"])
 
 paragraph="""Food in the form of a soft slimy substance where some
 proteins and carbohydrates have already been broken down
@@ -44,6 +44,9 @@ def generateMCQs(questions,topic):
 def generate_long_short_questions(questions,topic):
         return json.dumps({"questions": questions, "topic":topic})
 
+def chapter_topic_identification(questions,topic):
+        return json.dumps({"questions": questions, "topic":topic})
+
 def save_json_to_text(json_data, filename):
     with open(filename, 'w') as f:
         f.write(json.dumps(json_data, indent=4))
@@ -58,6 +61,288 @@ def extract_data(file):
             text += page.extract_text()
     	# Display the content
 	return text
+
+def topic_segregation(paragraph,url,headers,prompt):
+    # Step 1: send the conversation and available functions to the model
+    messages = [{"role": "system", "content": """Given the following paragraph map each question to the relevant chapter and sub-topic from the provided syllabus as below :
+    
+BIOLOGY - SYLLABUS
+10th CLASS
+1. Nutrition
+1.1 Life process- Introduction
+1.1.1 Autotrophic and heterotrophic nutrition
+1.2 Photosynthesis
+1.2.1 Understand the concept of photosynthesis
+1.2.2 Raw materials required for photosynthesis - H2O, CO2
+sunlight
+1.2.3 Process of releasing oxygen in photosynthesis
+1.2.4 Necessity of light for formation of carbohydrate
+1.2.5 Chlorophyll - Photosynthesis
+1.2.6 Where does photosynthesis takes place
+1.2.7 Mechanism of photosynthesis :
+(i) Light reaction, (ii) Dark reaction
+1.3 Nutrition in organisms
+1.3.1 How do the organisms obtain the food?
+1.3.2 Cuctuta - Parasitic nutrition
+1.4 Digestion in human beings
+O Process of movement of food through alimentary canal
+O Litmus paper test OEnzyme OFlow chart of Human
+ digestive system
+1.5 Healthy points about oesophagus
+1.6 Malnutrition -disease OKwashiorkore OMarasmus OObesity
+1.6.1 Diseases due to vitamin deficiency
+2. Respiration
+2.1 Respiration - discovery of gases involved in respiration
+2.1.1 Different stages of respiration
+2.1.2 Expiration, inspiration
+2.1.3 Pathway of air
+2.1.4 Epiglottis - Pathway of air.
+2.2 Respirating system in human being
+2.2.1 Exchange of gases (alveolies to Blood capillaries)
+2.2.2 Mechanism of transport of gases
+2.2.3 Transport of gases (Capillaries to cells, cells to back)
+2.3 Cellular respiration
+2.3.1 Anaerobic respiration
+2.3.2 Aerobic respiration
+2.3.3 Fermentation
+2.4 Respiration - Combustion
+O Liberating heat during respiration
+2.5 Evolution of gaseous exchange
+2.6 Plant respiration
+2.6.1 Transportation of gases in plants
+2.6.2 Respiration through roots
+2.6.3 Photosynthesis - respiration
+3. Transportation
+3.1 Internal structure of Heart
+3.1.1 Blood vessels and blood transport
+OBlood capillaries OArteries veins
+3.2 Cardiac cycle
+3.2.1 Single circulation, double circulation
+3.3 Lymphatic system
+3.4 Evolution of transport system
+3.5 Blood pressure
+3.6 Blood clotting
+3.7 Trasnportation in plants
+3.7.1 How water is absorbed
+3.7.2 Root hair absorbtion
+3.7.3 What is root pressure?
+3.7.4 Mechanism of transportation of water in plants -
+Transportation, Root pressure, ascent of sap. Cohesive
+adhesive pressure
+3.7.5 Transportation of Minerals
+3.7.6 Transportation of food material
+4. Excretion
+4.1 Excretion in Human beings
+4.2 Excretory system
+4.2.1 Kidney
+4.2.2 Kidney internal structure
+4.3 Structure of Nephron
+O Malphigion tubules ONephron
+4.4 Formation of urine
+• Glomerular filtration
+• Tubular reabsorption
+• Tubular secretion
+• Formation of hypertonic urine
+4.4.1 Ureter
+4.4.2 Urinary bladder
+4.4.3 Urethra
+4.4.4 Urine excretion
+4.4.5 Urine composition
+4.5 Dialysis - Artificial kidney
+4.5.1 Kidney transportation
+4.6 Accessory Excretery organs in human beeing (Lungs, skin,
+liver large intestine)
+4.7 Excretion in other organisms
+4.8 Excretion in plants
+4.8.1 Alkaloids
+4.8.2 Tannin
+4.8.3 Resin
+4.8.4 Gums
+4.8.5 Latex
+4.9 Excretion, Secretion
+5. Control & coordination
+5.1 Stimulus and response
+5.2 Integrated system - Nerves coordination
+5.3 Nerve cell structure
+5.4 Pathways from stimulus to response
+5.4.1 Afferent nerves
+5.4.2 Efferent nerves
+5.5 Reflex arc
+5.5.1 Reflex arc
+5.6 Central nervous system
+OBrain OSpinal nerves
+5.7 Peripherial nervous system
+5.8 Coordination without nerves
+5.8.1 Story of insulin
+5.8.2 Chemical coordination - endocrine glands
+5.8.3 Feedback mechanism
+5.9 Autonomous nervous system
+5.10 Coordination in plants - Phytohormones
+5.10.1 How plant shows responses to stimulus
+5.10.2 Tropic movements in plants
+6. Reproduction
+6.1 Growth of bacteria in milk.
+6.2 Asexual reproduction
+6.2.1 fission, budding, fragmentation, parthenocarpy,
+parthenogensis, regeneration
+6.2.2 Vegetative propagation
+ONatural vegetative propagation through roots, stem,
+ leaves
+OArtificial propagation - cuttings, layering and
+ grafting
+6.2.3 Formation of spores Sporophyll
+6.3 Sexual reproduction
+Reproduction in human beings
+6.3.1 Male reproductive system
+6.3.2 Female reproductive system
+6.3.3 Child birth
+6.4 Sexual reproduction in plants
+6.4.1 Flower - reproductive parts, unisexual, bisexual flowers,
+self and cross pollination.
+6.4.2 Pollen grain
+6.4.3 Structure of ovule, ovary; double fertilisation
+6.4.4 Germination of seeds
+6.5 Cell division - Cell cycle
+6.5.1 Cell division in humn beings
+6.5.2 Cell cycle - G1
+, S, G2 and M phases
+6.5.3 Mitosis
+6.5.4 Meiosis
+6.6 Reproductive health - HIV/ AIDS
+6.6.1 Birth control methods
+6.6.2 Fighting against social ills
+6.6.3 Teenage motherhood, stop female foeticide
+7. Coordination in Life Processes
+7.1 Hunger
+7.1.1 Effect of hunger stimulus
+7.2 Relation between taste and smell
+7.2.1 Relation between taste of tongue and palate
+7.3 Mouth - a mastication machine
+7.3.1 Action of Saliva on flour
+7.3.2 Observing the pH of mouth
+7.4 Passage of food through oesophagus
+7.4.1 Peristaltic movement in oespaphagus
+7.5 Stomach is mixer
+7.5.1 Movement of food from stomach to intestion.
+7.5.2 Excretion of waste material
+8. Heredity
+8.1 New Characters - variation
+8.2 Experiments conducted by Mendal (F1 generation, F2 generation), Mendel's Laws
+8.2.1 F1 generation self pollination
+8.2.2 Phenotype
+8.2.3 Genotype
+8.3 Parents to offsprings
+8.31 How the characters exhibit?
+8.3.2 Sex determination in human beings
+8.4 Evolution
+8.4.1 Genetic drift
+8.5 Theories of organic evolution
+8.5.1 Lamarckism
+8.5.2 Darwinism
+8.5.3 Darwin theory in a nut shell
+8.6 Origin of species
+8.6.1 How the new species orginates
+8.7 Evolution - Evidences
+8.7.1 Homologous organs - analogous organs
+8.7.2 Embrylogical Evidence
+8.7.3 Fossils Evidences
+8.8 Human Evolution
+8.8.1 Human Beings: Museum of vestigial organs
+9. Our Environment
+9.1 Ecosystem - Food chain
+9.1.1 Number Pyramid
+9.1.2 Biomass Pyramid
+9.1.3 Energy pyramid
+9.2 Human activities - Their effect on ecosystem
+9.2.1 Story of Kolleru lake
+9.2.2 Edulabad resorvoir - Effect of heavy metals
+9.2.3 Sparrow campaign
+9.3 Biological pest control measures
+O Crop rotation
+O Knowing the history of pests
+O Sterility
+O Gene mutation
+O Concern towards environment
+10. Natural resources
+10.1 Case study - Agricultural land (past and present)
+10.2 Case study - Water management
+O Community based particing
+O Farmer based intervention
+O Waste land cultivation
+10.3 Water resources in the Telugu States
+10.4 Natural resources around us
+10.5 Forest Renewable resources
+10.5.1 Soil
+10.5.2 Bio-diversity
+10.6 Fossil fuels
+10.6.1 Minerals
+10.7Conservation, Redue, Reuse, Recycle, Recover
+10.7.1 Conservation groups"""},{"role": "user", "content": paragraph}]
+    tools = [
+	{
+            "type": "function",
+            "function": {
+            "name": "chapter_topic_identification",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "topic": {
+                        "type": "string"
+                    },
+                    "questions": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "question": {
+                                    "type": "string"
+                                },
+                                "chapter": {
+                                    "type": "string"
+                                },
+                                "sub_topic": {
+                                    "type": "string",
+                                },
+				    
+                            },
+                            "required": ["question","chapter","sub_topic"]
+                        }
+                    }
+                },
+            }
+        }
+        }
+	    
+	    
+    ]
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo-1106",
+        messages=messages,
+        tools=tools,
+        tool_choice="auto",  # auto is default, but we'll be explicit
+    )
+    #print("response------------",response)
+    response_message = response.choices[0].message
+    tool_calls = response_message.tool_calls
+    # Step 2: check if the model wanted to call a function
+    if tool_calls:
+        # Step 3: call the function
+        # Note: the JSON response may not always be valid; be sure to handle errors
+        available_functions = {
+	    "generate_long_short_questions":generate_long_short_questions
+        }  # only one function in this example, but you can have multiple
+        messages.append(response_message)  # extend conversation with assistant's reply
+        # Step 4: send the info for each function call and function response to the model
+        #print("tool_calls-----------------",tool_calls)
+        for tool_call in tool_calls:
+            function_name = tool_call.function.name
+            function_to_call = available_functions[function_name]
+            function_args = json.loads(tool_call.function.arguments)
+            function_response = function_to_call(
+                questions=function_args.get("questions"),
+                topic=function_args.get("topic"),
+            )
+            return function_response
 
 def generate_assignment(paragraph,url,headers,prompt):
     # Step 1: send the conversation and available functions to the model
@@ -744,6 +1029,21 @@ with(tab4):
 				        mime='text/plain',
 					key=download_button_id
 			)
+			
+		else:
+			st.write("Please enter the text to generate Summary.")
+
+with(tab5):
+	
+	prev_questions = st.text_area("Enter the topic for Assignment:", height=200)
+	json_struct={}
+	final_data=[]
+	if st.button("Generate topic questions"):
+		if topic_assign:
+			lp = topic_segregation(topic_assign,chatgpt_url,chatgpt_headers,prompt_topic_assign)
+			lp_json=json.loads(lp)
+			for j in lp_json['questions']:
+					st.write(json_struct)
 			
 		else:
 			st.write("Please enter the text to generate Summary.")
