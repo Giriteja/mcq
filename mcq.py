@@ -1071,25 +1071,26 @@ with(tab4):
 		("LESSON1", "LESSON2","LESSON3","LESSON4","LESSON5","LESSON6","LESSON7","LESSON8","LESSON9","LESSON10","LESSON11","LESSON12","LESSON13"),key="lesson_name1")
 	#paragraph = st.text_area("Enter a paragraph:",text, height=200)
 
-	if syllabus == "CBSE":
-	    subject_collection = db.collection('cbse_subjects')
-	elif syllabus == "SSC":
-	    subject_collection = db.collection('ssc_subjects')
-	else:
-	    raise Exception("Wrong Syllabus")
-	 
-	subject_data = subject_collection.where("subject_name", "==", subject_name).limit(1).get()[0].to_dict()
-	subject_id = subject_data['subject_id']
-	 
-	lesson_collection = db.collection('lessons')
-	lesson_document = lesson_collection.where("lesson_name", "==", lesson_name).where("subject_id", "==", subject_id).where("class", "==", class_name).limit(1)
-	lesson_id = lesson_document.get()[0].id
+	
 	topic_assign = st.text_area("Enter the topic for Assignment:", height=200)
 	prompt_topic_assign = st.text_area("Enter the prompt:",key="topic_assign", height=200)
 	json_struct={}
 	
 	if st.button("Generate Assignment"):
 		if topic_assign:
+			if syllabus == "CBSE":
+			    subject_collection = db.collection('cbse_subjects')
+			elif syllabus == "SSC":
+			    subject_collection = db.collection('ssc_subjects')
+			else:
+			    raise Exception("Wrong Syllabus")
+			 
+			subject_data = subject_collection.where("subject_name", "==", subject_name).limit(1).get()[0].to_dict()
+			subject_id = subject_data['subject_id']
+			 
+			lesson_collection = db.collection('lessons')
+			lesson_document = lesson_collection.where("lesson_name", "==", lesson_name).where("subject_id", "==", subject_id).where("class", "==", class_name).limit(1)
+			lesson_id = lesson_document.get()[0].id
 			lp = generate_assignment(topic_assign,chatgpt_url,chatgpt_headers,prompt_topic_assign)
 			lp_json=json.loads(lp)
 			for j in lp_json['questions']:
