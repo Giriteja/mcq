@@ -838,19 +838,7 @@ with(tab1):
 		("LESSON1", "LESSON2","LESSON3","LESSON4","LESSON5","LESSON6","LESSON7","LESSON8","LESSON9","LESSON10","LESSON11","LESSON12","LESSON13"),key="lesson_name")
 	#paragraph = st.text_area("Enter a paragraph:",text, height=200)
 
-	if syllabus == "CBSE":
-	    subject_collection = db.collection('cbse_subjects')
-	elif syllabus == "SSC":
-	    subject_collection = db.collection('ssc_subjects')
-	else:
-	    raise Exception("Wrong Syllabus")
-	 
-	subject_data = subject_collection.where("subject_name", "==", subject_name).limit(1).get()[0].to_dict()
-	subject_id = subject_data['subject_id']
-	 
-	lesson_collection = db.collection('lessons')
-	lesson_document = lesson_collection.where("lesson_name", "==", lesson_name).where("subject_id", "==", subject_id).where("class", "==", class_name).limit(1)
-	lesson_id = lesson_document.get()[0].id
+	
 	
 	if uploaded_image is not None:
 	    # Display the uploaded image
@@ -862,7 +850,21 @@ with(tab1):
 		paragraph = st.text_area("Enter a paragraph:",text, height=200)
 		#prompt = st.text_area("Enter the prompt:", height=200)
 		if st.button("Generate MCQs"):
-			if paragraph:
+				if paragraph:
+					if st.button("Generate MCQs via text"):
+						if syllabus == "CBSE":
+				    subject_collection = db.collection('cbse_subjects')
+				elif syllabus == "SSC":
+				    subject_collection = db.collection('ssc_subjects')
+				else:
+				    raise Exception("Wrong Syllabus")
+				 
+				subject_data = subject_collection.where("subject_name", "==", subject_name).limit(1).get()[0].to_dict()
+				subject_id = subject_data['subject_id']
+				 
+				lesson_collection = db.collection('lessons')
+				lesson_document = lesson_collection.where("lesson_name", "==", lesson_name).where("subject_id", "==", subject_id).where("class", "==", class_name).limit(1)
+				lesson_id = lesson_document.get()[0].id
 				mcqs = run_conversation(paragraph)
 				mcq_json=json.loads(mcqs)
 				for j in mcq_json['questions']:
@@ -902,11 +904,24 @@ with(tab1):
 			
 		  
 	if not(uploaded_image and uploaded_pdf):         
-		paragraph = st.text_area("Enter a paragraph:", height=200)
-		#prompt = st.text_area("Enter the prompt:", height=200)
+			paragraph = st.text_area("Enter a paragraph:", height=200)
+			#prompt = st.text_area("Enter the prompt:", height=200)
 		
 		
-		if st.button("Generate MCQs via text"):
+			if st.button("Generate MCQs via text"):
+					if syllabus == "CBSE":
+			    subject_collection = db.collection('cbse_subjects')
+			elif syllabus == "SSC":
+			    subject_collection = db.collection('ssc_subjects')
+			else:
+			    raise Exception("Wrong Syllabus")
+			 
+			subject_data = subject_collection.where("subject_name", "==", subject_name).limit(1).get()[0].to_dict()
+			subject_id = subject_data['subject_id']
+			 
+			lesson_collection = db.collection('lessons')
+			lesson_document = lesson_collection.where("lesson_name", "==", lesson_name).where("subject_id", "==", subject_id).where("class", "==", class_name).limit(1)
+			lesson_id = lesson_document.get()[0].id
 			if paragraph:
 				mcqs = run_conversation(paragraph)
 				mcq_json=json.loads(mcqs)
@@ -949,6 +964,20 @@ with(tab1):
 		
 		if st.button("Generate MCQs via text",key="123"):
 			if paragraph:
+				if st.button("Generate MCQs via text"):
+						if syllabus == "CBSE":
+				    subject_collection = db.collection('cbse_subjects')
+				elif syllabus == "SSC":
+				    subject_collection = db.collection('ssc_subjects')
+				else:
+				    raise Exception("Wrong Syllabus")
+				 
+				subject_data = subject_collection.where("subject_name", "==", subject_name).limit(1).get()[0].to_dict()
+				subject_id = subject_data['subject_id']
+				 
+				lesson_collection = db.collection('lessons')
+				lesson_document = lesson_collection.where("lesson_name", "==", lesson_name).where("subject_id", "==", subject_id).where("class", "==", class_name).limit(1)
+				lesson_id = lesson_document.get()[0].id
 				mcqs = run_conversation(paragraph)
 				mcq_json=json.loads(mcqs)
 				for j in mcq_json['questions']:
