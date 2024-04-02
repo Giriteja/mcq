@@ -887,7 +887,7 @@ with(tab1):
 						final_data.append(json_struct)
 					#st.write(final_data)
 					save_json_to_text(final_data, 'output.txt')
-					collection = db.collection("test-question-library")
+					collection = db.collection("question-library")
 					for item in final_data:
 					    doc = collection.document()
 					    item['question_id'] = doc.id
@@ -951,7 +951,7 @@ with(tab1):
 						#st.write(json_struct)
 						final_data.append(json_struct)
 					save_json_to_text(final_data, 'output.txt')
-					collection = db.collection("test-question-library")
+					collection = db.collection("question-library")
 					for item in final_data:
 					    doc = collection.document()
 					    item['question_id'] = doc.id
@@ -1012,7 +1012,7 @@ with(tab1):
 						#st.write(json_struct)
 						final_data.append(json_struct)
 					save_json_to_text(final_data, 'output.txt')
-					collection = db.collection("test-question-library")
+					collection = db.collection("question-library")
 					for item in final_data:
 					    doc = collection.document()
 					    item['question_id'] = doc.id
@@ -1135,7 +1135,7 @@ with(tab4):
 					final_data.append(json_struct)
 					#st.write(final_data)
 			save_json_to_text(final_data, 'output.txt')
-			collection = db.collection("test-question-library")
+			collection = db.collection("question-library")
 			for item in final_data:
 			    doc = collection.document()
 			    item['question_id'] = doc.id
