@@ -810,7 +810,7 @@ with(tab1):
 		('VI', 'VII', 'VIII', 'IX','X'),key="class")
 	subject_name  = st.selectbox(
 	   			"Select Subject",
-		("PHYSICS","SCIENCE", "SOCIAL","BIOLOGY","CHEMISTRY"),key="subject")
+		("PHYSICS","SCIENCE","BIOLOGY","CHEMISTRY", "SOCIAL", "HISTORY", "GEOGRAPHY", "CIVICS", "ECONOMICS", "MATHEMATICS", "TELUGU", "HINDI", "ENGLISH"),key="subject")
 	lesson_name  = st.selectbox(
 	   			"Select lesson",
 		("LESSON1", "LESSON2","LESSON3","LESSON4","LESSON5","LESSON6","LESSON7","LESSON8","LESSON9","LESSON10","LESSON11","LESSON12","LESSON13"),key="lesson_name")
