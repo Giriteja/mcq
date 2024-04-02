@@ -852,7 +852,7 @@ with(tab1):
 		if st.button("Generate MCQs"):
 				if paragraph:
 					if st.button("Generate MCQs via text"):
-						if syllabus == "CBSE":
+				if syllabus == "CBSE":
 				    subject_collection = db.collection('cbse_subjects')
 				elif syllabus == "SSC":
 				    subject_collection = db.collection('ssc_subjects')
