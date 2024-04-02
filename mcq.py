@@ -881,7 +881,7 @@ with(tab1):
 						json_struct['subject_id']=subject_id
 						json_struct['lesson_id']=lesson_id
 						json_struct['access']="public"
-						json_struct['marks']=1
+						json_struct['marks']='1'
 						json_struct['metadata']={"tags":[class_name,lesson_name,subject_name,j['question_type']]}
 						#st.write(json_struct)
 						final_data.append(json_struct)
@@ -946,7 +946,7 @@ with(tab1):
 						json_struct['subject_id']=subject_id
 						json_struct['lesson_id']=lesson_id
 						json_struct['access']="public"
-						json_struct['marks']=1
+						json_struct['marks']='1'
 						json_struct['metadata']={"tags":[class_name,lesson_name,subject_name,j['question_type']]}
 						#st.write(json_struct)
 						final_data.append(json_struct)
@@ -1007,7 +1007,7 @@ with(tab1):
 						json_struct['subject_id']=subject_id
 						json_struct['lesson_id']=lesson_id
 						json_struct['access']="public"
-						json_struct['marks']=1
+						json_struct['marks']='1'
 						json_struct['metadata']={"tags":[class_name,lesson_name,subject_name,j['question_type']]}
 						#st.write(json_struct)
 						final_data.append(json_struct)
@@ -1123,9 +1123,9 @@ with(tab4):
 					json_struct['question_type']=j['question_type']
 					json_struct['type']=j['question_type_short_or_long']
 					if(json_struct['type']=='short'):
-						json_struct['marks']=2
+						json_struct['marks']='2'
 					else:
-						json_struct['marks']=6
+						json_struct['marks']='6'
 					json_struct['syllabus']=syllabus
 					json_struct['subject_id']=subject_id
 					json_struct['lesson_id']=lesson_id
