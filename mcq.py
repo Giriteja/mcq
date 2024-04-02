@@ -1059,16 +1059,16 @@ with(tab4):
 
 	syllabus  = st.selectbox(
 	   			"Select Syllabus",
-		("CBSE", "SSC"),key="syllabus")
+		("CBSE", "SSC"),key="syllabus1")
 	class_name = st.selectbox(
 	   			"Select class",
-		('VI', 'VII', 'VIII', 'IX','X'),key="class")
+		('VI', 'VII', 'VIII', 'IX','X'),key="class1")
 	subject_name  = st.selectbox(
 	   			"Select Subject",
-		("PHYSICS","SCIENCE","BIOLOGY","CHEMISTRY", "SOCIAL", "HISTORY", "GEOGRAPHY", "CIVICS", "ECONOMICS", "MATHEMATICS", "TELUGU", "HINDI", "ENGLISH"),key="subject")
+		("PHYSICS","SCIENCE","BIOLOGY","CHEMISTRY", "SOCIAL", "HISTORY", "GEOGRAPHY", "CIVICS", "ECONOMICS", "MATHEMATICS", "TELUGU", "HINDI", "ENGLISH"),key="subject1")
 	lesson_name  = st.selectbox(
 	   			"Select lesson",
-		("LESSON1", "LESSON2","LESSON3","LESSON4","LESSON5","LESSON6","LESSON7","LESSON8","LESSON9","LESSON10","LESSON11","LESSON12","LESSON13"),key="lesson_name")
+		("LESSON1", "LESSON2","LESSON3","LESSON4","LESSON5","LESSON6","LESSON7","LESSON8","LESSON9","LESSON10","LESSON11","LESSON12","LESSON13"),key="lesson_name1")
 	#paragraph = st.text_area("Enter a paragraph:",text, height=200)
 
 	if syllabus == "CBSE":
