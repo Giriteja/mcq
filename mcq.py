@@ -30,9 +30,11 @@ data_cred={"type": "service_account",
         "client_x509_cert_url": os.getenv("client_x509_cert_url"),
 	"universe_domain":"googleapis.com"}
 
-cred = credentials.Certificate(data_cred)
- 
-app = firebase_admin.initialize_app(cred)
+
+
+if not firebase_admin._apps:
+    cred = credentials.Certificate(data_cred) 
+    app = firebase_admin.initialize_app(cred)
  
 db = firestore.client()
 
