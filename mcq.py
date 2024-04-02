@@ -835,6 +835,20 @@ with(tab1):
 	   			"Select lesson",
 		("LESSON1", "LESSON2","LESSON3","LESSON4","LESSON5","LESSON6","LESSON7","LESSON8","LESSON9","LESSON10","LESSON11","LESSON12","LESSON13"),key="lesson_name")
 	#paragraph = st.text_area("Enter a paragraph:",text, height=200)
+
+	if syllabus == "CBSE":
+	    subject_collection = db.collection('cbse_subjects')
+	elif syllabus == "SSC":
+	    subject_collection = db.collection('ssc_subjects')
+	else:
+	    raise Exception("Wrong Syllabus")
+	 
+	subject_data = subject_collection.where("subject_name", "==", subject_name).limit(1).get()[0].to_dict()
+	subject_id = subject_data['subject_id']
+	 
+	lesson_collection = db.collection('lessons')
+	lesson_document = lesson_collection.where("lesson_name", "==", lesson_name).where("subject_id", "==", subject_id).where("class", "==", class_name).limit(1)
+	lesson_id = lesson_document.get()[0].id
 	
 	if uploaded_image is not None:
 	    # Display the uploaded image
@@ -861,7 +875,9 @@ with(tab1):
 					json_struct['question_type']=j['question_type']
 					json_struct['type']='multi-choice'
 					json_struct['lesson']=lesson_name
-					json_struct['syllabus']=syllabus
+					json_struct['subject_id']=subject_id
+					json_struct['lesson_id']=lesson_id
+					json_struct['access']="public"
 					#st.write(json_struct)
 					final_data.append(json_struct)
 				#st.write(final_data)
@@ -905,6 +921,9 @@ with(tab1):
 					json_struct['type']='multi-choice'
 					json_struct['lesson']=lesson_name
 					json_struct['syllabus']=syllabus
+					json_struct['subject_id']=subject_id
+					json_struct['lesson_id']=lesson_id
+					json_struct['access']="public"
 					#st.write(json_struct)
 					final_data.append(json_struct)
 				save_json_to_text(final_data, 'output.txt')
@@ -943,6 +962,9 @@ with(tab1):
 					json_struct['type']='multi-choice'
 					json_struct['lesson']=lesson_name
 					json_struct['syllabus']=syllabus
+					json_struct['subject_id']=subject_id
+					json_struct['lesson_id']=lesson_id
+					json_struct['access']="public"
 					#st.write(json_struct)
 					final_data.append(json_struct)
 				save_json_to_text(final_data, 'output.txt')
@@ -997,11 +1019,44 @@ with(tab3):
 			st.write("Please enter the text to generate Summary.")
 
 with(tab4):
-	
+	# Upload image
+	final_data=[]
+	#option = st.selectbox(
+    	#'Choose Number of Questions:',
+    	#('5', '10', '15', '20'))
+	# If an image is uploaded, display and process it
+
+	syllabus  = st.selectbox(
+	   			"Select Syllabus",
+		("CBSE", "SSC"),key="syllabus")
+	class_name = st.selectbox(
+	   			"Select class",
+		('VI', 'VII', 'VIII', 'IX','X'),key="class")
+	subject_name  = st.selectbox(
+	   			"Select Subject",
+		("PHYSICS","SCIENCE","BIOLOGY","CHEMISTRY", "SOCIAL", "HISTORY", "GEOGRAPHY", "CIVICS", "ECONOMICS", "MATHEMATICS", "TELUGU", "HINDI", "ENGLISH"),key="subject")
+	lesson_name  = st.selectbox(
+	   			"Select lesson",
+		("LESSON1", "LESSON2","LESSON3","LESSON4","LESSON5","LESSON6","LESSON7","LESSON8","LESSON9","LESSON10","LESSON11","LESSON12","LESSON13"),key="lesson_name")
+	#paragraph = st.text_area("Enter a paragraph:",text, height=200)
+
+	if syllabus == "CBSE":
+	    subject_collection = db.collection('cbse_subjects')
+	elif syllabus == "SSC":
+	    subject_collection = db.collection('ssc_subjects')
+	else:
+	    raise Exception("Wrong Syllabus")
+	 
+	subject_data = subject_collection.where("subject_name", "==", subject_name).limit(1).get()[0].to_dict()
+	subject_id = subject_data['subject_id']
+	 
+	lesson_collection = db.collection('lessons')
+	lesson_document = lesson_collection.where("lesson_name", "==", lesson_name).where("subject_id", "==", subject_id).where("class", "==", class_name).limit(1)
+	lesson_id = lesson_document.get()[0].id
 	topic_assign = st.text_area("Enter the topic for Assignment:", height=200)
 	prompt_topic_assign = st.text_area("Enter the prompt:",key="topic_assign", height=200)
 	json_struct={}
-	final_data=[]
+	
 	if st.button("Generate Assignment"):
 		if topic_assign:
 			lp = generate_assignment(topic_assign,chatgpt_url,chatgpt_headers,prompt_topic_assign)
@@ -1019,6 +1074,9 @@ with(tab4):
 					json_struct['type']=j['question_type_short_or_long']
 					json_struct['lesson']=lesson_name
 					json_struct['syllabus']=syllabus
+					json_struct['subject_id']=subject_id
+					json_struct['lesson_id']=lesson_id
+					json_struct['access']="public"
 					#st.write(json_struct)
 					final_data.append(json_struct)
 					#st.write(final_data)
