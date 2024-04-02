@@ -871,17 +871,18 @@ with(tab1):
 						json_struct={}
 						json_struct['class']=class_name
 						json_struct['subject']=subject_name
-						json_struct['lesson']=subject_name
+						json_struct['lesson']=lesson_name
 						json_struct['question']=j['question']
 						json_struct['options']=j['options']
 						json_struct['answer']=j['answer']
 						json_struct['level']=j['question_level']
 						json_struct['question_type']=j['question_type']
 						json_struct['type']='multi-choice'
-						json_struct['lesson']=lesson_name
 						json_struct['subject_id']=subject_id
 						json_struct['lesson_id']=lesson_id
 						json_struct['access']="public"
+						json_struct['marks']=1
+						json_struct['metadata']={"tags":[class_name,lesson_name,subject_name,j['question_type']]}
 						#st.write(json_struct)
 						final_data.append(json_struct)
 					#st.write(final_data)
@@ -936,11 +937,12 @@ with(tab1):
 						json_struct['level']=j['question_level']
 						json_struct['question_type']=j['question_type']
 						json_struct['type']='multi-choice'
-						json_struct['lesson']=lesson_name
 						json_struct['syllabus']=syllabus
 						json_struct['subject_id']=subject_id
 						json_struct['lesson_id']=lesson_id
 						json_struct['access']="public"
+						json_struct['marks']=1
+						json_struct['metadata']={"tags":[class_name,lesson_name,subject_name,j['question_type']]}
 						#st.write(json_struct)
 						final_data.append(json_struct)
 					save_json_to_text(final_data, 'output.txt')
@@ -991,11 +993,12 @@ with(tab1):
 						json_struct['level']=j['question_level']
 						json_struct['question_type']=j['question_type']
 						json_struct['type']='multi-choice'
-						json_struct['lesson']=lesson_name
 						json_struct['syllabus']=syllabus
 						json_struct['subject_id']=subject_id
 						json_struct['lesson_id']=lesson_id
 						json_struct['access']="public"
+						json_struct['marks']=1
+						json_struct['metadata']={"tags":[class_name,lesson_name,subject_name,j['question_type']]}
 						#st.write(json_struct)
 						final_data.append(json_struct)
 					save_json_to_text(final_data, 'output.txt')
@@ -1097,18 +1100,22 @@ with(tab4):
 					json_struct={}
 					json_struct['class']=class_name
 					json_struct['subject']=subject_name
-					json_struct['lesson']=subject_name
+					json_struct['lesson']=lesson_name
 					json_struct['options']=[]
 					json_struct['question']=j['question']
 					json_struct['answer']=j['answer']
 					json_struct['level']=j['question_level']
 					json_struct['question_type']=j['question_type']
 					json_struct['type']=j['question_type_short_or_long']
-					json_struct['lesson']=lesson_name
+					if(json_struct['type']=='short):
+						json_struct['marks']=2
+					else:
+						json_struct['marks']=6
 					json_struct['syllabus']=syllabus
 					json_struct['subject_id']=subject_id
 					json_struct['lesson_id']=lesson_id
 					json_struct['access']="public"
+					json_struct['metadata']={"tags":[class_name,lesson_name,subject_name,j['question_type_short_or_long']]}
 					#st.write(json_struct)
 					final_data.append(json_struct)
 					#st.write(final_data)
