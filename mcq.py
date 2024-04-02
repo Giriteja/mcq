@@ -1107,7 +1107,7 @@ with(tab4):
 					json_struct['level']=j['question_level']
 					json_struct['question_type']=j['question_type']
 					json_struct['type']=j['question_type_short_or_long']
-					if(json_struct['type']=='short):
+					if(json_struct['type']=='short'):
 						json_struct['marks']=2
 					else:
 						json_struct['marks']=6
