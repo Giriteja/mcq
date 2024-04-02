@@ -6,3 +6,4 @@ opencv-python-headless
 pandas
 pdfplumber
 PyPDF2
+firebase-admin==6.3.0
