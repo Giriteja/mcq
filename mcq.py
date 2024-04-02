@@ -909,63 +909,7 @@ with(tab1):
 		
 		
 			if st.button("Generate MCQs via text"):
-					if syllabus == "CBSE":
-			    subject_collection = db.collection('cbse_subjects')
-			elif syllabus == "SSC":
-			    subject_collection = db.collection('ssc_subjects')
-			else:
-			    raise Exception("Wrong Syllabus")
-			 
-			subject_data = subject_collection.where("subject_name", "==", subject_name).limit(1).get()[0].to_dict()
-			subject_id = subject_data['subject_id']
-			 
-			lesson_collection = db.collection('lessons')
-			lesson_document = lesson_collection.where("lesson_name", "==", lesson_name).where("subject_id", "==", subject_id).where("class", "==", class_name).limit(1)
-			lesson_id = lesson_document.get()[0].id
-			if paragraph:
-				mcqs = run_conversation(paragraph)
-				mcq_json=json.loads(mcqs)
-				for j in mcq_json['questions']:
-					json_struct={}
-					json_struct['class']=class_name
-					json_struct['subject']=subject_name
-					json_struct['lesson']=lesson_name
-					json_struct['question']=j['question']
-					json_struct['options']=j['options']
-					json_struct['answer']=j['answer']
-					json_struct['level']=j['question_level']
-					json_struct['question_type']=j['question_type']
-					json_struct['type']='multi-choice'
-					json_struct['lesson']=lesson_name
-					json_struct['syllabus']=syllabus
-					json_struct['subject_id']=subject_id
-					json_struct['lesson_id']=lesson_id
-					json_struct['access']="public"
-					#st.write(json_struct)
-					final_data.append(json_struct)
-				save_json_to_text(final_data, 'output.txt')
-				download_button_id = str(uuid.uuid4())
-				# Provide a download link for the text file
-				st.download_button(
-				        label="Download Text File",
-				        data=open('output.txt', 'rb').read(),
-				        file_name='output.txt',
-				        mime='text/plain',
-					key=download_button_id
-				)
-			else:
-				st.write("Please enter a paragraph to generate questions.")
-
-	if uploaded_pdf is not None:         
-		pdf_file_path = uploaded_pdf  # Replace "example.pdf" with the path to your PDF file
-		extracted_text = extract_data(pdf_file_path)
-		paragraph = st.text_area("Enter a paragraph:",extracted_text, height=200)
-		
-		
-		if st.button("Generate MCQs via text",key="123"):
-			if paragraph:
-				if st.button("Generate MCQs via text"):
-						if syllabus == "CBSE":
+				if syllabus == "CBSE":
 				    subject_collection = db.collection('cbse_subjects')
 				elif syllabus == "SSC":
 				    subject_collection = db.collection('ssc_subjects')
@@ -978,38 +922,94 @@ with(tab1):
 				lesson_collection = db.collection('lessons')
 				lesson_document = lesson_collection.where("lesson_name", "==", lesson_name).where("subject_id", "==", subject_id).where("class", "==", class_name).limit(1)
 				lesson_id = lesson_document.get()[0].id
-				mcqs = run_conversation(paragraph)
-				mcq_json=json.loads(mcqs)
-				for j in mcq_json['questions']:
-					json_struct={}
-					json_struct['class']=class_name
-					json_struct['subject']=subject_name
-					json_struct['lesson']=lesson_name
-					json_struct['question']=j['question']
-					json_struct['options']=j['options']
-					json_struct['answer']=j['answer']
-					json_struct['level']=j['question_level']
-					json_struct['question_type']=j['question_type']
-					json_struct['type']='multi-choice'
-					json_struct['lesson']=lesson_name
-					json_struct['syllabus']=syllabus
-					json_struct['subject_id']=subject_id
-					json_struct['lesson_id']=lesson_id
-					json_struct['access']="public"
-					#st.write(json_struct)
-					final_data.append(json_struct)
-				save_json_to_text(final_data, 'output.txt')
-				download_button_id = str(uuid.uuid4())
-				# Provide a download link for the text file
-				st.download_button(
-				        label="Download Text File",
-				        data=open('output.txt', 'rb').read(),
-				        file_name='output.txt',
-				        mime='text/plain',
-					key=download_button_id
-				)
-			else:
-				st.write("Please enter a paragraph to generate questions.")
+				if paragraph:
+					mcqs = run_conversation(paragraph)
+					mcq_json=json.loads(mcqs)
+					for j in mcq_json['questions']:
+						json_struct={}
+						json_struct['class']=class_name
+						json_struct['subject']=subject_name
+						json_struct['lesson']=lesson_name
+						json_struct['question']=j['question']
+						json_struct['options']=j['options']
+						json_struct['answer']=j['answer']
+						json_struct['level']=j['question_level']
+						json_struct['question_type']=j['question_type']
+						json_struct['type']='multi-choice'
+						json_struct['lesson']=lesson_name
+						json_struct['syllabus']=syllabus
+						json_struct['subject_id']=subject_id
+						json_struct['lesson_id']=lesson_id
+						json_struct['access']="public"
+						#st.write(json_struct)
+						final_data.append(json_struct)
+					save_json_to_text(final_data, 'output.txt')
+					download_button_id = str(uuid.uuid4())
+					# Provide a download link for the text file
+					st.download_button(
+					        label="Download Text File",
+					        data=open('output.txt', 'rb').read(),
+					        file_name='output.txt',
+					        mime='text/plain',
+						key=download_button_id
+					)
+				else:
+					st.write("Please enter a paragraph to generate questions.")
+
+	if uploaded_pdf is not None:         
+		pdf_file_path = uploaded_pdf  # Replace "example.pdf" with the path to your PDF file
+		extracted_text = extract_data(pdf_file_path)
+		paragraph = st.text_area("Enter a paragraph:",extracted_text, height=200)
+		
+		
+		if st.button("Generate MCQs via text",key="123"):
+			if paragraph:
+				if st.button("Generate MCQs via text"):
+					if syllabus == "CBSE":
+					    subject_collection = db.collection('cbse_subjects')
+					elif syllabus == "SSC":
+					    subject_collection = db.collection('ssc_subjects')
+					else:
+					    raise Exception("Wrong Syllabus")
+					 
+					subject_data = subject_collection.where("subject_name", "==", subject_name).limit(1).get()[0].to_dict()
+					subject_id = subject_data['subject_id']
+					 
+					lesson_collection = db.collection('lessons')
+					lesson_document = lesson_collection.where("lesson_name", "==", lesson_name).where("subject_id", "==", subject_id).where("class", "==", class_name).limit(1)
+					lesson_id = lesson_document.get()[0].id
+					mcqs = run_conversation(paragraph)
+					mcq_json=json.loads(mcqs)
+					for j in mcq_json['questions']:
+						json_struct={}
+						json_struct['class']=class_name
+						json_struct['subject']=subject_name
+						json_struct['lesson']=lesson_name
+						json_struct['question']=j['question']
+						json_struct['options']=j['options']
+						json_struct['answer']=j['answer']
+						json_struct['level']=j['question_level']
+						json_struct['question_type']=j['question_type']
+						json_struct['type']='multi-choice'
+						json_struct['lesson']=lesson_name
+						json_struct['syllabus']=syllabus
+						json_struct['subject_id']=subject_id
+						json_struct['lesson_id']=lesson_id
+						json_struct['access']="public"
+						#st.write(json_struct)
+						final_data.append(json_struct)
+					save_json_to_text(final_data, 'output.txt')
+					download_button_id = str(uuid.uuid4())
+					# Provide a download link for the text file
+					st.download_button(
+					        label="Download Text File",
+					        data=open('output.txt', 'rb').read(),
+					        file_name='output.txt',
+					        mime='text/plain',
+						key=download_button_id
+					)
+				else:
+					st.write("Please enter a paragraph to generate questions.")
 				
 				
 with(tab2):
