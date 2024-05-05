@@ -351,7 +351,7 @@ While giving Marks and question type consider the section in which that question
 
 def generate_assignment(paragraph,url,headers,prompt):
     # Step 1: send the conversation and available functions to the model
-    messages = [{"role": "system", "content": """Given the following paragraph, generate Short questions,Long questions that should align with specific cognitive levels according to Bloom's Taxonomy. For each question, use the associated verbs as a guide to ensure the questions match the intended complexity and cognitive process.For each question classify it as Easy,Medium or Hard.
+    messages = [{"role": "system", "content": """Given the following paragraph, generate Short questions,Long questions,assertion and reason based questions that should align with specific cognitive levels according to Bloom's Taxonomy. For each question, use the associated verbs as a guide to ensure the questions match the intended complexity and cognitive process.For each question classify it as Easy,Medium or Hard.
     
 Please ensure the questions and options are closely related to the content of the provided text and reflect the cognitive level specified for every question.For short questions, focus on concise inquiries that can be answered in a sentence or two. These questions should aim to test the reader's understanding of key concepts and facts related to the topic.
 
