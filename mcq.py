@@ -668,9 +668,9 @@ def extract_text(image):
 
     return extracted_text
 
-def run_conversation(paragraph):
+def run_conversation(paragraph,prompt):
     # Step 1: send the conversation and available functions to the model
-    messages = [{"role": "system", "content": """Generate multiple-choice questions (MCQs) on the given paragraph. Provide questions at different cognitive levels according to Bloom's Taxonomy. Include a variety of question types and encourage creativity in the question generation process. You may use the following example questions as a guide.For each question classify it as Easy,Medium or Hard.
+    messages = [{"role": "system", "content": f"""Generate multiple-choice questions (MCQs) on the given paragraph and consider the following instructions {prompt}. Provide questions at different cognitive levels according to Bloom's Taxonomy. Include a variety of question types and encourage creativity in the question generation process. You may use the following example questions as a guide.For each question classify it as Easy,Medium or Hard.
     
 1. Remember (recall facts and basic concepts): Use verbs like "list," "define," "name." 
    - Example Question: "[Question based on 'remember' level]" 
@@ -848,6 +848,7 @@ with(tab1):
 		# Extract text
 		text = extract_text(image)
 		paragraph = st.text_area("Enter a paragraph:",text, height=200)
+		prompt_mcq = st.text_area("Enter a paragraph:",text, height=200)
 		#prompt = st.text_area("Enter the prompt:", height=200)
 		if st.button("Generate MCQs"):
 				if paragraph:
@@ -865,7 +866,7 @@ with(tab1):
 					lesson_collection = db.collection('lessons')
 					lesson_document = lesson_collection.where("lesson_name", "==", lesson_name).where("subject_id", "==", subject_id).where("class", "==", class_name).limit(1)
 					lesson_id = lesson_document.get()[0].id
-					mcqs = run_conversation(paragraph)
+					mcqs = run_conversation(paragraph,prompt_mcq)
 					mcq_json=json.loads(mcqs)
 					for j in mcq_json['questions']:
 						json_struct={}
@@ -911,7 +912,7 @@ with(tab1):
 		  
 	if not(uploaded_image and uploaded_pdf):         
 			paragraph = st.text_area("Enter a paragraph:", height=200)
-			#prompt = st.text_area("Enter the prompt:", height=200)
+			prompt_mcq = st.text_area("Enter the prompt:", height=200)
 		
 		
 			if st.button("Generate MCQs via text"):
@@ -929,7 +930,7 @@ with(tab1):
 				lesson_document = lesson_collection.where("lesson_name", "==", lesson_name).where("subject_id", "==", subject_id).where("class", "==", class_name).limit(1)
 				lesson_id = lesson_document.get()[0].id
 				if paragraph:
-					mcqs = run_conversation(paragraph)
+					mcqs = run_conversation(paragraph,prompt_mcq)
 					mcq_json=json.loads(mcqs)
 					for j in mcq_json['questions']:
 						json_struct={}
@@ -972,7 +973,7 @@ with(tab1):
 		pdf_file_path = uploaded_pdf  # Replace "example.pdf" with the path to your PDF file
 		extracted_text = extract_data(pdf_file_path)
 		paragraph = st.text_area("Enter a paragraph:",extracted_text, height=200)
-		
+		prompt_mcq = st.text_area("Enter the prompt:", height=200)
 		
 		if st.button("Generate MCQs via text",key="123"):
 			if paragraph:
@@ -990,7 +991,7 @@ with(tab1):
 					lesson_collection = db.collection('lessons')
 					lesson_document = lesson_collection.where("lesson_name", "==", lesson_name).where("subject_id", "==", subject_id).where("class", "==", class_name).limit(1)
 					lesson_id = lesson_document.get()[0].id
-					mcqs = run_conversation(paragraph)
+					mcqs = run_conversation(paragraph,prompt_mcq)
 					mcq_json=json.loads(mcqs)
 					for j in mcq_json['questions']:
 						json_struct={}
