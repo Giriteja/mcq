@@ -333,7 +333,7 @@ While giving Marks and question type consider the section in which that question
 
     chatgpt_payload = {
 	"response_format": {"type": "json_object"},
-        "model": "gpt-3.5-turbo-1106",
+        "model": "gpt-4-1106-preview",
         "messages": messages,
         "temperature": 1.3,
         "top_p": 1,
