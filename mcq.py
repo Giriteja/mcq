@@ -1264,7 +1264,7 @@ with(tab6):
                 json_struct['topic_id']=topic_id_mapping[topic_selected]
                 st.write(json_struct)
                 db.collection('brain_busters').document().set(json_struct)
-                save_json_to_text(final_data, 'output.txt')
+                save_json_to_text(json_struct, 'output.txt')
                 download_button_id = str(uuid.uuid4())
                 # Provide a download link for the text file
                 st.download_button(
