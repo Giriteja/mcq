@@ -1248,24 +1248,24 @@ with(tab6):
             if(paragraph_brain and prompt_brain):
                 mcqs_brain = run_conversation(paragraph_brain,prompt_brain)
                 mcq_json=json.loads(mcqs_brain)
+		cards=[]
+		json_struct={}
+		json_struct['type']=flashcards
+                json_struct['name']=topic_selected
+                json_struct['syllabus']=syllabus_brain
+		json_struct['class']=class_brain
+		json_struct['subject']=subject_brain
+		json_struct['lesson']=lesson_brain
+		json_struct['section']=section_selected
                 for j in mcq_json['questions']:
-                    json_struct={}
-                    json_struct['class']=class_name
-                    json_struct['subject']=subject_name
-                    json_struct['lesson']=lesson_name
-                    json_struct['question']=j['question']
-                    json_struct['options']=j['options']
-                    json_struct['answer']=j['answer']
-                    json_struct['level']=j['question_level']
-                    json_struct['question_type']=j['question_type']
-                    json_struct['type']='multi-choice'
-                    json_struct['subject_id']=subject_id
-                    json_struct['lesson_id']=lesson_id
-                    json_struct['access']="public"
-                    json_struct['marks']='1'
-                    json_struct['metadata']={"tags":[class_name,lesson_name,subject_name,j['question_type']]}
+		    json_struct_inter={}
+                    json_struct_inter['question']=j['question']+'/n'+j['options']
+                    json_struct_inter['back_text']=j['answer']
+                    json_struct_inter['back_image']="null"
+                    json_struct_inter['front_image']="null"
                     #st.write(json_struct)
-                    final_data.append(json_struct)
-                st.write(final_data)
+                    cards.append(json_struct_inter)
+		json_struct['cards']=cards
+                st.write(json_struct)
 	    
         
