@@ -1253,7 +1253,8 @@ with(tab6):
 
                 for j in mcq_json['questions']:
                     json_struct_inter={}
-                    json_struct_inter['question']=j['question']+'/n'+j['options']
+                    result = '/n'.join(j['options'])
+                    json_struct_inter['question']=j['question']+'/n'+result
                     json_struct_inter['back_text']=j['answer']
                     json_struct_inter['back_image']="null"
                     json_struct_inter['front_image']="null"
