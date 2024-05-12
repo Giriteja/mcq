@@ -1263,5 +1263,17 @@ with(tab6):
                 json_struct['cards']=cards
                 json_struct['topic_id']=topic_id_mapping[topic_selected]
                 st.write(json_struct)
+                db.collection('brain_busters').document().set(json_struct)
+                save_json_to_text(final_data, 'output.txt')
+                download_button_id = str(uuid.uuid4())
+                # Provide a download link for the text file
+                st.download_button(
+		label="Download Text File",
+		data=open('output.txt', 'rb').read(),
+		file_name='output.txt',
+		mime='text/plain',
+		key=download_button_id
+				)
+		
 	    
         
