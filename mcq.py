@@ -1227,7 +1227,7 @@ with(tab6):
         
  
         # Create a dropdown for lesson
-        st.write(lesson_id_mapping)
+        #st.write(lesson_id_mapping)
         if section_selected:
             topics_data = db.collection("lessons").document(lesson_id_mapping[lesson_brain]).collection(section_selected).get()
             topic_options = []
@@ -1243,4 +1243,28 @@ with(tab6):
             # lesson_options = [doc.id for doc in db.collection("lessons").where("subject", "==", st.session_state["subject_brain"]).stream()]
             # lesson_options = ["LESSON1", "LESSON2"]
             topic_selected = st.selectbox("Select Topic", topic_options)
+	    paragraph_brain = st.text_area("Enter a paragraph:", height=200)
+	    prompt_brain = st.text_area("Enter the prompt:", height=200)
+	    mcqs_brain = run_conversation(paragraph_brain,prompt_brain)
+					mcq_json=json.loads(mcqs_brain)
+					for j in mcq_json['questions']:
+						json_struct={}
+						json_struct['class']=class_name
+						json_struct['subject']=subject_name
+						json_struct['lesson']=lesson_name
+						json_struct['question']=j['question']
+						json_struct['options']=j['options']
+						json_struct['answer']=j['answer']
+						json_struct['level']=j['question_level']
+						json_struct['question_type']=j['question_type']
+						json_struct['type']='multi-choice'
+						json_struct['subject_id']=subject_id
+						json_struct['lesson_id']=lesson_id
+						json_struct['access']="public"
+						json_struct['marks']='1'
+						json_struct['metadata']={"tags":[class_name,lesson_name,subject_name,j['question_type']]}
+						#st.write(json_struct)
+						final_data.append(json_struct)
+					st.write(final_data)
+	    
         
