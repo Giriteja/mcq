@@ -1234,7 +1234,7 @@ with(tab6):
         st.session_state["section"] = section_selected
  
     # Create a dropdown for lesson
-    if "section_selected" in st.session_state:
+    if "section" in st.session_state:
         topics_data = db.collection("lessons").document(lesson_id_mapping[lesson_brain]).collection(section_selected).get()
         topic_options = []
         topic_id_mapping = {}
