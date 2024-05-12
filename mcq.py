@@ -1258,14 +1258,14 @@ with(tab6):
                 json_struct['lesson']=lesson_brain
                 json_struct['section']=section_selected
                 for j in mcq_json['questions']:
-		    json_struct_inter={}
+                    json_struct_inter={}
                     json_struct_inter['question']=j['question']+'/n'+j['options']
                     json_struct_inter['back_text']=j['answer']
                     json_struct_inter['back_image']="null"
                     json_struct_inter['front_image']="null"
                     #st.write(json_struct)
                     cards.append(json_struct_inter)
-		json_struct['cards']=cards
+                json_struct['cards']=cards
                 st.write(json_struct)
 	    
         
