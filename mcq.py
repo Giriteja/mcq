@@ -1172,15 +1172,7 @@ with(tab6):
 	
     st.title("Syllabus Explorer")
  
-    # Create a session state to store the previous selection
-    if "syllabus_brain" not in st.session_state:
-        st.session_state["syllabus_brain"] = None
-    if "class_brain" not in st.session_state:
-        st.session_state["class_brain"] = None
-    if "subject_brain" not in st.session_state:
-        st.session_state["subject_brain"] = None
-    if "lesson_brain" not in st.session_state:
-        st.session_state["lesson_brain"] = None
+    
     
  
     # Create a dropdown for syllabus
@@ -1203,7 +1195,7 @@ with(tab6):
         st.session_state["class_brain"] = class_brain
  
     # Create a dropdown for subject
-    if "class_brain" in st.session_state:
+    if class_brain:
         subject_option_ids = [doc.id for doc in db.collection("subjects").where("class.display_name", "==", class_brain).where("syllabus.syllabus", "==", syllabus).stream()]
         subjects_options = []
         subjects_id_mapping = {}
@@ -1215,8 +1207,8 @@ with(tab6):
         st.session_state["subject_brain"] = subject_brain
  
     # Create a dropdown for lesson
-    if "subject_brain" in st.session_state:
-        lessons_data = db.collection("lessons").where("subject_details.subject_id", "==", subjects_id_mapping[st.session_state["subject_brain"]]).get()
+    if subject_brain:
+        lessons_data = db.collection("lessons").where("subject_details.subject_id", "==", subjects_id_mapping[subject_brain]).get()
         lesson_options = []
         lesson_id_mapping = {}
         for item in lessons_data:
@@ -1224,13 +1216,13 @@ with(tab6):
             lesson_id_mapping[lesson] = item.id
             lesson_options.append(lesson)
         # lesson_options
-        # lesson_options = [doc.id for doc in db.collection("lessons").where("subject", "==", st.session_state["subject_brain"]).stream()]
+        # lesson_options = [doc.id for doc in db.collection("lessons").where("subject", "==", subject_brain).stream()]
         # lesson_options = ["LESSON1", "LESSON2"]
         lesson_brain = st.selectbox("Select Lesson", lesson_options)
         st.session_state["lesson_brain"] = lesson_brain
  
     # Create a dropdown for topic/activity
-    if "lesson_brain" in st.session_state:
+    if lesson_brain:
         section_selected = st.selectbox("Select Section Type", ["topics", "activities"])
         st.session_state["section_selected"] = section_selected
  
