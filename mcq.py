@@ -1181,7 +1181,7 @@ with(tab6):
     syllabus_options = []
     for item in syllabus_option_ids:
         syllabus_options.append(db.collection("syllabus-db").document(item).get().to_dict()['syllabus'])
-    syllabus_brain = st.selectbox("Select Syllabus", syllabus_options)
+    syllabus_brain = st.selectbox("Select Syllabus", syllabus_options,key="brain")
     st.session_state["syllabus"] = syllabus_brain
  
     # Create a dropdown for class
