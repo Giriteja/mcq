@@ -1248,15 +1248,15 @@ with(tab6):
             if(paragraph_brain and prompt_brain):
                 mcqs_brain = run_conversation(paragraph_brain,prompt_brain)
                 mcq_json=json.loads(mcqs_brain)
-		cards=[]
-		json_struct={}
-		json_struct['type']=flashcards
+                cards=[]
+                json_struct={}
+                json_struct['type']=flashcards
                 json_struct['name']=topic_selected
                 json_struct['syllabus']=syllabus_brain
-		json_struct['class']=class_brain
-		json_struct['subject']=subject_brain
-		json_struct['lesson']=lesson_brain
-		json_struct['section']=section_selected
+                json_struct['class']=class_brain
+                json_struct['subject']=subject_brain
+                json_struct['lesson']=lesson_brain
+                json_struct['section']=section_selected
                 for j in mcq_json['questions']:
 		    json_struct_inter={}
                     json_struct_inter['question']=j['question']+'/n'+j['options']
