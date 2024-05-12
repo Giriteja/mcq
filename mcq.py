@@ -1250,13 +1250,7 @@ with(tab6):
                 mcq_json=json.loads(mcqs_brain)
                 cards=[]
                 json_struct={}
-                json_struct['type']=flashcards
-                json_struct['name']=topic_selected
-                json_struct['syllabus']=syllabus_brain
-                json_struct['class']=class_brain
-                json_struct['subject']=subject_brain
-                json_struct['lesson']=lesson_brain
-                json_struct['section']=section_selected
+
                 for j in mcq_json['questions']:
                     json_struct_inter={}
                     json_struct_inter['question']=j['question']+'/n'+j['options']
@@ -1266,6 +1260,7 @@ with(tab6):
                     #st.write(json_struct)
                     cards.append(json_struct_inter)
                 json_struct['cards']=cards
+                json_struct['topic_id']=topic_id_mapping[topic_selected]
                 st.write(json_struct)
 	    
         
