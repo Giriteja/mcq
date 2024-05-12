@@ -1211,7 +1211,7 @@ with(tab6):
             subjects_id_mapping[subject] = item
             subjects_options.append(subject)
         subject_brain = st.selectbox("Select Subject", subjects_options)
-        st.session_state["subject"] = subject_brain
+        st.session_state["subject_brain"] = subject_brain
  
     # Create a dropdown for lesson
     if "subject_brain" in st.session_state:
@@ -1226,7 +1226,7 @@ with(tab6):
         # lesson_options = [doc.id for doc in db.collection("lessons").where("subject", "==", st.session_state["subject"]).stream()]
         # lesson_options = ["LESSON1", "LESSON2"]
         lesson_brain = st.selectbox("Select Lesson", lesson_options)
-        st.session_state["lesson"] = lesson_brain
+        st.session_state["lesson_brain"] = lesson_brain
  
     # Create a dropdown for topic/activity
     if "lesson_brain" in st.session_state:
