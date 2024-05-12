@@ -1181,6 +1181,8 @@ with(tab6):
         st.session_state["subject_brain"] = None
     if "lesson_brain" not in st.session_state:
         st.session_state["lesson_brain"] = None
+    if "section_selected" not in st.session_state:
+        st.session_state["section_selected"] = None
  
     # Create a dropdown for syllabus
     syllabus_options = [doc.id for doc in db.collection("syllabus-db").stream()]
