@@ -1262,7 +1262,7 @@ with(tab6):
                     cards.append(json_struct_inter)
                 json_struct['cards']=cards
                 json_struct['topic_id']=topic_id_mapping[topic_selected]
-                st.write(json_struct)
+                #st.write(json_struct)
                 db.collection('brain_busters').document().set(json_struct)
                 save_json_to_text(json_struct, 'output.txt')
                 download_button_id = str(uuid.uuid4())
