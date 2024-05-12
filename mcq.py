@@ -1245,7 +1245,7 @@ with(tab6):
             topic_selected = st.selectbox("Select Topic", topic_options)
             paragraph_brain = st.text_area("Enter a paragraph:",key="bain_para", height=200)
             prompt_brain = st.text_area("Enter the prompt:",key="brain_prompt", height=200)
-            if(paragraph_brain and prompt_brain):
+            if(paragraph_brain or prompt_brain):
                 mcqs_brain = run_conversation(paragraph_brain,prompt_brain)
                 mcq_json=json.loads(mcqs_brain)
                 cards=[]
