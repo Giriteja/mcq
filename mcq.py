@@ -1215,7 +1215,7 @@ with(tab6):
  
     # Create a dropdown for lesson
     if "subject_brain" in st.session_state:
-        lessons_data = db.collection("lessons").where("subject_details.subject_id", "==", subjects_id_mapping[st.session_state["subject"]]).get()
+        lessons_data = db.collection("lessons").where("subject_details.subject_id", "==", subjects_id_mapping[st.session_state["subject_brain"]]).get()
         lesson_options = []
         lesson_id_mapping = {}
         for item in lessons_data:
@@ -1223,7 +1223,7 @@ with(tab6):
             lesson_id_mapping[lesson] = item.id
             lesson_options.append(lesson)
         # lesson_options
-        # lesson_options = [doc.id for doc in db.collection("lessons").where("subject", "==", st.session_state["subject"]).stream()]
+        # lesson_options = [doc.id for doc in db.collection("lessons").where("subject", "==", st.session_state["subject_brain"]).stream()]
         # lesson_options = ["LESSON1", "LESSON2"]
         lesson_brain = st.selectbox("Select Lesson", lesson_options)
         st.session_state["lesson_brain"] = lesson_brain
@@ -1246,7 +1246,7 @@ with(tab6):
             topic_id_mapping[topic] = item.id
             topic_options.append(topic)
         # lesson_options
-        # lesson_options = [doc.id for doc in db.collection("lessons").where("subject", "==", st.session_state["subject"]).stream()]
+        # lesson_options = [doc.id for doc in db.collection("lessons").where("subject", "==", st.session_state["subject_brain"]).stream()]
         # lesson_options = ["LESSON1", "LESSON2"]
         topic_selected = st.selectbox("Select Topic", topic_options)
         st.session_state["topic"] = topic_selected
