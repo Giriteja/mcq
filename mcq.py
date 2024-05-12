@@ -48,7 +48,7 @@ chatgpt_headers = {
     "content-type": "application/json",
     "Authorization":"Bearer {}".format(os.getenv("openaikey"))}
 
-tab1, tab2, tab3,tab4,tab5,tab6 = st.tabs(["MCQ", "Summary", "Lesson Plan","Assignments","Topic Segregation"])
+tab1, tab2, tab3,tab4,tab5,tab6 = st.tabs(["MCQ", "Summary", "Lesson Plan","Assignments","Topic Segregation","Brain Busters"])
 
 paragraph="""Food in the form of a soft slimy substance where some
 proteins and carbohydrates have already been broken down
