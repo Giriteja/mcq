@@ -1168,18 +1168,12 @@ with(tab5):
 			st.write("Please enter the text to generate Summary.")
 
 with(tab6):
+
 	
     st.title("Syllabus Explorer")
  
     # Create a session state to store the previous selection
-    if "syllabus" not in st.session_state:
-        st.session_state["syllabus"] = None
-    if "class" not in st.session_state:
-        st.session_state["class"] = None
-    if "subject" not in st.session_state:
-        st.session_state["subject"] = None
-    if "lesson" not in st.session_state:
-        st.session_state["lesson"] = None
+   
  
     # Create a dropdown for syllabus
     syllabus_options = [doc.id for doc in db.collection("syllabus-db").stream()]
