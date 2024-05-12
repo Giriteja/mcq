@@ -1203,7 +1203,7 @@ with(tab6):
  
     # Create a dropdown for subject
     if "class_brain" in st.session_state:
-        subject_option_ids = [doc.id for doc in db.collection("subjects").where("class.display_name", "==", class_selected).where("syllabus.syllabus", "==", syllabus).stream()]
+        subject_option_ids = [doc.id for doc in db.collection("subjects").where("class.display_name", "==", class_brain).where("syllabus.syllabus", "==", syllabus).stream()]
         subjects_options = []
         subjects_id_mapping = {}
         for item in subject_option_ids:
