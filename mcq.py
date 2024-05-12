@@ -1243,8 +1243,8 @@ with(tab6):
             # lesson_options = [doc.id for doc in db.collection("lessons").where("subject", "==", st.session_state["subject_brain"]).stream()]
             # lesson_options = ["LESSON1", "LESSON2"]
             topic_selected = st.selectbox("Select Topic", topic_options)
-            paragraph_brain = st.text_area("Enter a paragraph:", height=200)
-            prompt_brain = st.text_area("Enter the prompt:", height=200)
+            paragraph_brain = st.text_area("Enter a paragraph:",key="bain_para, height=200)
+            prompt_brain = st.text_area("Enter the prompt:",key="brain_prompt", height=200)
             mcqs_brain = run_conversation(paragraph_brain,prompt_brain)
             mcq_json=json.loads(mcqs_brain)
             for j in mcq_json['questions']:
