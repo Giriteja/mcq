@@ -1181,11 +1181,11 @@ with(tab6):
     syllabus_options = []
     for item in syllabus_option_ids:
         syllabus_options.append(db.collection("syllabus-db").document(item).get().to_dict()['syllabus'])
-    syllabus = st.selectbox("Select Syllabus", syllabus_options)
-    st.session_state["syllabus"] = syllabus
+    syllabus_brain = st.selectbox("Select Syllabus", syllabus_options)
+    st.session_state["syllabus"] = syllabus_brain
  
     # Create a dropdown for class
-    if syllabus:
+    if syllabus_brain:
         classes_option_ids = [doc.id for doc in db.collection("classes").stream()]
         classes_options = []
         for item in classes_option_ids:
@@ -1207,7 +1207,7 @@ with(tab6):
         st.session_state["subject"] = subject_selected
  
     # Create a dropdown for lesson
-    if "subject" in st.session_state:
+    if "syllabus_brain" in st.session_state:
         lessons_data = db.collection("lessons").where("subject_details.subject_id", "==", subjects_id_mapping[st.session_state["subject"]]).get()
         lesson_options = []
         lesson_id_mapping = {}
