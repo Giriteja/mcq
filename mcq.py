@@ -1235,7 +1235,7 @@ with(tab6):
  
     # Create a dropdown for lesson
     if "section" in st.session_state:
-        topics_data = db.collection("lessons").document(lesson_id_mapping[lesson_selected]).collection(section_selected).get()
+        topics_data = db.collection("lessons").document(lesson_id_mapping[lesson_brain]).collection(section_selected).get()
         topic_options = []
         topic_id_mapping = {}
         for item in topics_data:
