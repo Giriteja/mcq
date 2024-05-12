@@ -48,7 +48,7 @@ chatgpt_headers = {
     "content-type": "application/json",
     "Authorization":"Bearer {}".format(os.getenv("openaikey"))}
 
-tab1, tab2, tab3,tab4,tab5 = st.tabs(["MCQ", "Summary", "Lesson Plan","Assignments","Topic Segregation"])
+tab1, tab2, tab3,tab4,tab5,tab6 = st.tabs(["MCQ", "Summary", "Lesson Plan","Assignments","Topic Segregation"])
 
 paragraph="""Food in the form of a soft slimy substance where some
 proteins and carbohydrates have already been broken down
@@ -1166,3 +1166,86 @@ with(tab5):
 			
 		else:
 			st.write("Please enter the text to generate Summary.")
+
+with(tab6):
+	
+    st.title("Syllabus Explorer")
+ 
+    # Create a session state to store the previous selection
+    if "syllabus" not in st.session_state:
+        st.session_state["syllabus"] = None
+    if "class" not in st.session_state:
+        st.session_state["class"] = None
+    if "subject" not in st.session_state:
+        st.session_state["subject"] = None
+    if "lesson" not in st.session_state:
+        st.session_state["lesson"] = None
+ 
+    # Create a dropdown for syllabus
+    syllabus_options = [doc.id for doc in db.collection("syllabus-db").stream()]
+    syllabus_option_ids = [doc.id for doc in db.collection("syllabus-db").stream()]
+    syllabus_options = []
+    for item in syllabus_option_ids:
+        syllabus_options.append(db.collection("syllabus-db").document(item).get().to_dict()['syllabus'])
+    syllabus = st.selectbox("Select Syllabus", syllabus_options)
+    st.session_state["syllabus"] = syllabus
+ 
+    # Create a dropdown for class
+    if syllabus:
+        classes_option_ids = [doc.id for doc in db.collection("classes").stream()]
+        classes_options = []
+        for item in classes_option_ids:
+            classs = db.collection("classes").document(item).get().to_dict()['display_name']
+            classes_options.append(classs)
+        class_selected = st.selectbox("Select Class", classes_options)
+        st.session_state["class"] = class_selected
+ 
+    # Create a dropdown for subject
+    if "class" in st.session_state:
+        subject_option_ids = [doc.id for doc in db.collection("subjects").where("class.display_name", "==", class_selected).where("syllabus.syllabus", "==", syllabus).stream()]
+        subjects_options = []
+        subjects_id_mapping = {}
+        for item in subject_option_ids:
+            subject = db.collection("subjects").document(item).get().to_dict()['subject']
+            subjects_id_mapping[subject] = item
+            subjects_options.append(subject)
+        subject_selected = st.selectbox("Select Subject", subjects_options)
+        st.session_state["subject"] = subject_selected
+ 
+    # Create a dropdown for lesson
+    if "subject" in st.session_state:
+        lessons_data = db.collection("lessons").where("subject_details.subject_id", "==", subjects_id_mapping[st.session_state["subject"]]).get()
+        lesson_options = []
+        lesson_id_mapping = {}
+        for item in lessons_data:
+            lesson = item.to_dict()['lesson_name']
+            lesson_id_mapping[lesson] = item.id
+            lesson_options.append(lesson)
+        # lesson_options
+        # lesson_options = [doc.id for doc in db.collection("lessons").where("subject", "==", st.session_state["subject"]).stream()]
+        # lesson_options = ["LESSON1", "LESSON2"]
+        lesson_selected = st.selectbox("Select Lesson", lesson_options)
+        st.session_state["lesson"] = lesson_selected
+ 
+    # Create a dropdown for topic/activity
+    if "lesson" in st.session_state:
+        section_selected = st.selectbox("Select Section Type", ["topics", "activities"])
+        st.session_state["section"] = section_selected
+ 
+    # Create a dropdown for lesson
+    if "section" in st.session_state:
+        topics_data = db.collection("lessons").document(lesson_id_mapping[lesson_selected]).collection(section_selected).get()
+        topic_options = []
+        topic_id_mapping = {}
+        for item in topics_data:
+            try:
+                topic = item.to_dict()['topic_name']
+            except:
+                topic = item.to_dict()['activity_name']
+            topic_id_mapping[topic] = item.id
+            topic_options.append(topic)
+        # lesson_options
+        # lesson_options = [doc.id for doc in db.collection("lessons").where("subject", "==", st.session_state["subject"]).stream()]
+        # lesson_options = ["LESSON1", "LESSON2"]
+        topic_selected = st.selectbox("Select Topic", topic_options)
+        st.session_state["topic"] = topic_selected
