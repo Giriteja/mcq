@@ -1182,7 +1182,7 @@ with(tab6):
     for item in syllabus_option_ids:
         syllabus_options.append(db.collection("syllabus-db").document(item).get().to_dict()['syllabus'])
     syllabus_brain = st.selectbox("Select Syllabus", syllabus_options)
-    st.session_state["syllabus_brain"] = syllabus_brain
+   
  
     # Create a dropdown for class
     if syllabus_brain:
@@ -1192,7 +1192,7 @@ with(tab6):
             classs = db.collection("classes").document(item).get().to_dict()['display_name']
             classes_options.append(classs)
         class_brain = st.selectbox("Select Class", classes_options)
-        st.session_state["class_brain"] = class_brain
+        
  
     # Create a dropdown for subject
     if class_brain:
@@ -1204,7 +1204,7 @@ with(tab6):
             subjects_id_mapping[subject] = item
             subjects_options.append(subject)
         subject_brain = st.selectbox("Select Subject", subjects_options)
-        st.session_state["subject_brain"] = subject_brain
+       
  
     # Create a dropdown for lesson
     if subject_brain:
@@ -1219,12 +1219,12 @@ with(tab6):
         # lesson_options = [doc.id for doc in db.collection("lessons").where("subject", "==", subject_brain).stream()]
         # lesson_options = ["LESSON1", "LESSON2"]
         lesson_brain = st.selectbox("Select Lesson", lesson_options)
-        st.session_state["lesson_brain"] = lesson_brain
+        
  
     # Create a dropdown for topic/activity
     if lesson_brain:
         section_selected = st.selectbox("Select Section Type", ["topics", "activities"])
-        st.session_state["section_selected"] = section_selected
+        
  
     # Create a dropdown for lesson
     st.write(lesson_id_mapping)
@@ -1243,4 +1243,4 @@ with(tab6):
         # lesson_options = [doc.id for doc in db.collection("lessons").where("subject", "==", st.session_state["subject_brain"]).stream()]
         # lesson_options = ["LESSON1", "LESSON2"]
         topic_selected = st.selectbox("Select Topic", topic_options)
-        st.session_state["topic"] = topic_selected
+        
