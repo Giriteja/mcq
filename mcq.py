@@ -1256,14 +1256,20 @@ with(tab6):
                     result = '/n'.join(j['options'])
                     json_struct_inter['front_text']=j['question']+'/n'+result
                     json_struct_inter['back_text']=j['answer']
-                    json_struct_inter['back_image']="null"
-                    json_struct_inter['front_image']="null"
+                    json_struct_inter['back_image']=None
+                    json_struct_inter['front_image']=None
                     #st.write(json_struct)
                     cards.append(json_struct_inter)
                 json_struct['cards']=cards
                 json_struct['topic_id']=topic_id_mapping[topic_selected]
                 #st.write(json_struct)
-                db.collection('brain_busters').document().set(json_struct)
+		brain_buster_query = db.collection('brain_busters').where('topic_id', '==', json_struct['topic_id']).stream()
+		bb_docs = list(brain_buster_query)
+		if bb_docs:
+		    doc_ref = bb_docs[0].id
+	            db.collection('brain_busters').document(doc_ref).set(json_struct)
+		else:
+		    db.collection('brain_busters').document().set(json_struct)
                 save_json_to_text(json_struct, 'output.txt')
                 download_button_id = str(uuid.uuid4())
                 # Provide a download link for the text file
