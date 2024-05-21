@@ -1261,7 +1261,7 @@ with(tab6):
                     json_struct_inter['front_image']=None
                     #st.write(json_struct)
                     cards.append(json_struct_inter)
-                json_struct['cards']=cards
+		json_struct['cards']=cards
 		json_struct['topic_id']=topic_id_mapping[topic_selected]
 		#st.write(json_struct)
 		brain_buster_query = db.collection('brain_busters').where('topic_id', '==', json_struct['topic_id']).stream()
