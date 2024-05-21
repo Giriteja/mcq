@@ -1268,13 +1268,13 @@ with(tab6):
 		bb_docs = list(brain_buster_query)
 		if bb_docs:
 			doc_ref = bb_docs[0].id
-				db.collection('brain_busters').document(doc_ref).set(json_struct)
+			db.collection('brain_busters').document(doc_ref).set(json_struct)
 		else:
 			db.collection('brain_busters').document().set(json_struct)
-				save_json_to_text(json_struct, 'output.txt')
-				download_button_id = str(uuid.uuid4())
-				# Provide a download link for the text file
-				st.download_button(
+		save_json_to_text(json_struct, 'output.txt')
+		download_button_id = str(uuid.uuid4())
+		# Provide a download link for the text file
+		st.download_button(
 		label="Download Text File",
 		data=open('output.txt', 'rb').read(),
 		file_name='output.txt',
