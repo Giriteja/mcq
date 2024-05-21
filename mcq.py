@@ -1255,6 +1255,7 @@ with(tab6):
                     json_struct_inter={}
                     result = '/n'.join(j['options'])
                     json_struct_inter['front_text']=j['question']+'/n'+result
+			
                     json_struct_inter['back_text']=j['answer']
                     json_struct_inter['back_image']=None
                     json_struct_inter['front_image']=None
