@@ -19,22 +19,22 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 
 data_cred={"type": "service_account",
-        "project_id": os.getenv("project_id"),
-        "private_key_id": os.getenv("private_key_id"),
-        "private_key": os.getenv("private_key").replace('\\n', '\n'),
-        "client_email": os.getenv("client_email"),
-        "client_id": os.getenv("client_id"),
-        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-        "token_uri": "https://oauth2.googleapis.com/token",
-        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-        "client_x509_cert_url": os.getenv("client_x509_cert_url"),
+		"project_id": os.getenv("project_id"),
+		"private_key_id": os.getenv("private_key_id"),
+		"private_key": os.getenv("private_key").replace('\\n', '\n'),
+		"client_email": os.getenv("client_email"),
+		"client_id": os.getenv("client_id"),
+		"auth_uri": "https://accounts.google.com/o/oauth2/auth",
+		"token_uri": "https://oauth2.googleapis.com/token",
+		"auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+		"client_x509_cert_url": os.getenv("client_x509_cert_url"),
 	"universe_domain":"googleapis.com"}
 
 
 
 if not firebase_admin._apps:
-    cred = credentials.Certificate(data_cred) 
-    app = firebase_admin.initialize_app(cred)
+	cred = credentials.Certificate(data_cred) 
+	app = firebase_admin.initialize_app(cred)
  
 db = firestore.client()
 
@@ -45,8 +45,8 @@ client = OpenAI(
 chatgpt_url = "https://api.openai.com/v1/chat/completions"
 
 chatgpt_headers = {
-    "content-type": "application/json",
-    "Authorization":"Bearer {}".format(os.getenv("openaikey"))}
+	"content-type": "application/json",
+	"Authorization":"Bearer {}".format(os.getenv("openaikey"))}
 
 tab1, tab2, tab3,tab4,tab5,tab6 = st.tabs(["MCQ", "Summary", "Lesson Plan","Assignments","Topic Segregation","Brain Busters"])
 
@@ -61,17 +61,17 @@ quantities of the food material may be passed into the
 small intestine at a time."""
 
 def generateMCQs(questions,topic):
-        return json.dumps({"questions": questions, "topic":topic})
+		return json.dumps({"questions": questions, "topic":topic})
 
 def generate_long_short_questions(questions,topic):
-        return json.dumps({"questions": questions, "topic":topic})
+		return json.dumps({"questions": questions, "topic":topic})
 
 def chapter_topic_identification(questions,topic):
-        return json.dumps({"questions": questions, "topic":topic})
+		return json.dumps({"questions": questions, "topic":topic})
 
 def save_json_to_text(json_data, filename):
-    with open(filename, 'w') as f:
-        f.write(json.dumps(json_data, indent=4))
+	with open(filename, 'w') as f:
+		f.write(json.dumps(json_data, indent=4))
 
 def extract_data(file):
 	reader = PyPDF2.PdfReader(file)
@@ -79,16 +79,16 @@ def extract_data(file):
 	text = ""
 	num_pages = len(reader.pages)
 	for page_num in range(num_pages):
-            page = reader.pages[page_num]
-            text += page.extract_text()
-    	# Display the content
+			page = reader.pages[page_num]
+			text += page.extract_text()
+		# Display the content
 	return text
 
 def topic_segregation(questions,url,headers,prompt):
-    # Step 1: send the conversation and available functions to the model
+	# Step 1: send the conversation and available functions to the model
 
-    messages = [{"role": "system", "content": """Please format the provided set of questions and assign each question to the relevant chapter and subtopic from the given syllabus :
-    
+	messages = [{"role": "system", "content": """Please format the provided set of questions and assign each question to the relevant chapter and subtopic from the given syllabus :
+	
 BIOLOGY - SYLLABUS
 10th CLASS
 1. Nutrition
@@ -331,28 +331,28 @@ While giving Marks and question type consider the section in which that question
 
 """},{"role": "user", "content": questions}]
 
-    chatgpt_payload = {
+	chatgpt_payload = {
 	"response_format": {"type": "json_object"},
-        "model": "gpt-4-1106-preview",
-        "messages": messages,
-        "temperature": 1.3,
-        "top_p": 1,
+		"model": "gpt-4-1106-preview",
+		"messages": messages,
+		"temperature": 1.3,
+		"top_p": 1,
 	"max_tokens":4000,
-    }
+	}
 
-    # Make the request to OpenAI's API
-    response = requests.post(url, json=chatgpt_payload, headers=headers)
-    response_json = response.json()
+	# Make the request to OpenAI's API
+	response = requests.post(url, json=chatgpt_payload, headers=headers)
+	response_json = response.json()
 
-    # Extract data from the API's response
-    st.write(response_json)
-    output = response_json['choices'][0]['message']['content']
-    return output
+	# Extract data from the API's response
+	st.write(response_json)
+	output = response_json['choices'][0]['message']['content']
+	return output
 
 def generate_assignment(paragraph,url,headers,prompt):
-    # Step 1: send the conversation and available functions to the model
-    messages = [{"role": "system", "content": f"""Given the following paragraph and the following instructions{prompt}, generate Short questions,Long questions,assertion and reason based questions that should align with specific cognitive levels according to Bloom's Taxonomy. For each question, use the associated verbs as a guide to ensure the questions match the intended complexity and cognitive process.For each question classify it as Easy,Medium or Hard.
-    
+	# Step 1: send the conversation and available functions to the model
+	messages = [{"role": "system", "content": f"""Given the following paragraph and the following instructions{prompt}, generate Short questions,Long questions,assertion and reason based questions that should align with specific cognitive levels according to Bloom's Taxonomy. For each question, use the associated verbs as a guide to ensure the questions match the intended complexity and cognitive process.For each question classify it as Easy,Medium or Hard.
+	
 Please ensure the questions and options are closely related to the content of the provided text and reflect the cognitive level specified for every question.For short questions, focus on concise inquiries that can be answered in a sentence or two. These questions should aim to test the reader's understanding of key concepts and facts related to the topic.
 
 For long questions, delve deeper into the topic and pose more complex inquiries that may require extended explanations or analysis. These questions should encourage critical thinking and provide opportunities for in-depth exploration of the subject matter.You may use the following example questions as a guide.
@@ -394,88 +394,88 @@ Answer: Enzymes are biological catalysts that speed up chemical reactions in liv
 Question: Explain the process of photosynthesis in detail.
 
 Answer: Photosynthesis is a complex biochemical process by which green plants, algae, and some bacteria convert light energy, carbon dioxide, and water into glucose and oxygen. It occurs in chloroplasts and involves two main stages: the light-dependent reactions and the Calvin cycle. During the light-dependent reactions, light energy is used to split water molecules, producing oxygen and ATP. The Calvin cycle then uses ATP and NADPH generated in the light-dependent reactions to fix carbon dioxide and synthesize glucose."""},{"role": "user", "content": paragraph}]
-    tools = [
+	tools = [
 	{
-            "type": "function",
-            "function": {
-            "name": "generate_long_short_questions",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "topic": {
-                        "type": "string"
-                    },
-                    "questions": {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "question": {
-                                    "type": "string"
-                                },
-                                "answer": {
-                                    "type": "string"
-                                },
-                                "question_level": {
-                                    "type": "string",
-                                    "enum": ["easy", "medium","hard"]
-                                },
-                                "question_type": {
-                                    "type": "string",
-                                    "enum": ["Remember", "Understand","Apply","Analyze","Evaluate","Create"]
-                                },
+			"type": "function",
+			"function": {
+			"name": "generate_long_short_questions",
+			"parameters": {
+				"type": "object",
+				"properties": {
+					"topic": {
+						"type": "string"
+					},
+					"questions": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"question": {
+									"type": "string"
+								},
+								"answer": {
+									"type": "string"
+								},
+								"question_level": {
+									"type": "string",
+									"enum": ["easy", "medium","hard"]
+								},
+								"question_type": {
+									"type": "string",
+									"enum": ["Remember", "Understand","Apply","Analyze","Evaluate","Create"]
+								},
 				"question_type_short_or_long": {
-                                "type": "string",
-                                "enum": ["Short Question", "Long Question"]
-                                }
-				    
-                            },
-                            "required": ["question", "answer","question_level","question_type","question_type_short_or_long"]
-                        }
-                    }
-                },
-                "required": ["topic", "questions"]
-            }
-        }
-        }
-	    
-	    
-    ]
-    response = client.chat.completions.create(
-        model="gpt-3.5-turbo-1106",
-        messages=messages,
-        tools=tools,
-        tool_choice="auto",  # auto is default, but we'll be explicit
-    )
-    #print("response------------",response)
-    response_message = response.choices[0].message
-    tool_calls = response_message.tool_calls
-    # Step 2: check if the model wanted to call a function
-    if tool_calls:
-        # Step 3: call the function
-        # Note: the JSON response may not always be valid; be sure to handle errors
-        available_functions = {
-	    "generate_long_short_questions":generate_long_short_questions
-        }  # only one function in this example, but you can have multiple
-        messages.append(response_message)  # extend conversation with assistant's reply
-        # Step 4: send the info for each function call and function response to the model
-        #print("tool_calls-----------------",tool_calls)
-        for tool_call in tool_calls:
-            function_name = tool_call.function.name
-            function_to_call = available_functions[function_name]
-            function_args = json.loads(tool_call.function.arguments)
-            function_response = function_to_call(
-                questions=function_args.get("questions"),
-                topic=function_args.get("topic"),
-            )
-            return function_response
+								"type": "string",
+								"enum": ["Short Question", "Long Question"]
+								}
+					
+							},
+							"required": ["question", "answer","question_level","question_type","question_type_short_or_long"]
+						}
+					}
+				},
+				"required": ["topic", "questions"]
+			}
+		}
+		}
+		
+		
+	]
+	response = client.chat.completions.create(
+		model="gpt-3.5-turbo-1106",
+		messages=messages,
+		tools=tools,
+		tool_choice="auto",	 # auto is default, but we'll be explicit
+	)
+	#print("response------------",response)
+	response_message = response.choices[0].message
+	tool_calls = response_message.tool_calls
+	# Step 2: check if the model wanted to call a function
+	if tool_calls:
+		# Step 3: call the function
+		# Note: the JSON response may not always be valid; be sure to handle errors
+		available_functions = {
+		"generate_long_short_questions":generate_long_short_questions
+		}  # only one function in this example, but you can have multiple
+		messages.append(response_message)  # extend conversation with assistant's reply
+		# Step 4: send the info for each function call and function response to the model
+		#print("tool_calls-----------------",tool_calls)
+		for tool_call in tool_calls:
+			function_name = tool_call.function.name
+			function_to_call = available_functions[function_name]
+			function_args = json.loads(tool_call.function.arguments)
+			function_response = function_to_call(
+				questions=function_args.get("questions"),
+				topic=function_args.get("topic"),
+			)
+			return function_response
 
 def highlight_max(s):
-    is_max = s == s.max()
-    return [
-        "background-color: lightgreen" if v else "background-color: white"
-        for v in is_max
-    ]
+	is_max = s == s.max()
+	return [
+		"background-color: lightgreen" if v else "background-color: white"
+		for v in is_max
+	]
 
 EVALUATION_PROMPT_TEMPLATE = """
 You will be given one summary written for an article. Your task is to rate the summary on one metric.
@@ -565,41 +565,41 @@ Read the summary and evaluate its fluency based on the given criteria. Assign a 
 """
 
 def get_geval_score(
-    criteria: str, steps: str, document: str, summary: str, metric_name: str
+	criteria: str, steps: str, document: str, summary: str, metric_name: str
 ):
-    prompt = EVALUATION_PROMPT_TEMPLATE.format(
-        criteria=criteria,
-        steps=steps,
-        metric_name=metric_name,
-        document=document,
-        summary=summary,
-    )
-    response = client.chat.completions.create(
-        model="gpt-3.5-turbo-1106",
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0,
-    )
-    return response.choices[0].message.content
+	prompt = EVALUATION_PROMPT_TEMPLATE.format(
+		criteria=criteria,
+		steps=steps,
+		metric_name=metric_name,
+		document=document,
+		summary=summary,
+	)
+	response = client.chat.completions.create(
+		model="gpt-3.5-turbo-1106",
+		messages=[{"role": "user", "content": prompt}],
+		temperature=0,
+		top_p=1,
+		frequency_penalty=0,
+		presence_penalty=0,
+	)
+	return response.choices[0].message.content
 
 
 evaluation_metrics = {
-    "Relevance": (RELEVANCY_SCORE_CRITERIA, RELEVANCY_SCORE_STEPS),
-    "Coherence": (COHERENCE_SCORE_CRITERIA, COHERENCE_SCORE_STEPS),
-    "Consistency": (CONSISTENCY_SCORE_CRITERIA, CONSISTENCY_SCORE_STEPS),
-    "Fluency": (FLUENCY_SCORE_CRITERIA, FLUENCY_SCORE_STEPS),
+	"Relevance": (RELEVANCY_SCORE_CRITERIA, RELEVANCY_SCORE_STEPS),
+	"Coherence": (COHERENCE_SCORE_CRITERIA, COHERENCE_SCORE_STEPS),
+	"Consistency": (CONSISTENCY_SCORE_CRITERIA, CONSISTENCY_SCORE_STEPS),
+	"Fluency": (FLUENCY_SCORE_CRITERIA, FLUENCY_SCORE_STEPS),
 }
 
 # Example dummy function hard coded to return the same weather
 # In production, this could be your backend API or an external API
 
 def generate_lessonplan(topic,url,headers,prompt):
-    
-    # Define the payload for the chat model
-    messages = [
-        {"role": "system", "content": """Generate a detailed lesson plan for a 45-minute high school class on the given topic . The lesson plan should include:
+	
+	# Define the payload for the chat model
+	messages = [
+		{"role": "system", "content": """Generate a detailed lesson plan for a 45-minute high school class on the given topic . The lesson plan should include:
 
 1. Learning Objectives: Clearly defined goals that students should achieve by the end of the lesson.
 2. Introduction: A brief overview to engage students and introduce the topic.
@@ -612,125 +612,125 @@ def generate_lessonplan(topic,url,headers,prompt):
 
 Ensure the lesson plan is structured, engaging, and suitable for high school students with a basic understanding of biology.
 """+prompt},
-        {"role": "user", "content": topic}
-    ]
+		{"role": "user", "content": topic}
+	]
 
-    chatgpt_payload = {
-        "model": "gpt-4-1106-preview",
-        "messages": messages,
-        "temperature": 1.3,
-        "top_p": 1,
-        "stop": ["###"]
-    }
+	chatgpt_payload = {
+		"model": "gpt-4-1106-preview",
+		"messages": messages,
+		"temperature": 1.3,
+		"top_p": 1,
+		"stop": ["###"]
+	}
 
-    # Make the request to OpenAI's API
-    response = requests.post(url, json=chatgpt_payload, headers=headers)
-    response_json = response.json()
+	# Make the request to OpenAI's API
+	response = requests.post(url, json=chatgpt_payload, headers=headers)
+	response_json = response.json()
 
-    # Extract data from the API's response
-    #st.write(response_json)
-    output = response_json['choices'][0]['message']['content']
-    return output
-        
+	# Extract data from the API's response
+	#st.write(response_json)
+	output = response_json['choices'][0]['message']['content']
+	return output
+		
 def generate_summary(paragraph,url,headers,prompt):
-    
-    # Define the payload for the chat model
-    messages = [
-        {"role": "system", "content": "Summarize content you are provided with headings and bullet points.Also consider the following Instruction while generating Summary"+prompt},
-        {"role": "user", "content": paragraph}
-    ]
+	
+	# Define the payload for the chat model
+	messages = [
+		{"role": "system", "content": "Summarize content you are provided with headings and bullet points.Also consider the following Instruction while generating Summary"+prompt},
+		{"role": "user", "content": paragraph}
+	]
 
-    chatgpt_payload = {
-        "model": "gpt-3.5-turbo-1106",
-        "messages": messages,
-        "temperature": 1.3,
-        "top_p": 1,
-        "stop": ["###"]
-    }
+	chatgpt_payload = {
+		"model": "gpt-3.5-turbo-1106",
+		"messages": messages,
+		"temperature": 1.3,
+		"top_p": 1,
+		"stop": ["###"]
+	}
 
-    # Make the request to OpenAI's API
-    response = requests.post(url, json=chatgpt_payload, headers=headers)
-    response_json = response.json()
+	# Make the request to OpenAI's API
+	response = requests.post(url, json=chatgpt_payload, headers=headers)
+	response_json = response.json()
 
-    # Extract data from the API's response
-    #st.write(response_json)
-    output = response_json['choices'][0]['message']['content']
-    return output
-        
-        
+	# Extract data from the API's response
+	#st.write(response_json)
+	output = response_json['choices'][0]['message']['content']
+	return output
+		
+		
 def extract_text(image):
-    # Convert the image to a format suitable for OCR
-    opencv_image = np.array(image)  # Convert PIL image to OpenCV format
-    gray_image = cv2.cvtColor(opencv_image, cv2.COLOR_BGR2GRAY)
+	# Convert the image to a format suitable for OCR
+	opencv_image = np.array(image)	# Convert PIL image to OpenCV format
+	gray_image = cv2.cvtColor(opencv_image, cv2.COLOR_BGR2GRAY)
 
-    # Apply Tesseract OCR
-    extracted_text = pytesseract.image_to_string(gray_image)
+	# Apply Tesseract OCR
+	extracted_text = pytesseract.image_to_string(gray_image)
 
-    return extracted_text
+	return extracted_text
 
 def run_conversation(paragraph,prompt):
-    # Step 1: send the conversation and available functions to the model
-    messages = [{"role": "system", "content": f"""Generate multiple-choice questions (MCQs) on the given paragraph and consider the following instructions {prompt}. Provide questions at different cognitive levels according to Bloom's Taxonomy. Include a variety of question types and encourage creativity in the question generation process. You may use the following example questions as a guide.For each question classify it as Easy,Medium or Hard.
-    
+	# Step 1: send the conversation and available functions to the model
+	messages = [{"role": "system", "content": f"""Generate multiple-choice questions (MCQs) on the given paragraph and consider the following instructions {prompt}. Provide questions at different cognitive levels according to Bloom's Taxonomy. Include a variety of question types and encourage creativity in the question generation process. You may use the following example questions as a guide.For each question classify it as Easy,Medium or Hard.
+	
 1. Remember (recall facts and basic concepts): Use verbs like "list," "define," "name." 
    - Example Question: "[Question based on 'remember' level]" 
-     a) Option A
-     b) Option B
-     c) Option C 
-     d) Option D
+	 a) Option A
+	 b) Option B
+	 c) Option C 
+	 d) Option D
 
-     Answer: C
-     
-     Level:Easy
+	 Answer: C
+	 
+	 Level:Easy
 
 2. Understand (explain ideas or concepts): Use verbs like "summarize," "describe," "interpret."
    - Example Question: "[Question based on 'understand' level]" 
-     a) Option A
-     b) Option B
-     c) Option C
-     d) Option D
+	 a) Option A
+	 b) Option B
+	 c) Option C
+	 d) Option D
 
-     
-     Answer: A
-     
-     Difficulty Level:Easy
+	 
+	 Answer: A
+	 
+	 Difficulty Level:Easy
 
 
 3. Apply (use information in new situations): Use verbs like "use," "solve," "demonstrate."
    - Example Question: "[Question based on 'apply' level]" 
-     a) Option A
-     b) Option B
-     c) Option C 
-     d) Option D
+	 a) Option A
+	 b) Option B
+	 c) Option C 
+	 d) Option D
 
-     Answer: D
-     
-     Difficulty Level:Medium
+	 Answer: D
+	 
+	 Difficulty Level:Medium
 
 
 4. Analyze (draw connections among ideas): Use verbs like "classify," "compare," "contrast."
    - Example Question: "[Question based on 'analyze' level]"
-     a) Option A
-     b) Option B
-     c) Option C
-     d) Option D
+	 a) Option A
+	 b) Option B
+	 c) Option C
+	 d) Option D
 
-     Answer: B
-     
-    Difficulty  Level:Hard
+	 Answer: B
+	 
+	Difficulty	Level:Hard
 
 
 5. Evaluate (justify a stand or decision): Use verbs like "judge," "evaluate," "critique."
    - Example Question: "[Question based on 'evaluate' level]"
-     a) Option A
-     b) Option B
-     c) Option C
-     d) Option D
+	 a) Option A
+	 b) Option B
+	 c) Option C
+	 d) Option D
 
 
-     Answer: E
-     
-    Difficulty Level:Medium
+	 Answer: E
+	 
+	Difficulty Level:Medium
 
 6. Create (produce new or original work): Use verbs like "design," "assemble," "construct."
    - Example Question: "[Question based on 'create' level]"
@@ -738,110 +738,110 @@ def run_conversation(paragraph,prompt):
 
    
 Ensure the questions and options are closely related to the content of the provided text and reflect the cognitive level specified for every question. Generate as many questions as possible from the given content, incorporating diverse question types and encouraging creativity in the process."""},{"role": "user", "content": paragraph}]
-    tools = [
-        {
-            "type": "function",
-            "function": {
-            "name": "generateMCQs",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "topic": {
-                        "type": "string"
-                    },
-                    "questions": {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "question": {
-                                    "type": "string"
-                                },
-                                "options": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                },
-                                "answer": {
-                                    "type": "string"
-                                },
-                                "question_level": {
-                                    "type": "string",
-                                    "enum": ["easy", "medium","hard"]
-                                },
-                                "question_type": {
-                                    "type": "string",
-                                    "enum": ["Remember", "Understand","Apply","Analyze","Evaluate","Create"]
-                                }
-                            },
-                            "required": ["question", "options", "answer","question_level","question_type"]
-                        }
-                    }
-                },
-                "required": ["topic", "questions"]
-            }
-        }
-        }
-    ]
-    response = client.chat.completions.create(
-        model="gpt-4-1106-preview",
-        messages=messages,
-        tools=tools,
-        tool_choice="auto",  # auto is default, but we'll be explicit
-    )
-    #print("response------------",response)
-    response_message = response.choices[0].message
-    tool_calls = response_message.tool_calls
-    # Step 2: check if the model wanted to call a function
-    if tool_calls:
-        # Step 3: call the function
-        # Note: the JSON response may not always be valid; be sure to handle errors
-        available_functions = {
-            "generateMCQs": generateMCQs,
-        }  # only one function in this example, but you can have multiple
-        messages.append(response_message)  # extend conversation with assistant's reply
-        # Step 4: send the info for each function call and function response to the model
-        #print("tool_calls-----------------",tool_calls)
-        if(1):
-            function_name = tool_calls[0].function.name
-            function_to_call = available_functions[function_name]
-            function_args = json.loads(tool_calls[0].function.arguments)
-            function_response = function_to_call(
-                questions=function_args.get("questions"),
-                topic=function_args.get("topic"),
-            )
-            return function_response
-            
-            
+	tools = [
+		{
+			"type": "function",
+			"function": {
+			"name": "generateMCQs",
+			"parameters": {
+				"type": "object",
+				"properties": {
+					"topic": {
+						"type": "string"
+					},
+					"questions": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"question": {
+									"type": "string"
+								},
+								"options": {
+									"type": "array",
+									"items": {
+										"type": "string"
+									}
+								},
+								"answer": {
+									"type": "string"
+								},
+								"question_level": {
+									"type": "string",
+									"enum": ["easy", "medium","hard"]
+								},
+								"question_type": {
+									"type": "string",
+									"enum": ["Remember", "Understand","Apply","Analyze","Evaluate","Create"]
+								}
+							},
+							"required": ["question", "options", "answer","question_level","question_type"]
+						}
+					}
+				},
+				"required": ["topic", "questions"]
+			}
+		}
+		}
+	]
+	response = client.chat.completions.create(
+		model="gpt-4-1106-preview",
+		messages=messages,
+		tools=tools,
+		tool_choice="auto",	 # auto is default, but we'll be explicit
+	)
+	#print("response------------",response)
+	response_message = response.choices[0].message
+	tool_calls = response_message.tool_calls
+	# Step 2: check if the model wanted to call a function
+	if tool_calls:
+		# Step 3: call the function
+		# Note: the JSON response may not always be valid; be sure to handle errors
+		available_functions = {
+			"generateMCQs": generateMCQs,
+		}  # only one function in this example, but you can have multiple
+		messages.append(response_message)  # extend conversation with assistant's reply
+		# Step 4: send the info for each function call and function response to the model
+		#print("tool_calls-----------------",tool_calls)
+		if(1):
+			function_name = tool_calls[0].function.name
+			function_to_call = available_functions[function_name]
+			function_args = json.loads(tool_calls[0].function.arguments)
+			function_response = function_to_call(
+				questions=function_args.get("questions"),
+				topic=function_args.get("topic"),
+			)
+			return function_response
+			
+			
 with(tab1):
 	# Upload image
 	uploaded_image = st.file_uploader("Upload an image...", type=["png", "jpg", "jpeg"])
 	uploaded_pdf = st.file_uploader("Upload a PDF file", type="pdf")
 	final_data=[]
 	#option = st.selectbox(
-    	#'Choose Number of Questions:',
-    	#('5', '10', '15', '20'))
+		#'Choose Number of Questions:',
+		#('5', '10', '15', '20'))
 	# If an image is uploaded, display and process it
 
 	syllabus  = st.selectbox(
-	   			"Select Syllabus",
+				"Select Syllabus",
 		("CBSE", "SSC"),key="syllabus")
 	class_name = st.selectbox(
-	   			"Select class",
+				"Select class",
 		('VI', 'VII', 'VIII', 'IX','X'),key="class")
 	subject_name  = st.selectbox(
-	   			"Select Subject",
+				"Select Subject",
 		("PHYSICS","SCIENCE","BIOLOGY","CHEMISTRY", "SOCIAL", "HISTORY", "GEOGRAPHY", "CIVICS", "ECONOMICS", "MATHEMATICS", "TELUGU", "HINDI", "ENGLISH"),key="subject")
-	lesson_name  = st.selectbox(
-	   			"Select lesson",
+	lesson_name	 = st.selectbox(
+				"Select lesson",
 		("LESSON1", "LESSON2","LESSON3","LESSON4","LESSON5","LESSON6","LESSON7","LESSON8","LESSON9","LESSON10","LESSON11","LESSON12","LESSON13"),key="lesson_name")
 	#paragraph = st.text_area("Enter a paragraph:",text, height=200)
 
 	
 	
 	if uploaded_image is not None:
-	    # Display the uploaded image
+		# Display the uploaded image
 		image = Image.open(uploaded_image)
 		st.image(image, caption="Uploaded Image", use_column_width=True)
 
@@ -854,11 +854,11 @@ with(tab1):
 				if paragraph:
 			
 					if syllabus == "CBSE":
-					    subject_collection = db.collection('cbse_subjects')
+						subject_collection = db.collection('cbse_subjects')
 					elif syllabus == "SSC":
-					    subject_collection = db.collection('ssc_subjects')
+						subject_collection = db.collection('ssc_subjects')
 					else:
-					    raise Exception("Wrong Syllabus")
+						raise Exception("Wrong Syllabus")
 					 
 					subject_data = subject_collection.where("subject_name", "==", subject_name).limit(1).get()[0].to_dict()
 					subject_id = subject_data['subject_id']
@@ -890,16 +890,16 @@ with(tab1):
 					save_json_to_text(final_data, 'output.txt')
 					collection = db.collection("question-library")
 					for item in final_data:
-					    doc = collection.document()
-					    item['question_id'] = doc.id
-					    doc.set(item)
+						doc = collection.document()
+						item['question_id'] = doc.id
+						doc.set(item)
 					download_button_id = str(uuid.uuid4())
 					# Provide a download link for the text file
 					st.download_button(
-					        label="Download Text File",
-					        data=open('output.txt', 'rb').read(),
-					        file_name='output.txt',
-					        mime='text/plain',
+							label="Download Text File",
+							data=open('output.txt', 'rb').read(),
+							file_name='output.txt',
+							mime='text/plain',
 						key=download_button_id
 					)
 				
@@ -910,18 +910,18 @@ with(tab1):
 			st.write("Please enter a paragraph to generate questions.")
 			
 		  
-	if not(uploaded_image and uploaded_pdf):         
+	if not(uploaded_image and uploaded_pdf):		 
 			paragraph = st.text_area("Enter a paragraph:", height=200)
 			prompt_mcq = st.text_area("Enter the prompt:", height=200)
 		
 		
 			if st.button("Generate MCQs via text"):
 				if syllabus == "CBSE":
-				    subject_collection = db.collection('cbse_subjects')
+					subject_collection = db.collection('cbse_subjects')
 				elif syllabus == "SSC":
-				    subject_collection = db.collection('ssc_subjects')
+					subject_collection = db.collection('ssc_subjects')
 				else:
-				    raise Exception("Wrong Syllabus")
+					raise Exception("Wrong Syllabus")
 				 
 				subject_data = subject_collection.where("subject_name", "==", subject_name).limit(1).get()[0].to_dict()
 				subject_id = subject_data['subject_id']
@@ -954,22 +954,22 @@ with(tab1):
 					save_json_to_text(final_data, 'output.txt')
 					collection = db.collection("question-library")
 					for item in final_data:
-					    doc = collection.document()
-					    item['question_id'] = doc.id
-					    doc.set(item)
+						doc = collection.document()
+						item['question_id'] = doc.id
+						doc.set(item)
 					download_button_id = str(uuid.uuid4())
 					# Provide a download link for the text file
 					st.download_button(
-					        label="Download Text File",
-					        data=open('output.txt', 'rb').read(),
-					        file_name='output.txt',
-					        mime='text/plain',
+							label="Download Text File",
+							data=open('output.txt', 'rb').read(),
+							file_name='output.txt',
+							mime='text/plain',
 						key=download_button_id
 					)
 				else:
 					st.write("Please enter a paragraph to generate questions.")
 
-	if uploaded_pdf is not None:         
+	if uploaded_pdf is not None:		 
 		pdf_file_path = uploaded_pdf  # Replace "example.pdf" with the path to your PDF file
 		extracted_text = extract_data(pdf_file_path)
 		paragraph = st.text_area("Enter a paragraph:",extracted_text, height=200)
@@ -979,11 +979,11 @@ with(tab1):
 			if paragraph:
 				if st.button("Generate MCQs via text"):
 					if syllabus == "CBSE":
-					    subject_collection = db.collection('cbse_subjects')
+						subject_collection = db.collection('cbse_subjects')
 					elif syllabus == "SSC":
-					    subject_collection = db.collection('ssc_subjects')
+						subject_collection = db.collection('ssc_subjects')
 					else:
-					    raise Exception("Wrong Syllabus")
+						raise Exception("Wrong Syllabus")
 					 
 					subject_data = subject_collection.where("subject_name", "==", subject_name).limit(1).get()[0].to_dict()
 					subject_id = subject_data['subject_id']
@@ -1015,16 +1015,16 @@ with(tab1):
 					save_json_to_text(final_data, 'output.txt')
 					collection = db.collection("question-library")
 					for item in final_data:
-					    doc = collection.document()
-					    item['question_id'] = doc.id
-					    doc.set(item)
+						doc = collection.document()
+						item['question_id'] = doc.id
+						doc.set(item)
 					download_button_id = str(uuid.uuid4())
 					# Provide a download link for the text file
 					st.download_button(
-					        label="Download Text File",
-					        data=open('output.txt', 'rb').read(),
-					        file_name='output.txt',
-					        mime='text/plain',
+							label="Download Text File",
+							data=open('output.txt', 'rb').read(),
+							file_name='output.txt',
+							mime='text/plain',
 						key=download_button_id
 					)
 				else:
@@ -1044,15 +1044,15 @@ with(tab2):
 			
 			
 			for eval_type, (criteria, steps) in evaluation_metrics.items():
-			    for summ_type, summary in summaries.items():
-			        data["Evaluation Type"].append(eval_type)
-			        data["Summary Type"].append(summ_type)
-			        result = get_geval_score(criteria, steps, paragraph, summary, eval_type)
-			        score_num = float(result.strip())
-			        data["Score"].append(score_num)
+				for summ_type, summary in summaries.items():
+					data["Evaluation Type"].append(eval_type)
+					data["Summary Type"].append(summ_type)
+					result = get_geval_score(criteria, steps, paragraph, summary, eval_type)
+					score_num = float(result.strip())
+					data["Score"].append(score_num)
 			
 			pivot_df = pd.DataFrame(data, index=None).pivot(
-			    index="Evaluation Type", columns="Summary Type", values="Score"
+				index="Evaluation Type", columns="Summary Type", values="Score"
 			)
 			st.write(pivot_df)
 		else:
@@ -1072,21 +1072,21 @@ with(tab4):
 	# Upload image
 	final_data=[]
 	#option = st.selectbox(
-    	#'Choose Number of Questions:',
-    	#('5', '10', '15', '20'))
+		#'Choose Number of Questions:',
+		#('5', '10', '15', '20'))
 	# If an image is uploaded, display and process it
 
 	syllabus  = st.selectbox(
-	   			"Select Syllabus",
+				"Select Syllabus",
 		("CBSE", "SSC"),key="syllabus1")
 	class_name = st.selectbox(
-	   			"Select class",
+				"Select class",
 		('VI', 'VII', 'VIII', 'IX','X'),key="class1")
 	subject_name  = st.selectbox(
-	   			"Select Subject",
+				"Select Subject",
 		("PHYSICS","SCIENCE","BIOLOGY","CHEMISTRY", "SOCIAL", "HISTORY", "GEOGRAPHY", "CIVICS", "ECONOMICS", "MATHEMATICS", "TELUGU", "HINDI", "ENGLISH"),key="subject1")
-	lesson_name  = st.selectbox(
-	   			"Select lesson",
+	lesson_name	 = st.selectbox(
+				"Select lesson",
 		("LESSON1", "LESSON2","LESSON3","LESSON4","LESSON5","LESSON6","LESSON7","LESSON8","LESSON9","LESSON10","LESSON11","LESSON12","LESSON13"),key="lesson_name1")
 	#paragraph = st.text_area("Enter a paragraph:",text, height=200)
 
@@ -1098,11 +1098,11 @@ with(tab4):
 	if st.button("Generate Assignment"):
 		if topic_assign:
 			if syllabus == "CBSE":
-			    subject_collection = db.collection('cbse_subjects')
+				subject_collection = db.collection('cbse_subjects')
 			elif syllabus == "SSC":
-			    subject_collection = db.collection('ssc_subjects')
+				subject_collection = db.collection('ssc_subjects')
 			else:
-			    raise Exception("Wrong Syllabus")
+				raise Exception("Wrong Syllabus")
 			 
 			subject_data = subject_collection.where("subject_name", "==", subject_name).limit(1).get()[0].to_dict()
 			subject_id = subject_data['subject_id']
@@ -1138,16 +1138,16 @@ with(tab4):
 			save_json_to_text(final_data, 'output.txt')
 			collection = db.collection("question-library")
 			for item in final_data:
-			    doc = collection.document()
-			    item['question_id'] = doc.id
-			    doc.set(item)
+				doc = collection.document()
+				item['question_id'] = doc.id
+				doc.set(item)
 			download_button_id = str(uuid.uuid4())
 			# Provide a download link for the text file
 			st.download_button(
-				        label="Download Text File12",
-				        data=open('output.txt', 'rb').read(),
-				        file_name='output.txt',
-				        mime='text/plain',
+						label="Download Text File12",
+						data=open('output.txt', 'rb').read(),
+						file_name='output.txt',
+						mime='text/plain',
 					key=download_button_id
 			)
 			
@@ -1170,111 +1170,111 @@ with(tab5):
 with(tab6):
 
 	
-    st.title("Syllabus Explorer")
+	st.title("Syllabus Explorer")
  
-    
-    
+	
+	
  
-    # Create a dropdown for syllabus
-    syllabus_options = [doc.id for doc in db.collection("syllabus-db").stream()]
-    syllabus_option_ids = [doc.id for doc in db.collection("syllabus-db").stream()]
-    syllabus_options = []
-    for item in syllabus_option_ids:
-        syllabus_options.append(db.collection("syllabus-db").document(item).get().to_dict()['syllabus'])
-    syllabus_brain = st.selectbox("Select Syllabus", syllabus_options)
+	# Create a dropdown for syllabus
+	syllabus_options = [doc.id for doc in db.collection("syllabus-db").stream()]
+	syllabus_option_ids = [doc.id for doc in db.collection("syllabus-db").stream()]
+	syllabus_options = []
+	for item in syllabus_option_ids:
+		syllabus_options.append(db.collection("syllabus-db").document(item).get().to_dict()['syllabus'])
+	syllabus_brain = st.selectbox("Select Syllabus", syllabus_options)
    
  
-    # Create a dropdown for class
-    if syllabus_brain:
-        classes_option_ids = [doc.id for doc in db.collection("classes").stream()]
-        classes_options = []
-        for item in classes_option_ids:
-            classs = db.collection("classes").document(item).get().to_dict()['display_name']
-            classes_options.append(classs)
-        class_brain = st.selectbox("Select Class", classes_options)
-        
+	# Create a dropdown for class
+	if syllabus_brain:
+		classes_option_ids = [doc.id for doc in db.collection("classes").stream()]
+		classes_options = []
+		for item in classes_option_ids:
+			classs = db.collection("classes").document(item).get().to_dict()['display_name']
+			classes_options.append(classs)
+		class_brain = st.selectbox("Select Class", classes_options)
+		
  
-    # Create a dropdown for subject
-    if class_brain:
-        subject_option_ids = [doc.id for doc in db.collection("subjects").where("class.display_name", "==", class_brain).where("syllabus.syllabus", "==", syllabus).stream()]
-        subjects_options = []
-        subjects_id_mapping = {}
-        for item in subject_option_ids:
-            subject = db.collection("subjects").document(item).get().to_dict()['subject']
-            subjects_id_mapping[subject] = item
-            subjects_options.append(subject)
-        subject_brain = st.selectbox("Select Subject", subjects_options)
-       
+	# Create a dropdown for subject
+	if class_brain:
+		subject_option_ids = [doc.id for doc in db.collection("subjects").where("class.display_name", "==", class_brain).where("syllabus.syllabus", "==", syllabus).stream()]
+		subjects_options = []
+		subjects_id_mapping = {}
+		for item in subject_option_ids:
+			subject = db.collection("subjects").document(item).get().to_dict()['subject']
+			subjects_id_mapping[subject] = item
+			subjects_options.append(subject)
+		subject_brain = st.selectbox("Select Subject", subjects_options)
+	   
  
-    # Create a dropdown for lesson
-    if subject_brain:
-        lessons_data = db.collection("lessons").where("subject_details.subject_id", "==", subjects_id_mapping[subject_brain]).get()
-        lesson_options = []
-        lesson_id_mapping = {}
-        for item in lessons_data:
-            lesson = item.to_dict()['lesson_name']
-            lesson_id_mapping[lesson] = item.id
-            lesson_options.append(lesson)
-        # lesson_options
-        # lesson_options = [doc.id for doc in db.collection("lessons").where("subject", "==", subject_brain).stream()]
-        # lesson_options = ["LESSON1", "LESSON2"]
-        lesson_brain = st.selectbox("Select Lesson", lesson_options)
-        
+	# Create a dropdown for lesson
+	if subject_brain:
+		lessons_data = db.collection("lessons").where("subject_details.subject_id", "==", subjects_id_mapping[subject_brain]).get()
+		lesson_options = []
+		lesson_id_mapping = {}
+		for item in lessons_data:
+			lesson = item.to_dict()['lesson_name']
+			lesson_id_mapping[lesson] = item.id
+			lesson_options.append(lesson)
+		# lesson_options
+		# lesson_options = [doc.id for doc in db.collection("lessons").where("subject", "==", subject_brain).stream()]
+		# lesson_options = ["LESSON1", "LESSON2"]
+		lesson_brain = st.selectbox("Select Lesson", lesson_options)
+		
  
-    # Create a dropdown for topic/activity
-    if lesson_brain:
-        section_selected = st.selectbox("Select Section Type", ["topics", "activities"])
-        
+	# Create a dropdown for topic/activity
+	if lesson_brain:
+		section_selected = st.selectbox("Select Section Type", ["topics", "activities"])
+		
  
-        # Create a dropdown for lesson
-        #st.write(lesson_id_mapping)
-        if section_selected:
-            topics_data = db.collection("lessons").document(lesson_id_mapping[lesson_brain]).collection(section_selected).get()
-            topic_options = []
-            topic_id_mapping = {}
-            for item in topics_data:
-                try:
-                   topic = item.to_dict()['topic_name']
-                except:
-                   topic = item.to_dict()['activity_name']
-                topic_id_mapping[topic] = item.id
-                topic_options.append(topic)
-            # lesson_options
-            # lesson_options = [doc.id for doc in db.collection("lessons").where("subject", "==", st.session_state["subject_brain"]).stream()]
-            # lesson_options = ["LESSON1", "LESSON2"]
-            topic_selected = st.selectbox("Select Topic", topic_options)
-            paragraph_brain = st.text_area("Enter a paragraph:",key="bain_para", height=200)
-            prompt_brain = st.text_area("Enter the prompt:",key="brain_prompt", height=200)
-            if(paragraph_brain or prompt_brain):
-                mcqs_brain = run_conversation(paragraph_brain,prompt_brain)
-                mcq_json=json.loads(mcqs_brain)
-                cards=[]
-                json_struct={}
+		# Create a dropdown for lesson
+		#st.write(lesson_id_mapping)
+		if section_selected:
+			topics_data = db.collection("lessons").document(lesson_id_mapping[lesson_brain]).collection(section_selected).get()
+			topic_options = []
+			topic_id_mapping = {}
+			for item in topics_data:
+				try:
+				   topic = item.to_dict()['topic_name']
+				except:
+				   topic = item.to_dict()['activity_name']
+				topic_id_mapping[topic] = item.id
+				topic_options.append(topic)
+			# lesson_options
+			# lesson_options = [doc.id for doc in db.collection("lessons").where("subject", "==", st.session_state["subject_brain"]).stream()]
+			# lesson_options = ["LESSON1", "LESSON2"]
+			topic_selected = st.selectbox("Select Topic", topic_options)
+			paragraph_brain = st.text_area("Enter a paragraph:",key="bain_para", height=200)
+			prompt_brain = st.text_area("Enter the prompt:",key="brain_prompt", height=200)
+			if(paragraph_brain or prompt_brain):
+				mcqs_brain = run_conversation(paragraph_brain,prompt_brain)
+				mcq_json=json.loads(mcqs_brain)
+				cards=[]
+				json_struct={}
 
-                for j in mcq_json['questions']:
-                    json_struct_inter={}
-                    result = '/n'.join(j['options'])
-                    json_struct_inter['front_text']=j['question']+'/n'+result
+				for j in mcq_json['questions']:
+					json_struct_inter={}
+					result = '/n'.join(j['options'])
+					json_struct_inter['front_text']=j['question']+'/n'+result
 			
-                    json_struct_inter['back_text']=j['answer']
-                    json_struct_inter['back_image']=None
-                    json_struct_inter['front_image']=None
-                    #st.write(json_struct)
-		    cards.append(json_struct_inter)
-	        json_struct['cards']=cards
-	        json_struct['topic_id']=topic_id_mapping[topic_selected]
+					json_struct_inter['back_text']=j['answer']
+					json_struct_inter['back_image']=None
+					json_struct_inter['front_image']=None
+					#st.write(json_struct)
+			cards.append(json_struct_inter)
+			json_struct['cards']=cards
+			json_struct['topic_id']=topic_id_mapping[topic_selected]
 		#st.write(json_struct)
 		brain_buster_query = db.collection('brain_busters').where('topic_id', '==', json_struct['topic_id']).stream()
 		bb_docs = list(brain_buster_query)
 		if bb_docs:
-		    doc_ref = bb_docs[0].id
-	            db.collection('brain_busters').document(doc_ref).set(json_struct)
+			doc_ref = bb_docs[0].id
+				db.collection('brain_busters').document(doc_ref).set(json_struct)
 		else:
-		    db.collection('brain_busters').document().set(json_struct)
-                save_json_to_text(json_struct, 'output.txt')
-                download_button_id = str(uuid.uuid4())
-                # Provide a download link for the text file
-                st.download_button(
+			db.collection('brain_busters').document().set(json_struct)
+				save_json_to_text(json_struct, 'output.txt')
+				download_button_id = str(uuid.uuid4())
+				# Provide a download link for the text file
+				st.download_button(
 		label="Download Text File",
 		data=open('output.txt', 'rb').read(),
 		file_name='output.txt',
@@ -1282,5 +1282,5 @@ with(tab6):
 		key=download_button_id
 				)
 		
-	    
-        
+		
+		
