@@ -1263,24 +1263,24 @@ with(tab6):
 				cards.append(json_struct_inter)
 				json_struct['cards']=cards
 				json_struct['topic_id']=topic_id_mapping[topic_selected]
-		#st.write(json_struct)
-		brain_buster_query = db.collection('brain_busters').where('topic_id', '==', json_struct['topic_id']).stream()
-		bb_docs = list(brain_buster_query)
-		if bb_docs:
-			doc_ref = bb_docs[0].id
-			db.collection('brain_busters').document(doc_ref).set(json_struct)
-		else:
-			db.collection('brain_busters').document().set(json_struct)
-		save_json_to_text(json_struct, 'output.txt')
-		download_button_id = str(uuid.uuid4())
-		# Provide a download link for the text file
-		st.download_button(
-		label="Download Text File",
-		data=open('output.txt', 'rb').read(),
-		file_name='output.txt',
-		mime='text/plain',
-		key=download_button_id
-				)
+				#st.write(json_struct)
+				brain_buster_query = db.collection('brain_busters').where('topic_id', '==', json_struct['topic_id']).stream()
+				bb_docs = list(brain_buster_query)
+				if bb_docs:
+					doc_ref = bb_docs[0].id
+					db.collection('brain_busters').document(doc_ref).set(json_struct)
+				else:
+					db.collection('brain_busters').document().set(json_struct)
+				save_json_to_text(json_struct, 'output.txt')
+				download_button_id = str(uuid.uuid4())
+				# Provide a download link for the text file
+				st.download_button(
+				label="Download Text File",
+				data=open('output.txt', 'rb').read(),
+				file_name='output.txt',
+				mime='text/plain',
+				key=download_button_id
+						)
 		
 		
 		
