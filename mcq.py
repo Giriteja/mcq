@@ -1260,7 +1260,7 @@ with(tab6):
 					json_struct_inter['back_image']=None
 					json_struct_inter['front_image']=None
 					#st.write(json_struct)
-				cards.append(json_struct_inter)
+					cards.append(json_struct_inter)
 				json_struct['cards']=cards
 				json_struct['topic_id']=topic_id_mapping[topic_selected]
 				#st.write(json_struct)
