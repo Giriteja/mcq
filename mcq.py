@@ -1257,7 +1257,7 @@ with(tab6):
 
 					# Create a formatted string with a, b, c, ... in front of each option
 					result = '\n'.join(f"{chr(97 + i)}. {option}" for i, option in enumerate(options))
-					json_struct_inter['front_text']=idx+")"+j['question']+'\n'+result
+					json_struct_inter['front_text']=str(idx)+")"+j['question']+'\n'+result
 			
 					json_struct_inter['back_text']=j['answer']
 					json_struct_inter['back_image']=None
