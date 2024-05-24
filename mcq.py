@@ -1242,7 +1242,7 @@ with(tab6):
 			# lesson_options
 			# lesson_options = [doc.id for doc in db.collection("lessons").where("subject", "==", st.session_state["subject_brain"]).stream()]
 			# lesson_options = ["LESSON1", "LESSON2"]
-			topic_selected = st.selectbox("Select Topic", topic_options)
+			topic_selected = st.selectbox("Select Topic", topic_options).
 			paragraph_brain = st.text_area("Enter a paragraph:",key="bain_para", height=200)
 			prompt_brain = st.text_area("Enter the prompt:",key="brain_prompt", height=200)
 			if(paragraph_brain or prompt_brain):
@@ -1251,10 +1251,13 @@ with(tab6):
 				cards=[]
 				json_struct={}
 
-				for j in mcq_json['questions']:
+				for idx,j in enumerate(mcq_json['questions']):
 					json_struct_inter={}
-					result = '\n'.join(j['options'])
-					json_struct_inter['front_text']=j['question']+'\n'+result
+					options = j['options']  # Assuming j['options'] is a list of strings
+
+					# Create a formatted string with a, b, c, ... in front of each option
+					result = '\n'.join(f"{chr(97 + i)}. {option}" for i, option in enumerate(options))
+					json_struct_inter['front_text']=idx+")"+j['question']+'\n'+result
 			
 					json_struct_inter['back_text']=j['answer']
 					json_struct_inter['back_image']=None
