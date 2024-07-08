@@ -17,8 +17,6 @@ import PyPDF2
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
-from dotenv import load_dotenv
-load_dotenv()
 
 
 data_cred={"type": "service_account",
